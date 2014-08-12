@@ -8,8 +8,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
 
-//import org.apache.derby.jdbc.EmbeddedDriver;
-
 @SuppressWarnings("serial")
 public class MenuItem extends JPanel {
 	//These are all of the visible JComponents that will be shown in the GUI
@@ -19,46 +17,48 @@ public class MenuItem extends JPanel {
 	public JSpinner spiceBox, qtyBox;
 	public JFormattedTextField commentBox;
 	//These are all the variables that store the values to be shown on the JComponents
+	public static String name, number, price, originalPrice, comment, qty;
+	public static boolean hasMeats, hasSpice;
 	public static String[] meats = {"Chicken", "Beef", "Pork", "Veggies/Tofu", "Shrimp", "Squid"};
 	public String[] info;
 	//Misc variables for use in the program
-	//public Item item;
+	public Item item;
 	public static SpinnerNumberModel qtySpinModel, spiceSpinModel;
 	public int id;
 	public Color itemColor = new Color(82,191,109);
 	public Color textColor = new Color(0,0,0);
 	public Color boxColor = new Color(230,242,230);
 
-	public MenuItem(String[] itemInfo) {
+	public MenuItem(Item item) {
 		//Initialization of each MenuItem
+		this.item = item;
 		qtySpinModel = new SpinnerNumberModel(1, 1, 20, 1);
 		spiceSpinModel = new SpinnerNumberModel(0, 0, 5, 1);
 		internalPanel = new JPanel();
+		item.setParams();
 		info = new String[8];
-		info[0] = itemInfo[0];
-		info[1] = itemInfo[1];
-		info[2] = itemInfo[2];
-		//info[3] = itemInfo[3];
-		if (info[3] != "0") {
+		info[0] = number;
+		info[1] = name;
+		info[2] = price;
+		if (hasMeats) {
 			info[3] = meats[0];
 		} else {
 			info[3] = "";
 		}
-		//info[4] = itemInfo[4];
-		if (info[4] != "0") {
+		if (hasSpice) {
 			info[4] = "0"; //default spice of zero
 		} else {
 			info[4] = "";
 		}
 		info[5] = "1"; //default quantity of one
 		info[6] = ""; //default comment of ""
-		info[7] = itemInfo[7];
+		info[7] = originalPrice;
 		//Setting up the layout of each MenuItem
 		SpringLayout sl = new SpringLayout();
 		internalPanel.setLayout(sl);
 		internalPanel.setBackground(itemColor);
 		//Adding and setting up all the components to be added to the MenuItem's internalPanel
-		numberLabel = new JLabel(info[0]);
+		numberLabel = new JLabel(number);
 		numberLabel.setOpaque(true);
 		numberLabel.setBackground(itemColor);
 		numberLabel.setForeground(textColor);
@@ -66,7 +66,7 @@ public class MenuItem extends JPanel {
 		sl.putConstraint(SpringLayout.WEST, numberLabel, 5, SpringLayout.WEST, internalPanel);
 		internalPanel.add(numberLabel);
 		
-		nameLabel = new JLabel(info[1]);
+		nameLabel = new JLabel(name);
 		nameLabel.setOpaque(true);
 		nameLabel.setBackground(itemColor);
 		nameLabel.setForeground(textColor);
@@ -74,7 +74,7 @@ public class MenuItem extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, nameLabel, 5, SpringLayout.NORTH, internalPanel);
 		internalPanel.add(nameLabel);
 		
-		priceLabel = new JLabel("$" + info[2]);
+		priceLabel = new JLabel("$" + price);
 		priceLabel.setOpaque(true);
 		priceLabel.setBackground(itemColor);
 		priceLabel.setForeground(textColor);
@@ -82,7 +82,7 @@ public class MenuItem extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, priceLabel, 5, SpringLayout.NORTH, internalPanel);
 		internalPanel.add(priceLabel);
 				
-		if (info[3] != "0") {
+		if (hasMeats) {
 			meatLabel = new JLabel("Meat Type:");
 			meatLabel.setOpaque(true);
 			meatLabel.setBackground(itemColor);
@@ -180,13 +180,13 @@ public class MenuItem extends JPanel {
 			internalPanel.add(meatBox);
 		}
 		
-		if (info[4] == "1") {
+		if (hasSpice) {
 			spiceLabel = new JLabel("Spice Level:");
 			spiceLabel.setOpaque(true);
 			spiceLabel.setBackground(itemColor);
 			spiceLabel.setForeground(textColor);
 			sl.putConstraint(SpringLayout.NORTH, spiceLabel, 15, SpringLayout.SOUTH, numberLabel);
-			if (Integer.parseInt(info[3]) == 1) {
+			if (hasMeats) {
 				sl.putConstraint(SpringLayout.WEST, spiceLabel, 20, SpringLayout.EAST, meatBox);
 			} else {
 				sl.putConstraint(SpringLayout.WEST, spiceLabel, 5, SpringLayout.WEST, internalPanel);
@@ -207,9 +207,9 @@ public class MenuItem extends JPanel {
 		qtyLabel.setBackground(itemColor);
 		qtyLabel.setForeground(textColor);
 		sl.putConstraint(SpringLayout.NORTH, qtyLabel, 15, SpringLayout.SOUTH, numberLabel);
-		if (info[4] == "1") {
+		if (hasSpice) {
 			sl.putConstraint(SpringLayout.WEST, qtyLabel, 20, SpringLayout.EAST, spiceBox);
-		} else if (info[3] != "0") {
+		} else if (hasMeats) {
 			sl.putConstraint(SpringLayout.WEST, qtyLabel, 20, SpringLayout.EAST, meatBox);
 		} else {
 			sl.putConstraint(SpringLayout.WEST, qtyLabel, 5, SpringLayout.WEST, internalPanel);
@@ -273,6 +273,90 @@ public class MenuItem extends JPanel {
 		this.setMaximumSize(new Dimension(506, 110));
 		this.add(internalPanel);
 		this.setBackground(Color.DARK_GRAY);
+	}
+	//This enum contains all the information to create each MenuItem.  Right now it is used to feed the info into
+	//the program, but a database would allow users to change the menu without having to go in and change the program
+	//This portion of the code will most likely be replaced with a database in the future, and anything that access it
+	//then access the database itself
+	public enum Item {
+		FOOD1 {
+			@Override
+			public void setParams() {
+				number = "1";
+				name = "Tom Yum Koong";
+				originalPrice = "4.95";
+				price = originalPrice;
+				hasMeats = false; // Does not have meat/veggie options
+				hasSpice = true;  // Has the option to get spice
+			}
+		},
+		FOOD2 {
+			@Override
+			public void setParams() {
+				number ="2";
+				name = "Tom Kha Gai";
+				originalPrice = "4.95";
+				price = originalPrice;
+				hasMeats = false; // Does not have meat/veggie options
+				hasSpice = true;  // Does have the option to get spice
+			}
+		},
+		FOOD3 {
+			@Override
+			public void setParams() {
+				number = "3";
+				name = "Jurd Woon Sen";
+				originalPrice = "4.95";
+				price = originalPrice;
+				hasMeats = false; // Does not have meat/veggie options
+				hasSpice = false; // Does not have the option to get spice
+			}
+		},
+		FOOD4 {
+			@Override
+			public void setParams() {
+				number = "4";
+				name = "Pad Kra Pao";
+				originalPrice = "6.95";
+				price = originalPrice;
+				hasMeats = true;  // Does have meat/veggie options
+				hasSpice = true;  // Has the option to get spice;
+			}
+		},
+		FOOD5 {
+			@Override
+			public void setParams() {
+				number = "5";
+				name = "Pad Kra Tiem";
+				originalPrice = "6.95";
+				price = originalPrice;
+				hasMeats = true;
+				hasSpice = false;
+			}
+		},
+		FOOD6 {
+			@Override
+			public void setParams() {
+				number = "6";
+				name = "Pad Tou Kak";
+				originalPrice = "6.95";
+				price = originalPrice;
+				hasMeats = true;
+				hasSpice = true;
+			}
+		},
+		FOOD7 {
+			@Override
+			public void setParams() {
+				number = "7";
+				name = "Pad Khing";
+				originalPrice = "6.95";
+				price = originalPrice;
+				hasMeats = true;
+				hasSpice = true;
+			}
+		};
+		public abstract void setParams(); // Dummy method for override
 	}
 	//This method sends the ID given by the mouse event along to the parent panel of the MenuItem (cart or menu)
 	public void itemIDSender(MouseEvent me) {

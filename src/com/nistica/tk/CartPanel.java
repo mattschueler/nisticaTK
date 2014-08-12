@@ -14,7 +14,7 @@ public class CartPanel extends JPanel implements MouseListener{
 	public MenuPanel menuPanel;
 	
 	public CartPanel(int items) {
-		this.numberOfItems = 68;
+		this.numberOfItems = items;
 		this.addMouseListener(this);
 	}
 	

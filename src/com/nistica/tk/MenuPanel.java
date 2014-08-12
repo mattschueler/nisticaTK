@@ -2,24 +2,18 @@ package com.nistica.tk;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.*;
 
-//import com.nistica.tk.MenuItem.Item;
-import com.nistica.tk.OrderGUI;
+import com.nistica.tk.MenuItem.Item;
 
-@SuppressWarnings({ "serial", "unused" })
+@SuppressWarnings("serial")
 public class MenuPanel extends JPanel implements MouseListener {
 	public int numberOfItems;
 	public CartPanel cartPanel;
 
 	public MenuPanel(int items) {
-		this.numberOfItems = 68;
+		this.numberOfItems = items;
 		this.addMouseListener(this);
 	}
 	
@@ -51,39 +45,38 @@ public class MenuPanel extends JPanel implements MouseListener {
 		}
 		//Create a new MenuItem with the information of the selected food
 		sendingInfo = ((MenuItem)(this.getComponents()[itemToSendID])).info;
-		itemToSend = new MenuItem(sendingInfo);
+		itemToSend = new MenuItem(Item.values()[i]);
 		//rewrite the old values onto the new item
 		//Meat info
 		int j=3;
-		//Component[] componentArray = ((JPanel)(itemToSend.getComponents()[0])).getComponents();
-		((JLabel)((JPanel)(itemToSend.getComponents()[0])).getComponents()[2]).setText("$" + sendingInfo[2]);
-		if (sendingInfo[3] != "0") {
-			for (;j<(((JPanel)(itemToSend.getComponents()[0])).getComponents()).length;j++) {
-				if (((JPanel)(itemToSend.getComponents()[0])).getComponents()[j] instanceof JComboBox<?>) {
+		Component[] componentArray = ((JPanel)(itemToSend.getComponents()[0])).getComponents();
+		((JLabel)componentArray[2]).setText("$" + sendingInfo[2]);
+		if (itemToSend.hasMeats) {
+			for (;j<componentArray.length;j++) {
+				if (componentArray[j] instanceof JComboBox<?>) {
 					break;
 				}
 			}
-			((JComboBox<?>)((JPanel)(itemToSend.getComponents()[0])).getComponents()[j]).setSelectedItem(sendingInfo[3]);
+			((JComboBox<?>)componentArray[j]).setSelectedItem(sendingInfo[3]);
 		}
 		//Spice info
-		if (sendingInfo[4] != "0") {
-			for (;j<((JPanel)(itemToSend.getComponents()[0])).getComponents().length;j++) {
-				if (((JPanel)(itemToSend.getComponents()[0])).getComponents()[j] instanceof JSpinner) {
+		if (itemToSend.hasSpice) {
+			for (;j<componentArray.length;j++) {
+				if (componentArray[j] instanceof JSpinner) {
 					break;
 				}
 			}
-			((JSpinner)((JPanel)(itemToSend.getComponents()[0])).getComponents()[j]).setValue(Integer.parseInt(sendingInfo[4]));
+			((JSpinner)componentArray[j]).setValue(Integer.parseInt(sendingInfo[4]));
 		}
 		//Quantity info
-		for (j=j+1;j<((JPanel)(itemToSend.getComponents()[0])).getComponents().length;j++) {
+		for (j=j+1;j<componentArray.length;j++) {
 			if (((JPanel)(itemToSend.getComponents()[0])).getComponents()[j] instanceof JSpinner) {
 				break;
 			}
 		}
-		((JSpinner)((JPanel)(itemToSend.getComponents()[0])).getComponents()[j]).setValue(Integer.parseInt(sendingInfo[5]));
+		((JSpinner)componentArray[j]).setValue(Integer.parseInt(sendingInfo[5]));
 		//Comment info
-		((JFormattedTextField)((JPanel)(itemToSend.getComponents()[0])).getComponents()[j+2]).setText(sendingInfo[6]);
-		itemToSend = new MenuItem(sendingInfo);
+		((JFormattedTextField)componentArray[j+2]).setText(sendingInfo[6]);
 		cartPanel.newItem(itemToSend);
 		repaint();
 		revalidate();

@@ -7,14 +7,8 @@ import com.nistica.tk.MenuItem.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
-@SuppressWarnings("unused")
-public class OrderGUI {
+public class OrderGUI implements ScrollPaneConstants {
 
 	public static JFrame frame;
 	public static JScrollPane menuPane, cartPane;
@@ -29,15 +23,11 @@ public class OrderGUI {
 	public static Color menuColor = new Color(230,242,242);
 	public static Color controlColor = new Color(47,211,214);
 
-	//Database variables
-	public static final String framework = "embedded";
-	public static final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
-	public static final String protocol = "jdbc:derby:";
-	
 	public OrderGUI() {
 	}
 
 	private static void createAndShowGUI() {
+		numberOfMenuItems = Item.values().length;
 		// Create the new JFrame object
 		frame = new JFrame("Nistica Thai Kitchen Ordering System");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,21 +36,19 @@ public class OrderGUI {
 		// Create all the menu item objects
 		menuItemHolder = new MenuPanel(numberOfMenuItems);
 		menuItemHolder.setLayout(new BoxLayout(menuItemHolder, BoxLayout.PAGE_AXIS));
-		/*for (int i = 0; i < numberOfMenuItems; i++) {
+		for (int i = 0; i < numberOfMenuItems; i++) {
 			newMenuItem = new MenuItem(Item.values()[i]);
 			menuItemHolder.add(newMenuItem);
-		}*/
+		}
 		menuItemHolder.setBackground(menuColor);
 		//Initialize the Cart Panel
 		cartItemHolder = new CartPanel(numberOfMenuItems);
 		cartItemHolder.setLayout(new BoxLayout(cartItemHolder, BoxLayout.PAGE_AXIS));
 		cartItemHolder.setBackground(menuColor);
-		
-		loadMenu();
 		// Create a new JSplitPane with the two halves as the menu and cart
-		menuPane = new JScrollPane(menuItemHolder, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		menuPane = new JScrollPane(menuItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
 		menuPane.setPreferredSize(splitSize);
-		cartPane = new JScrollPane(cartItemHolder, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		cartPane = new JScrollPane(cartItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
 		cartPane.setPreferredSize(splitSize);
 		menuCartPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuPane, cartPane);
 		menuCartPane.setDividerLocation(525);
@@ -120,20 +108,20 @@ public class OrderGUI {
 		orderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JDialog orderDialog = new JDialog(frame, "Your Order", true);
+				JDialog o = new JDialog(frame, "Your Order", true);
 				orderItemHolder = new OrderPanel();
 				orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
 				orderSender();
 				orderItemHolder.setVisible(true);
 				orderItemHolder.setLayout(new BoxLayout(orderItemHolder, BoxLayout.PAGE_AXIS));
 				orderItemHolder.setBackground(menuColor);
-				JScrollPane orderPane = new JScrollPane(orderItemHolder, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				JScrollPane orderPane = new JScrollPane(orderItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
 				orderPane.setPreferredSize(new Dimension(525,661));
-				orderDialog.add(orderPane);
+				o.add(orderPane);
 			 	orderPane.setVisible(true);
-			 	orderDialog.setLocation(new Point(325,100));
-			 	orderDialog.pack();
-			 	orderDialog.setVisible(true);
+			 	o.setLocation(new Point(325,100));
+			 	o.pack();
+			 	o.setVisible(true);
 			}
 		});
 		springControls.putConstraint(SpringLayout.NORTH, orderButton, 5, SpringLayout.NORTH, controlsPanel);
@@ -184,21 +172,6 @@ public class OrderGUI {
 	}
 
 	public static void main(String[] args) {
-		//Load the JDBC Driver
-		try {
-			Class.forName(driver).newInstance();
-			System.out.println("Loaded the appropriate driver");
-		} catch (ClassNotFoundException cnfe) {
-			System.err.println("\nUnable to load the JDBC driver " + driver);
-			System.err.println("Please check your CLASSPATH.");
-			cnfe.printStackTrace(System.err);
-		} catch (InstantiationException ie) {
-			System.err.println("\nUnable to instantiate the JDBC driver " + driver);
-			ie.printStackTrace(System.err);
-		} catch (IllegalAccessException iae) {
-			System.err.println("\nNot allowed to access the JDBC driver " + driver);
-			iae.printStackTrace(System.err);
-		}
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI();
@@ -219,14 +192,14 @@ public class OrderGUI {
 			for (i=0;i<numComponents;i++) {
 				//Make a "copy"
 				sendingInfo = ((MenuItem)(cartItemHolder.getComponents()[i])).info;
-				itemToSend = new MenuItem(sendingInfo);
+				itemToSend = new MenuItem(Item.values()[Integer.parseInt(((JLabel)((JPanel)((JPanel)cartItemHolder.getComponents()[i]).getComponents()[0]).getComponents()[0]).getText())-1]);
 				//rewrite the old values onto the new item
 				j=3;
 				//Price info
 				Component[] componentArray = ((JPanel)(itemToSend.getComponents()[0])).getComponents();
 				((JLabel)componentArray[2]).setText("$" + sendingInfo[2]);
 				//Meat info
-				if (sendingInfo[3] != "0") {
+				if (itemToSend.hasMeats) {
 					for (;j<componentArray.length;j++) {
 						if (componentArray[j] instanceof JComboBox<?>) {
 							break;
@@ -248,7 +221,7 @@ public class OrderGUI {
 					}
 				}
 				//Spice info
-				if (sendingInfo[4] != "0") {
+				if (itemToSend.hasSpice) {
 					for (;j<componentArray.length;j++) {
 						if (componentArray[j] instanceof JSpinner) {
 							break;
@@ -279,105 +252,6 @@ public class OrderGUI {
 		} else {
 			//In case there should be something done in the event that there is nothing in the cart
 			//There may be a JPanel with a JLabel informing the user of this, but likely nothing more than that
-		}
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	static void loadMenu() {
-		System.out.println("Accessing Menu from menuDB in " + framework + " mode");
-		Connection conn = null;
-		ArrayList statements = new ArrayList(); 
-		java.sql.Statement s = null;
-		ResultSet rs = null;
-		try {
-			String dbName = "menuSystem";
-			//try {
-			conn = DriverManager.getConnection(protocol + dbName);
-			/*} catch (SQLException sqle){
-				if (((sqle.getErrorCode() == 40000) && ("XJ004".equals(sqle.getSQLState())))) {
-					conn = DriverManager.getConnection(protocol + dbName + ";create=true;");
-				}
-			}*/
-			System.out.println("Connected to database " + dbName);
-			conn.setAutoCommit(false);
-			s = conn.createStatement();
-			statements.add(s);
-			//try {
-			rs = s.executeQuery("select * from menuTable order by num");
-			/*} catch (SQLException sqle){
-				if (((sqle.getErrorCode() == 20000) && ("42X05".equals(sqle.getSQLState())))) {
-					s.execute("create table menuTable(num int, name varchar(40))");
-					rs = s.executeQuery("select * from menuTable order by num");
-				}
-			}*/
-			String[] itemInfo = new String[8];
-			while (rs.next()) {
-				System.out.println(rs.getInt(1) + " " + rs.getString(2));
-				itemInfo[0] = "" + rs.getInt(1);//num
-				itemInfo[1] = rs.getString(2);//name
-				itemInfo[2] = "" + rs.getInt(3);//price
-				itemInfo[3] = "" + rs.getInt(4);//meats
-				itemInfo[4] = "" + rs.getInt(5);//spice
-				itemInfo[5] = "" + rs.getInt(6);//qty
-				itemInfo[6] = rs.getString(7);//comment
-				itemInfo[7] = "" + rs.getInt(3);//original price
-				newMenuItem = new MenuItem(itemInfo);
-				menuItemHolder.add(newMenuItem);
-				numberOfMenuItems++;
-			}
-			s.execute("drop table menuTable");
-			System.out.println("Dropped table menuTable");
-			try {
-				DriverManager.getConnection(protocol + ";shutdown=true");
-			} catch (SQLException se) {
-				if (((se.getErrorCode() == 50000) && ("XJ015".equals(se.getSQLState())))) {
-					System.out.println("Derby shut down normally");
-				} else {
-					System.err.println("Derby did not shut down normally");
-					printSQLException(se);
-				}
-			}
-		} catch (SQLException sqle) {
-			printSQLException(sqle);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-					rs = null;
-				}
-			} catch (SQLException sqle) {
-				printSQLException(sqle);
-			}
-			int i = 0;
-			while (!statements.isEmpty()) {
-				java.sql.Statement st = (java.sql.Statement) statements.remove(i);
-				try {
-					if (st != null) {
-						st.close();
-						st = null;
-					}
-				} catch (SQLException sqle) {
-					printSQLException(sqle);
-				}
-			}
-			try {
-				if (conn != null) {
-					conn.close();
-					conn = null;
-				}
-			} catch (SQLException sqle) {
-				printSQLException(sqle);
-			}
-		}
-	}
-	
-	public static void printSQLException(SQLException e) {
-		while (e != null) {
-			System.err.println("\n----- SQLException -----");
-			System.err.println("  SQL State:  " + e.getSQLState());
-			System.err.println("  Error Code: " + e.getErrorCode());
-			System.err.println("  Message:    " + e.getMessage());
-			e = e.getNextException();
 		}
 	}
 }
