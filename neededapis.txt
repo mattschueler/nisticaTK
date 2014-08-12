@@ -1,0 +1,8 @@
+--commons-logging
+--commons-codec
+--log4j
+--dom4j
+--poi
+--poi-ooxml
+
+-- = Gotten
