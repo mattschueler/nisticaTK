@@ -7,8 +7,9 @@ public class XMLTester {
 	public XMLTester(){
 		MenuParser read = new MenuParser();
 		theMenu = read.readMenu("menu.xml");
-		for(MenuItem menuItem : theMenu)
+		/*for(MenuItem menuItem : theMenu)
 			System.out.println(menuItem);
+		*/
 	}
 
 }

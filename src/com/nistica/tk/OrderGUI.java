@@ -196,10 +196,16 @@ public class OrderGUI implements ScrollPaneConstants {
 				//Make a "copy"
 				sendingInfo = ((MenuItem)(cartItemHolder.getComponents()[i])).info;
 				itemToSend = new MenuItem();
+				itemToSend.info = sendingInfo;
+				itemToSend.hasMeats = (sendingInfo[3] != "");
+				itemToSend.hasSpice = (sendingInfo[4] != "");
+				itemToSend.createComponents();
 				//rewrite the old values onto the new item
 				j=3;
 				//Price info
 				Component[] componentArray = ((JPanel)(itemToSend.getComponents()[0])).getComponents();
+				((JLabel)componentArray[0]).setText(sendingInfo[0]);
+				((JLabel)componentArray[1]).setText(sendingInfo[1]);
 				((JLabel)componentArray[2]).setText("$" + sendingInfo[2]);
 				//Meat info
 				if (itemToSend.hasMeats) {

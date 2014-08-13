@@ -58,7 +58,7 @@ public class MenuParser {
 					if(event.asStartElement().getName().getLocalPart().equals(NAME)){
 						event = eventReader.nextEvent();
 						item.setName(event.asCharacters().getData());
-						System.out.println(event.asCharacters().getData());
+						//System.out.println(event.asCharacters().getData());
 						continue;
 					}					
 				}
@@ -67,7 +67,7 @@ public class MenuParser {
 						event = eventReader.nextEvent();
 						
 						item.setOriginalPrice(event.asCharacters().getData());
-						System.out.println(event.asCharacters().getData());
+						//System.out.println(event.asCharacters().getData());
 						continue;
 					}					
 				}
