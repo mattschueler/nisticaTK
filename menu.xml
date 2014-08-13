@@ -9,127 +9,127 @@
 	<food>
       <number>1</number>
 	  <name>Tom Yum Koong</name>
-	  <originalPrice>$4.95</originalPrice>
-	  <hasMeat>false</hasMeat>
+	  <originalPrice>4.95</originalPrice>
+	  <hasMeats>false</hasMeats>
 	  <hasSpice>true</hasSpice>
 	</food>
 	<food>
       <number>2</number>
 	  <name>Tom Kha Gai</name>
-	  <originalPrice>$4.95</originalPrice>
-	  <hasMeat>false</hasMeat>
+	  <originalPrice>4.95</originalPrice>
+	  <hasMeatss>false</hasMeatss>
 	  <hasSpice>true</hasSpice>
 	</food>
 	<food>
       <number>3</number>
 	  <name>Jurd Wood Sen</name>
-	  <originalPrice>$4.95</originalPrice>
-	  <hasMeat>false</hasMeat>
+	  <originalPrice>4.95</originalPrice>
+	  <hasMeats>false</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>4</number>
 	  <name>Pad Kra Pao</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>5</number>
 	  <name>Pad Kra Tiem</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>6</number>
 	  <name>Pad Tou Kak</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>true</hasSpice>
 	</food>
 	<food>
       <number>7</number>
 	  <name>Pad Khing</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>8</number>
 	  <name>Pad Cashew</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>true</hasSpice>
 	</food>
 	<food>
       <number>9</number>
 	  <name>Pad Tou Lun Tao</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>10</number>
 	  <name>Pad Thai</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>11</number>
 	  <name>Pad See Eue</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>12</number>
 	  <name>Pad Lard Nar</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>13</number>
 	  <name>Pad Ba Mee</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>14</number>
 	  <name>Pad Ruam Pak</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>15</number>
 	  <name>Kao Pad</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>false</hasSpice>
 	</food>
 	<food>
       <number>16</number>
 	  <name>Gang Kiew Wan</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>true</hasSpice>
 	</food>
 	<food>
       <number>17</number>
 	  <name>Gang Karee</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>true</hasSpice>
 	</food>
 	<food>
       <number>18</number>
 	  <name>Gang Dang</name>
-	  <originalPrice>$6.95</originalPrice>
-	  <hasMeat>true</hasMeat>
+	  <originalPrice>6.95</originalPrice>
+	  <hasMeats>true</hasMeats>
 	  <hasSpice>true</hasSpice>
 	</food>
 	

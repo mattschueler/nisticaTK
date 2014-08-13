@@ -16,26 +16,32 @@ public class MenuItem extends JPanel {
 	public JComboBox<String> sizeList, meatBox;
 	public JSpinner spiceBox, qtyBox;
 	public JFormattedTextField commentBox;
+	
+	
 	//These are all the variables that store the values to be shown on the JComponents
-	public static String name, number, price, originalPrice, comment, qty;
-	public static boolean hasMeats, hasSpice;
+	public String number, name, price, originalPrice, comment, qty;
+	public boolean hasMeats, hasSpice;
 	public static String[] meats = {"Chicken", "Beef", "Pork", "Veggies/Tofu", "Shrimp", "Squid"};
 	public String[] info;
+	
+	
 	//Misc variables for use in the program
-	public Item item;
+	//public Item item;
 	public static SpinnerNumberModel qtySpinModel, spiceSpinModel;
 	public int id;
 	public Color itemColor = new Color(82,191,109);
 	public Color textColor = new Color(0,0,0);
 	public Color boxColor = new Color(230,242,230);
+	
 
-	public MenuItem(Item item) {
+
+	public MenuItem() {
 		//Initialization of each MenuItem
-		this.item = item;
+		//this.item = item;
 		qtySpinModel = new SpinnerNumberModel(1, 1, 20, 1);
 		spiceSpinModel = new SpinnerNumberModel(0, 0, 5, 1);
 		internalPanel = new JPanel();
-		item.setParams();
+		//item.setParams();
 		info = new String[8];
 		info[0] = number;
 		info[1] = name;
@@ -278,7 +284,7 @@ public class MenuItem extends JPanel {
 	//the program, but a database would allow users to change the menu without having to go in and change the program
 	//This portion of the code will most likely be replaced with a database in the future, and anything that access it
 	//then access the database itself
-	public enum Item {
+	/*public enum Item {
 		FOOD1 {
 			@Override
 			public void setParams() {
@@ -357,7 +363,7 @@ public class MenuItem extends JPanel {
 			}
 		};
 		public abstract void setParams(); // Dummy method for override
-	}
+	}*/
 	//This method sends the ID given by the mouse event along to the parent panel of the MenuItem (cart or menu)
 	public void itemIDSender(MouseEvent me) {
 		id = Integer.parseInt(((JLabel)((JPanel) me.getSource()).getComponents()[0]).getText());
@@ -403,4 +409,42 @@ public class MenuItem extends JPanel {
 			}
 		});
 	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getOriginalPrice() {
+		return originalPrice;
+	}
+	public void setOriginalPrice(String originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+	public boolean isHasMeats() {
+		return hasMeats;
+	}
+	public void setHasMeats(boolean hasMeats) {
+		this.hasMeats = hasMeats;
+	}
+	public boolean isHasSpice() {
+		return hasSpice;
+	}
+	public void setHasSpice(boolean hasSpice) {
+		this.hasSpice = hasSpice;
+	}
+	
+	@Override
+	public String toString(){
+		return "MenuItem [Number="+number+", Name="+name+", OriginalPrice="+originalPrice+", HasMeats="
+				+hasMeats+", hasSpice="+hasSpice+"]";
+	}
+	
+	
 }
