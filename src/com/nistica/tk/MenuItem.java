@@ -42,7 +42,7 @@ public class MenuItem extends JPanel {
 		internalPanel = new JPanel();
 		info = new String[8];
 	}
-	public void createComponents() {
+	public void setInfo() {	
 		info[0] = number;
 		info[1] = name;
 		info[2] = originalPrice;
@@ -59,6 +59,9 @@ public class MenuItem extends JPanel {
 		info[5] = "1"; //default quantity of one
 		info[6] = ""; //default comment of ""
 		info[7] = originalPrice;
+		
+	}
+	public void createComponents() {
 		//Setting up the layout of each MenuItem
 		SpringLayout sl = new SpringLayout();
 		internalPanel.setLayout(sl);

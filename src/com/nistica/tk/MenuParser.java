@@ -88,6 +88,7 @@ public class MenuParser {
 				if(event.isEndElement()){
 					EndElement endElement = event.asEndElement();
 					if(endElement.getName().getLocalPart() == FOOD){
+						item.setInfo();
 						item.createComponents();
 						items.add(item);
 					}

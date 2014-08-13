@@ -43,11 +43,17 @@ public class MenuPanel extends JPanel implements MouseListener {
 		//Create a new MenuItem with the information of the selected food
 		sendingInfo = ((MenuItem)(this.getComponents()[itemToSendID])).info;
 		itemToSend = new MenuItem();
+		itemToSend.info = sendingInfo;
+		itemToSend.hasMeats = (sendingInfo[3] != "");
+		itemToSend.hasSpice = (sendingInfo[4] != "");
+		itemToSend.createComponents();
 		//rewrite the old values onto the new item
 		//Meat info
-		int j=3;
 		Component[] componentArray = ((JPanel)(itemToSend.getComponents()[0])).getComponents();
+		((JLabel)componentArray[0]).setText(sendingInfo[0]);
+		((JLabel)componentArray[1]).setText(sendingInfo[1]);
 		((JLabel)componentArray[2]).setText("$" + sendingInfo[2]);
+		int j=3;
 		if (itemToSend.hasMeats) {
 			for (;j<componentArray.length;j++) {
 				if (componentArray[j] instanceof JComboBox<?>) {
