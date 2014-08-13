@@ -8,6 +8,7 @@ import com.nistica.tk.MenuItem.*;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("unused")
 public class OrderGUI implements ScrollPaneConstants {
 
 	public static JFrame frame;
@@ -22,12 +23,15 @@ public class OrderGUI implements ScrollPaneConstants {
 	
 	public static Color menuColor = new Color(230,242,242);
 	public static Color controlColor = new Color(47,211,214);
+	
+	public static XMLTester xmltest;
 
 	public OrderGUI() {
 	}
 
 	private static void createAndShowGUI() {
-		numberOfMenuItems = Item.values().length;
+		xmltest = new XMLTester();
+		numberOfMenuItems = xmltest.theMenu.size();
 		// Create the new JFrame object
 		frame = new JFrame("Nistica Thai Kitchen Ordering System");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,9 +40,9 @@ public class OrderGUI implements ScrollPaneConstants {
 		// Create all the menu item objects
 		menuItemHolder = new MenuPanel(numberOfMenuItems);
 		menuItemHolder.setLayout(new BoxLayout(menuItemHolder, BoxLayout.PAGE_AXIS));
-		for (int i = 0; i < numberOfMenuItems; i++) {
-			newMenuItem = new MenuItem(Item.values()[i]);
-			menuItemHolder.add(newMenuItem);
+		for (MenuItem menuItem : xmltest.theMenu) {
+			//newMenuItem = new MenuItem();
+			menuItemHolder.add(menuItem);
 		}
 		menuItemHolder.setBackground(menuColor);
 		//Initialize the Cart Panel
@@ -182,7 +186,6 @@ public class OrderGUI implements ScrollPaneConstants {
 	//the components so that they cannot be edited.  This makes it so the user can see exactly what they are going to order as a
 	//confirmation window.  If the user wants to make changes, he/she just needs to close/cancel the window and go back to the cart panel
 	//to make changes, which they can then resubmit to the OrderPanel
-	@SuppressWarnings("static-access")
 	public static void orderSender () {
 		MenuItem itemToSend;
 		String[] sendingInfo = new String[7];
@@ -192,7 +195,7 @@ public class OrderGUI implements ScrollPaneConstants {
 			for (i=0;i<numComponents;i++) {
 				//Make a "copy"
 				sendingInfo = ((MenuItem)(cartItemHolder.getComponents()[i])).info;
-				itemToSend = new MenuItem(Item.values()[Integer.parseInt(((JLabel)((JPanel)((JPanel)cartItemHolder.getComponents()[i]).getComponents()[0]).getComponents()[0]).getText())-1]);
+				itemToSend = new MenuItem();
 				//rewrite the old values onto the new item
 				j=3;
 				//Price info

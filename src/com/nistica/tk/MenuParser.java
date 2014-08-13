@@ -15,6 +15,7 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+@SuppressWarnings("unused")
 public class MenuParser {
 	static final String FOOD = "food";
 	static final String NUMBER = "number";
@@ -87,6 +88,7 @@ public class MenuParser {
 				if(event.isEndElement()){
 					EndElement endElement = event.asEndElement();
 					if(endElement.getName().getLocalPart() == FOOD){
+						item.createComponents();
 						items.add(item);
 					}
 				}

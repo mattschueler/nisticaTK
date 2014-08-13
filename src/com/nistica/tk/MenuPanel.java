@@ -5,8 +5,6 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import com.nistica.tk.MenuItem.Item;
-
 @SuppressWarnings("serial")
 public class MenuPanel extends JPanel implements MouseListener {
 	public int numberOfItems;
@@ -29,7 +27,6 @@ public class MenuPanel extends JPanel implements MouseListener {
 	//one from scratch and sets all the values of the new components in the "clone" panel.  Since SpringLayout is not serializable, the MenuItem cannot be
 	//cloned through an Object Stream.  This allows any changes the user has make to menu items in the menu panel to be sent and saved in the cart panel,
 	//unless they are deleted from the cart panel.  The changes remain in the menu Panel unless the user changes them there again
-	@SuppressWarnings("static-access")
 	public void itemIDGetter (int id) {
 		MenuItem itemToSend;
 		int itemToSendID=0;
@@ -45,7 +42,7 @@ public class MenuPanel extends JPanel implements MouseListener {
 		}
 		//Create a new MenuItem with the information of the selected food
 		sendingInfo = ((MenuItem)(this.getComponents()[itemToSendID])).info;
-		itemToSend = new MenuItem(Item.values()[i]);
+		itemToSend = new MenuItem();
 		//rewrite the old values onto the new item
 		//Meat info
 		int j=3;

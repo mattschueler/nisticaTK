@@ -3,10 +3,11 @@ package com.nistica.tk;
 import java.util.List;
 
 public class XMLTester {
-	public static void main(String[] args){
+	public List<MenuItem> theMenu;
+	public XMLTester(){
 		MenuParser read = new MenuParser();
-		List<MenuItem> readMenu = read.readMenu("menu.xml");
-		for(MenuItem menuItem : readMenu)
+		theMenu = read.readMenu("menu.xml");
+		for(MenuItem menuItem : theMenu)
 			System.out.println(menuItem);
 	}
 
