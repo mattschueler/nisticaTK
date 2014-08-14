@@ -75,6 +75,7 @@ public class StripeOrder {
 			return false;
 		}
 		
+		System.out.println("amount is" + amount);
 		chargeMap.put("amount", amount);//amount in cents
 		chargeMap.put("currency", "usd");
 		chargeMap.put("description", desc);

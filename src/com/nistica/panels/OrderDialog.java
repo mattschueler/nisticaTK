@@ -45,6 +45,7 @@ public class OrderDialog extends JDialog {
 		orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
 		
 		orderSender(cartItemHolder);//sets the orderTotalPrice and adds each food item
+		System.out.println("price1 " +orderTotalPrice);
 		orderItemHolder.setVisible(true);
 		orderItemHolder.setLayout(new BoxLayout(orderItemHolder, BoxLayout.PAGE_AXIS));
 		orderItemHolder.setBackground(OrderGUI.MENUCOLOR);
@@ -85,6 +86,7 @@ public class OrderDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("priceClicked " +orderTotalPrice);
 				StripeOrder stripeOrder = new StripeOrder();
 				
 				String cardCheckMessage = stripeOrder.setCreditCard(
@@ -92,7 +94,7 @@ public class OrderDialog extends JDialog {
 				
 				System.out.println("order passed?: " + cardCheckMessage);
 				if(cardCheckMessage.equals("Card Valid")) {
-					stripeOrder.sendPayment(120, "<name> is ordering <food>");
+					stripeOrder.sendPayment((int) (orderTotalPrice*100), "<name> is ordering <food>");
 					errorLabel.setForeground(new Color(0,127,0));
 					errorLabel.setText("This seems Legit.  Order Successful");
 					for (int i=0;i<cartItemHolder.getComponents().length;i++) {
@@ -187,11 +189,14 @@ public class OrderDialog extends JDialog {
 		double orderTotalPrice=0;
 		for(int i=0; i<itemCount; i++)
 		{
-			 orderTotalPrice+=Double.valueOf(((MenuItem)cartItemHolder.getComponents()[i]).info[2]);
+			//price * quantity
+			 orderTotalPrice+=
+					 Double.valueOf( ( (MenuItem)cartItemHolder.getComponents()[i]).info[2])*
+					 Double.valueOf( ((MenuItem)cartItemHolder.getComponents()[i]).info[5]) ;
 		}
 		
-		System.out.println("order total price " + orderTotalPrice);
-		
+		System.out.println("order total price (in cents) " + (int) (orderTotalPrice*100));
+		this.orderTotalPrice = orderTotalPrice;
 		
 		
 		MenuItem itemToSend;
