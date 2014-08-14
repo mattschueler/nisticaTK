@@ -1,8 +1,11 @@
 package com.nistica.tk;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.constraint.*;
@@ -13,7 +16,11 @@ import org.supercsv.prefs.CsvPreference;
 
 public class CSVTester {
 	
-	public static List<OrderBean> orders;
+	public static ArrayList<OrderBean> orders;
+	
+	public CSVTester() {
+		orders = new ArrayList<OrderBean>();
+	}
 	
 	private static CellProcessor[] getProcessors() {
 		final CellProcessor[] processors = new CellProcessor[] {
@@ -22,7 +29,6 @@ public class CSVTester {
 				new NotNull(), //last name of customer
 				new NotNull(), //Food number
 				new NotNull(), //food name
-				new NotNull(), //item price
 				new Optional(), //meat type
 				new Optional(), //spice number
 				new NotNull(), //qty
@@ -41,29 +47,34 @@ public class CSVTester {
 	//The most likely solution is to use a batch file to execute the command
 	//prompt code, or just run it from inside of the java program, if that
 	//is possible
-	public static void addOrder(final String firstName, final String lastName, final String foodNum, final String foodName, final String unitPrice, 
-			final String meatType, final String spiceNum, final String qty, final String comments, final String totalPrice) throws Exception {
-		final OrderBean foodOrder = new OrderBean(firstName, lastName, foodNum, foodName, unitPrice, meatType, spiceNum, qty, comments, totalPrice);
+	public void addOrder(final String firstName, final String lastName, final String foodNum, final String foodName, 
+			final String meatType, final String spiceNum, final String qty, final String comments, final String price) throws Exception {
+		final OrderBean foodOrder = new OrderBean(firstName, lastName, foodNum, foodName, meatType, spiceNum, qty, comments, price);
 		orders.add(foodOrder);
 	}
-	public static void writeWithCsvBeanWriter() {
+	public void writeWithCsvBeanWriter() {
 		ICsvBeanWriter beanWriter = null;
         try {
-                beanWriter = new CsvBeanWriter(new FileWriter("target/writeWithCsvBeanWriter.csv"),
-                        CsvPreference.STANDARD_PREFERENCE);
-                
-                // the header elements are used to map the bean values to each column (names must match)
-                final String[] header = new String[] {"firstName", "lastName", "foodNum", "foodName", "unitPrice", "meatType", "spiceNum", "qty", "comments", "totalPrice"};
-                final CellProcessor[] processors = getProcessors();
-                
-                // write the header
-                beanWriter.writeHeader(header);
-                
-                // write the beans
-                for( final OrderBean order : orders ) {
-                        beanWriter.write(order, header, processors);
-                }
-                
+        	GregorianCalendar gc = new GregorianCalendar();
+        	String fileName = "orders/thaiorder" + gc.get(Calendar.YEAR) + String.format("%0"+2+"d",(gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DATE) + ".csv";
+            File f = new File(fileName);
+            // the header elements are used to map the bean values to each column (names must match)
+            final String[] header = new String[] {"firstName", "lastName", "foodNum", "foodName", "meatType", "spiceNum", "qty", "comments", "price"};
+            final CellProcessor[] processors = getProcessors();
+        	if (f.exists()) {
+        	beanWriter = new CsvBeanWriter(new FileWriter(fileName, true),
+            		CsvPreference.STANDARD_PREFERENCE);
+        	} else {
+        		beanWriter = new CsvBeanWriter(new FileWriter(fileName),
+                		CsvPreference.STANDARD_PREFERENCE);
+        		//write the header
+        		beanWriter.writeHeader(header);
+        	}
+            // write the beans
+            for( final OrderBean order : orders ) {
+                    beanWriter.write(order, header, processors);
+            }
+            
         } catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -76,5 +87,6 @@ public class CSVTester {
 						}
                 }
         }
+        orders = new ArrayList<OrderBean>();
 	}
 }

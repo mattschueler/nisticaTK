@@ -6,28 +6,26 @@ public class OrderBean {
 	private String lastName;
 	private String foodNum;
 	private String foodName;
-	private String unitPrice;
 	private String meatType;
 	private String spiceNum;
 	private String qty;
 	private String comments;
-	private String totalPrice;
+	private String price;
 
 	public OrderBean() {
 	}
 
-	public OrderBean(final String firstName, final String lastName, final String foodNum, final String foodName, final String unitPrice, 
-			final String meatType, final String spiceNum, final String qty, final String comments, final String totalPrice) {
+	public OrderBean(final String firstName, final String lastName, final String foodNum, final String foodName, 
+			final String meatType, final String spiceNum, final String qty, final String comments, final String price) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setFoodNum(foodNum);
 		this.setFoodName(foodName);
-		this.setUnitPrice(unitPrice);
 		this.setMeatType(meatType);
 		this.setSpiceNum(spiceNum);
 		this.setQty(qty);
 		this.setComments(comments);
-		this.setTotalPrice(totalPrice);
+		this.setPrice(price);
 	}
 	public String getFirstName() {
 		return firstName;
@@ -53,12 +51,6 @@ public class OrderBean {
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
 	}
-	public String getUnitPrice() {
-		return unitPrice;
-	}
-	public void setUnitPrice(String unitPrice) {
-		this.unitPrice = unitPrice;
-	}
 	public String getMeatType() {
 		return meatType;
 	}
@@ -83,16 +75,16 @@ public class OrderBean {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	public String getTotalPrice() {
-		return totalPrice;
+	public String getPrice() {
+		return price;
 	}
-	public void setTotalPrice(String totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	@Override
 	public String toString() {
 		return String.format("PersonBean [firstName=%s,lastName=%s,foodnum=%s,foodname=%s,unitprice=%s,meattype=%s,spicenum=%s,qty=%s,comments=%s,totalprice=%s]",
-				firstName, lastName, foodNum, foodName, unitPrice, meatType, spiceNum, qty, comments, totalPrice);
+				firstName, lastName, foodNum, foodName, meatType, spiceNum, qty, comments, price);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -134,13 +126,6 @@ public class OrderBean {
 		} else if(!foodName.equals(other.foodName)) {
 			return false;
 		}
-		if(unitPrice == null) {
-			if(other.unitPrice != null) {
-				return false;
-			}
-		} else if(!unitPrice.equals(other.unitPrice)) {
-			return false;
-		}
 		if (meatType == null) {
 			if (other.meatType != null) {
 				return false;
@@ -169,11 +154,11 @@ public class OrderBean {
 		} else if (!comments.equals(other.comments)) {
 			return false;
 		}
-		if (totalPrice == null) {
-			if (other.totalPrice != null) {
+		if (price == null) {
+			if (other.price != null) {
 				return false;
 			}
-		} else if (!totalPrice.equals(other.totalPrice)) {
+		} else if (!price.equals(other.price)) {
 			return false;
 		}
 		return true;
