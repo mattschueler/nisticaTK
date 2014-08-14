@@ -20,5 +20,5 @@ public class OrderPanel extends JPanel {
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(506, (numberOfItems * 110));
-	}	
+	}
 }

@@ -2,7 +2,6 @@ package com.nistica.panels;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
@@ -12,6 +11,7 @@ import com.nistica.tk.CartPanel;
 import com.nistica.tk.MenuItem;
 import com.nistica.tk.OrderGUI;
 
+@SuppressWarnings("serial")
 public class OrderDialog extends JDialog {
 	
 	public OrderDialog(CartPanel cartItemHolder){
@@ -33,8 +33,7 @@ public class OrderDialog extends JDialog {
 	 	this.add(orderPane);
 	}
  	
- 	@SuppressWarnings("serial")
-	private class OrderPanel extends JPanel {
+ 	private class OrderPanel extends JPanel {
 
  		public int numberOfItems;
  		
