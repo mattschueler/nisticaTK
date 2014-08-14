@@ -2,7 +2,6 @@ package com.nistica.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;

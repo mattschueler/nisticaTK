@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ import com.nistica.tk.OrderGUI;
 import com.nistica.tk.SpringUtilities;
 import com.nistica.tk.StripeOrder;
 
+@SuppressWarnings("serial")
 public class OrderDialog extends JDialog {
 	JPanel checkoutPanel;
 	OrderPanel orderItemHolder;
@@ -134,8 +136,7 @@ public class OrderDialog extends JDialog {
 	
 	
  	
- 	@SuppressWarnings("serial")
-	private class OrderPanel extends JPanel {
+ 	private class OrderPanel extends JPanel {
 
  		public int numberOfItems;
  		

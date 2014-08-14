@@ -27,6 +27,7 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static final Color CONTROLCOLOR = new Color(47,211,214);
 	
 	public static XMLTester xmltest;
+	public static CSVTester csvtest;
 
 	public OrderGUI() {
 	}
