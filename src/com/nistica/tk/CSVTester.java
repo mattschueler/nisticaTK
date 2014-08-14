@@ -1,6 +1,7 @@
 package com.nistica.tk;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import org.supercsv.cellprocessor.Optional;
@@ -31,19 +32,21 @@ public class CSVTester {
 		return processors;
 	}
 	
-	public static void writeWithCsvBeanWriter(final String firstName, final String lastName, final String foodNum, final String foodName, final String unitPrice, 
+	//OrderBean will represent individual item in each order, so each will
+	//be sent out separately from the others to a LOCAL csv file
+	//After each is completed, then the entire file is sent to the server
+	//and the order is charged to the client user
+	//For info on how to compile the list of csv orders, see this website
+	//http://www.solveyourtech.com/merge-csv-files/
+	//The most likely solution is to use a batch file to execute the command
+	//prompt code, or just run it from inside of the java program, if that
+	//is possible
+	public static void addOrder(final String firstName, final String lastName, final String foodNum, final String foodName, final String unitPrice, 
 			final String meatType, final String spiceNum, final String qty, final String comments, final String totalPrice) throws Exception {
-		//OrderBean will represent individual item in each order, so each will
-		//be sent out separately from the others to a LOCAL csv file
-		//After each is completed, then the entire file is sent to the server
-		//and the order is charged to the client user
-		//For info on how to compile the list of csv orders, see this website
-		//http://www.solveyourtech.com/merge-csv-files/
-		//The most likely solution is to use a batch file to execute the command
-		//prompt code, or just run it from inside of the java program, if that
-		//is possible
 		final OrderBean foodOrder = new OrderBean(firstName, lastName, foodNum, foodName, unitPrice, meatType, spiceNum, qty, comments, totalPrice);
 		orders.add(foodOrder);
+	}
+	public static void writeWithCsvBeanWriter() {
 		ICsvBeanWriter beanWriter = null;
         try {
                 beanWriter = new CsvBeanWriter(new FileWriter("target/writeWithCsvBeanWriter.csv"),
@@ -61,10 +64,16 @@ public class CSVTester {
                         beanWriter.write(order, header, processors);
                 }
                 
-        }
+        } catch (IOException e) {
+			e.printStackTrace();
+		}
         finally {
                 if( beanWriter != null ) {
-                        beanWriter.close();
+                        try {
+							beanWriter.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
                 }
         }
 	}
