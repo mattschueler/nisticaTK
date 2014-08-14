@@ -3,15 +3,14 @@ package com.nistica.panels;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+//import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+//import java.awt.GridBagConstraints;
+//import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
+//import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
@@ -27,16 +26,16 @@ import com.nistica.tk.StripeOrder;
 public class OrderDialog extends JDialog {
 	JPanel checkoutPanel;
 	OrderPanel orderItemHolder;
+	CartPanel cartItemHolder;
 	
-	public OrderDialog(CartPanel cartItemHolder){
+	public OrderDialog(CartPanel cih){
 		
 		this.setTitle("Your Order");
 		this.setModal(true);
 		//this.setResizable(false);
 		
 		JPanel bigPanel = new JPanel();
-		bigPanel.setLayout(new GridLayout(2, 1));
-		
+		this.cartItemHolder = cih;
 		
 		//this.getContentPane().setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		//this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -57,12 +56,14 @@ public class OrderDialog extends JDialog {
 	 	JPanel bigCheckoutPanel = new JPanel();
 	 	bigCheckoutPanel.setLayout(new GridLayout(3, 1));
 	 	bigCheckoutPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-	 	
+	 	bigCheckoutPanel.setPreferredSize(new Dimension(525,525));
 	 	
 	 	
 	 	//components inside checkout panel
-	 	JLabel nameLabel = new JLabel("Name:", JLabel.TRAILING);
-	 	JTextField nameField = new JTextField("", 15);
+	 	JLabel fnameLabel = new JLabel("First Name:", JLabel.TRAILING);
+	 	JTextField fnameField = new JTextField("", 15);
+	 	JLabel lnameLabel = new JLabel("Last Name:", JLabel.TRAILING);
+	 	JTextField lnameField = new JTextField("", 15);
 	 	JLabel creditcardLabel = new JLabel("Credit card number:", JLabel.TRAILING);
 	 	JTextField creditcardField = new JTextField("", 20);
 	 	JLabel cvcLabel = new JLabel("CVC:", JLabel.TRAILING);
@@ -86,14 +87,30 @@ public class OrderDialog extends JDialog {
 				StripeOrder stripeOrder = new StripeOrder();
 				
 				String cardCheckMessage = stripeOrder.setCreditCard(
-						creditcardField.getText(), nameField.getText(), Integer.valueOf(expMonthField.getText()), Integer.valueOf(expYearField.getText()));
+						creditcardField.getText(), fnameField.getText() + lnameField.getText(), Integer.valueOf(expMonthField.getText()), Integer.valueOf(expYearField.getText()));
 				
 				System.out.println("order passed?: " + cardCheckMessage);
-				if(cardCheckMessage.equals("Card Valid"))
+				if(cardCheckMessage.equals("Card Valid")) {
 					stripeOrder.sendPayment(120, "<name> is ordering <food>");
-				else
+					errorLabel.setForeground(new Color(0,127,0));
+					errorLabel.setText("This seems Legit.  Order Successful");
+					for (int i=0;i<cartItemHolder.getComponents().length;i++) {
+						String[] infoArray = new String[8];
+						for(int j=0;j<8;j++) {
+							infoArray[j] = ((MenuItem)(cartItemHolder.getComponents()[i])).info[j];
+						}
+						try {
+							OrderGUI.csvtest.addOrder(fnameField.getText(), lnameField.getText(), infoArray[0], infoArray[1], (infoArray[3] != null) ? infoArray[3] : null, 
+									infoArray[4], infoArray[5], (infoArray[6] != null) ? infoArray[6] : null, "" + Double.parseDouble(infoArray[2]) * Integer.parseInt(infoArray[5]));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					OrderGUI.csvtest.writeWithCsvBeanWriter();
+				} else {
+					errorLabel.setForeground(Color.RED);
 					errorLabel.setText(cardCheckMessage);
-				
+				}
 			}
 	 		
 	 	});
@@ -102,8 +119,10 @@ public class OrderDialog extends JDialog {
 	 	SpringLayout springLayout = new SpringLayout();
 	 	checkoutPanel = new JPanel();
 	 	checkoutPanel.setLayout(springLayout);
-	 	checkoutPanel.add(nameLabel);
-	 	checkoutPanel.add(nameField);
+	 	checkoutPanel.add(fnameLabel);
+	 	checkoutPanel.add(fnameField);
+	 	checkoutPanel.add(lnameLabel);
+	 	checkoutPanel.add(lnameField);
 	 	checkoutPanel.add(creditcardLabel);
 	 	checkoutPanel.add(creditcardField);
 	 	checkoutPanel.add(cvcLabel);
@@ -113,14 +132,16 @@ public class OrderDialog extends JDialog {
 	 	checkoutPanel.add(expYearLabel);
 	 	checkoutPanel.add(expYearField);
 	 	
-	 	SpringUtilities.makeCompactGrid(checkoutPanel, 5, 2, //rows, cols
-	 									6, 6, //initx, initx
+	 	SpringUtilities.makeCompactGrid(checkoutPanel, 6, 2, //rows, cols
+	 									4, 4, //initx, initx
 	 									6, 6); //xpad, ypad
 	 	
 	 	bigCheckoutPanel.add(checkoutPanel);
 	 	bigCheckoutPanel.add(submitButton);
 	 	bigCheckoutPanel.add(errorLabel);
-	 	
+	 	SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
+				4, 4, //initx, initx
+				6, 6); //xpad, ypad
 	 	
 	 	bigPanel.add(orderPane);
 	 	bigPanel.add(bigCheckoutPanel);

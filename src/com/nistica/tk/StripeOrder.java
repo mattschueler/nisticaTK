@@ -29,7 +29,7 @@ public class StripeOrder {
 		cardMap.put("name", personName);
 		cardMap.put("exp_month", expMonth);
 		cardMap.put("exp_year", expYear);
-		cardMap.put("cvc", 233333);
+		cardMap.put("cvc", 123);
 		
 		chargeMap.put("card", cardMap);
 		cardSet = true;

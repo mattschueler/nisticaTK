@@ -9,6 +9,8 @@ import com.nistica.tk.MenuItem.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @SuppressWarnings("unused")
 public class OrderGUI implements ScrollPaneConstants {
@@ -34,11 +36,12 @@ public class OrderGUI implements ScrollPaneConstants {
 
 	private static void createAndShowGUI() {
 		xmltest = new XMLTester();
+		csvtest = new CSVTester();
 		numberOfMenuItems = xmltest.theMenu.size();
 		// Create the new JFrame object
 		frame = new JFrame("Nistica Thai Kitchen Ordering System");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Dimension splitSize = new Dimension(519, 750);
+		Dimension splitSize = new Dimension(519, 600);
 		
 		// Create all the menu item objects
 		menuItemHolder = new MenuPanel(numberOfMenuItems);
