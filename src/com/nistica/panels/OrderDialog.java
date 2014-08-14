@@ -140,10 +140,10 @@ public class OrderDialog extends JDialog {
 	 	bigCheckoutPanel.add(checkoutPanel);
 	 	bigCheckoutPanel.add(submitButton);
 	 	bigCheckoutPanel.add(errorLabel);
-	 	SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
+	 	/*SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
 				4, 4, //initx, initx
 				6, 6); //xpad, ypad
-	 	
+*/	 	
 	 	bigPanel.add(orderPane);
 	 	bigPanel.add(bigCheckoutPanel);
 	 	

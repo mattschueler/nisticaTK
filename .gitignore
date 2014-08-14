@@ -1,5 +1,6 @@
 /menuSystem
 /bin
+/orders/*.csv
 
 .classpath
-/orders
+
