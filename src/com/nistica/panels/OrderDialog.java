@@ -27,6 +27,7 @@ import com.nistica.tk.StripeOrder;
 public class OrderDialog extends JDialog {
 	JPanel checkoutPanel;
 	OrderPanel orderItemHolder;
+	double orderTotalPrice;
 	
 	public OrderDialog(CartPanel cartItemHolder){
 		
@@ -44,7 +45,7 @@ public class OrderDialog extends JDialog {
 		orderItemHolder = new OrderPanel();
 		orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
 		
-		orderSender(cartItemHolder);
+		orderSender(cartItemHolder);//sets the orderTotalPrice and adds each food item
 		orderItemHolder.setVisible(true);
 		orderItemHolder.setLayout(new BoxLayout(orderItemHolder, BoxLayout.PAGE_AXIS));
 		orderItemHolder.setBackground(OrderGUI.MENUCOLOR);
@@ -159,6 +160,19 @@ public class OrderDialog extends JDialog {
 	//confirmation window.  If the user wants to make changes, he/she just needs to close/cancel the window and go back to the cart panel
 	//to make changes, which they can then resubmit to the OrderPanel
 	public void orderSender(CartPanel cartItemHolder) {
+		
+		//remove later
+		int itemCount = cartItemHolder.getComponentCount();
+		double orderTotalPrice=0;
+		for(int i=0; i<itemCount; i++)
+		{
+			 orderTotalPrice+=Double.valueOf(((MenuItem)cartItemHolder.getComponents()[i]).info[2]);
+		}
+		
+		System.out.println("order total price " + orderTotalPrice);
+		
+		
+		
 		MenuItem itemToSend;
 		String[] sendingInfo = new String[7];
 		int numComponents = cartItemHolder.getComponents().length;
