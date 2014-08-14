@@ -1,8 +1,16 @@
 package com.nistica.panels;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
@@ -11,27 +19,120 @@ import javax.swing.plaf.metal.MetalComboBoxButton;
 import com.nistica.tk.CartPanel;
 import com.nistica.tk.MenuItem;
 import com.nistica.tk.OrderGUI;
+import com.nistica.tk.SpringUtilities;
+import com.nistica.tk.StripeOrder;
 
 public class OrderDialog extends JDialog {
+	JPanel checkoutPanel;
+	OrderPanel orderItemHolder;
 	
 	public OrderDialog(CartPanel cartItemHolder){
 		
 		this.setTitle("Your Order");
 		this.setModal(true);
+		//this.setResizable(false);
 		
-		OrderPanel orderItemHolder = new OrderPanel();
+		JPanel bigPanel = new JPanel();
+		bigPanel.setLayout(new GridLayout(2, 1));
+		
+		
+		//this.getContentPane().setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		//this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		orderItemHolder = new OrderPanel();
 		orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
 		
-		orderSender(cartItemHolder, orderItemHolder);
+		orderSender(cartItemHolder);
 		orderItemHolder.setVisible(true);
 		orderItemHolder.setLayout(new BoxLayout(orderItemHolder, BoxLayout.PAGE_AXIS));
 		orderItemHolder.setBackground(OrderGUI.MENUCOLOR);
 		
 		JScrollPane orderPane = new JScrollPane(orderItemHolder,  javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS , javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		orderPane.setPreferredSize(new Dimension(525,661));		
+		orderPane.setPreferredSize(new Dimension(525,631));		
 	 	orderPane.setVisible(true);
-	 	this.add(orderPane);
+	 	
+	 	//Setup the checkout panel
+	 	JPanel bigCheckoutPanel = new JPanel();
+	 	bigCheckoutPanel.setLayout(new GridLayout(3, 1));
+	 	bigCheckoutPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+	 	
+	 	
+	 	
+	 	//components inside checkout panel
+	 	JLabel nameLabel = new JLabel("Name:", JLabel.TRAILING);
+	 	JTextField nameField = new JTextField("", 15);
+	 	JLabel creditcardLabel = new JLabel("Credit card number:", JLabel.TRAILING);
+	 	JTextField creditcardField = new JTextField("", 20);
+	 	JLabel cvcLabel = new JLabel("CVC:", JLabel.TRAILING);
+	 	JTextField cvcField = new JTextField("", 5);
+	 	JLabel expMonthLabel = new JLabel("Card expiration month:", JLabel.TRAILING);
+	 	JTextField expMonthField = new JTextField("", 7);
+	 	JLabel expYearLabel = new JLabel("Card expiration year:", JLabel.TRAILING);
+	 	JTextField expYearField = new JTextField("", 9);
+	 	
+	 	
+	 	JButton submitButton = new JButton("Submit order");
+	 	JLabel errorLabel = new JLabel("");
+	 	errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+	 	errorLabel.setFont(new Font("Serif", Font.BOLD, 24));
+	 	errorLabel.setForeground(Color.RED);
+	 	
+	 	submitButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				StripeOrder stripeOrder = new StripeOrder();
+				
+				String cardCheckMessage = stripeOrder.setCreditCard(
+						creditcardField.getText(), nameField.getText(), Integer.valueOf(expMonthField.getText()), Integer.valueOf(expYearField.getText()));
+				
+				System.out.println("order passed?: " + cardCheckMessage);
+				if(cardCheckMessage.equals("Card Valid"))
+					stripeOrder.sendPayment(120, "<name> is ordering <food>");
+				else
+					errorLabel.setText(cardCheckMessage);
+				
+			}
+	 		
+	 	});
+	 	
+	 	
+	 	SpringLayout springLayout = new SpringLayout();
+	 	checkoutPanel = new JPanel();
+	 	checkoutPanel.setLayout(springLayout);
+	 	checkoutPanel.add(nameLabel);
+	 	checkoutPanel.add(nameField);
+	 	checkoutPanel.add(creditcardLabel);
+	 	checkoutPanel.add(creditcardField);
+	 	checkoutPanel.add(cvcLabel);
+	 	checkoutPanel.add(cvcField);
+	 	checkoutPanel.add(expMonthLabel);
+	 	checkoutPanel.add(expMonthField);
+	 	checkoutPanel.add(expYearLabel);
+	 	checkoutPanel.add(expYearField);
+	 	
+	 	SpringUtilities.makeCompactGrid(checkoutPanel, 5, 2, //rows, cols
+	 									6, 6, //initx, initx
+	 									6, 6); //xpad, ypad
+	 	
+	 	bigCheckoutPanel.add(checkoutPanel);
+	 	bigCheckoutPanel.add(submitButton);
+	 	bigCheckoutPanel.add(errorLabel);
+	 	
+	 	
+	 	bigPanel.add(orderPane);
+	 	bigPanel.add(bigCheckoutPanel);
+	 	
+	 	bigPanel.repaint();
+	 	bigPanel.validate();
+	 	bigPanel.revalidate();
+	 	this.add(bigPanel);
+	 	this.setSize(400, 600);
+	 	this.pack();
+	 	this.validate();
 	}
+	
+	
  	
  	@SuppressWarnings("serial")
 	private class OrderPanel extends JPanel {
@@ -56,7 +157,7 @@ public class OrderDialog extends JDialog {
 	//the components so that they cannot be edited.  This makes it so the user can see exactly what they are going to order as a
 	//confirmation window.  If the user wants to make changes, he/she just needs to close/cancel the window and go back to the cart panel
 	//to make changes, which they can then resubmit to the OrderPanel
-	public void orderSender(CartPanel cartItemHolder, OrderPanel orderItemHolder) {
+	public void orderSender(CartPanel cartItemHolder) {
 		MenuItem itemToSend;
 		String[] sendingInfo = new String[7];
 		int numComponents = cartItemHolder.getComponents().length;

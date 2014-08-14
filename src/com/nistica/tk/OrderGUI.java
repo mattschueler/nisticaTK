@@ -92,20 +92,8 @@ public class OrderGUI implements ScrollPaneConstants {
 		orderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				OrderDialog order = new OrderDialog(cartItemHolder);
-				/*JDialog o = new JDialog(frame, "Your Order", true);
-				orderItemHolder = new OrderPanel();
-				orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
-				orderSender();
-				orderItemHolder.setVisible(true);
-				orderItemHolder.setLayout(new BoxLayout(orderItemHolder, BoxLayout.PAGE_AXIS));
-				orderItemHolder.setBackground(MENUCOLOR);
-				JScrollPane orderPane = new JScrollPane(orderItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
-				orderPane.setPreferredSize(new Dimension(525,661));
-				o.add(orderPane);
-			 	orderPane.setVisible(true);*/
+				OrderDialog order = new OrderDialog(cartItemHolder);				
 			 	order.setLocation(new Point(325,100));
-			 	order.pack();
 			 	order.setVisible(true);
 			}
 		});
@@ -152,6 +140,7 @@ public class OrderGUI implements ScrollPaneConstants {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setResizable(false);
+		
 		menuItemHolder.getPartner(cartItemHolder);
 		cartItemHolder.getPartner(menuItemHolder);
 	}

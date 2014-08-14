@@ -24,7 +24,7 @@ public class StripeOrder {
 	}
 	
 	
-	public boolean setCreditCard(String cardNumber, String personName, int expMonth, int expYear){
+	public String setCreditCard(String cardNumber, String personName, int expMonth, int expYear){
 		cardMap.put("number", cardNumber);
 		cardMap.put("name", personName);
 		cardMap.put("exp_month", expMonth);
@@ -39,24 +39,29 @@ public class StripeOrder {
 		try {
 			Customer customer = Customer.create(customerMap);
 			System.out.println("Customer id: " + customer.getId());
+			return "Card Valid";
 		} catch (AuthenticationException e) {
 			System.out.println("AUTH EXCEPTION ON CUSTOMER");
 			e.printStackTrace();
+			return "Authentication Error";
 		} catch (InvalidRequestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "Invalid Request";
 		} catch (APIConnectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "API Connection Error: "+e.getMessage();
 		} catch (CardException e) {
 			System.out.println("CARD EXCEPTION");
 			e.printStackTrace();
+			return e.getMessage();
 		} catch (APIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return true;
+		return "Unknown error";
 		
 	}
 	
