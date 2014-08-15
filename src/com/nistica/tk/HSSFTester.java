@@ -5,34 +5,57 @@ import java.util.*;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.*;
 
-public class XSSFTester 
+public class HSSFTester 
 {
 	private GregorianCalendar gc;
 	private String dateString;
 	private String fileString;
 	private File file;
 	
-	public XSSFWorkbook workbook;
-	public XSSFCreationHelper createHelper;
-	public XSSFSheet sheet;
+	public HSSFWorkbook workbook;
+	public HSSFCreationHelper createHelper;
+	public HSSFSheet sheet;
 	public FileInputStream fileIn;
 	public FileOutputStream fileOut;
+	private HSSFCellStyle headerCS;
+	private HSSFFont headerFont;
+	private HSSFCellStyle rowCS;
+	private HSSFFont rowFont;
 	
 	private final String[] headers = {"First name", "Last Name", "Special #", "Food Name", "Meat", "Spice #", "Quantity", "Comments", "Price"};;
 	
-    public XSSFTester() {
+    public HSSFTester() {
     	gc = new GregorianCalendar();
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
-		fileString = "orders/thaiorder" + dateString + ".xlsx";
+		fileString = "orders/thaiorder" + dateString + ".xls";
 		file = new File(fileString);
 		int state = 2;
 		boolean created = false; 
     	    	                
 		if (!file.exists()) {
     		try {
-    			created = file.createNewFile();
+    			//created = file.createNewFile();
+    			workbook = new HSSFWorkbook();
+    			sheet = workbook.createSheet("new sheet");
+    			sheet.getPrintSetup().setLandscape(true);
+    			sheet.setMargin(Sheet.TopMargin, 0.2);
+    			sheet.setMargin(Sheet.BottomMargin, 0.2);
+    			sheet.setMargin(Sheet.LeftMargin, 0.2);
+    			sheet.setMargin(Sheet.RightMargin, 0.2);
+    			
+    			headerCS = workbook.createCellStyle();
+    			headerFont = workbook.createFont();
+    			headerFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+    			headerFont.setFontHeightInPoints((short)13);
+    			headerCS.setFont(headerFont);
+    	    
+    			addHeader();
+    			FileOutputStream fileOut = new FileOutputStream(file);
+    			workbook.write(fileOut);
+    			fileOut.close();
+    			created=true;
     		} catch (IOException ioe) {
     			ioe.printStackTrace();
     		}
@@ -48,21 +71,36 @@ public class XSSFTester
     	else if (state == 2)
     		System.out.println("File already exists");
     	
-    	workbook = new XSSFWorkbook();
-    	createHelper = workbook.getCreationHelper();
-    	sheet = workbook.createSheet("new sheet");
-        try {
+    	try {
+			fileIn = new FileInputStream(fileString);
+			System.out.println(fileString);
+			workbook = new HSSFWorkbook(fileIn);
+			fileIn.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	sheet = workbook.getSheet("new sheet");
+       /* try {
     		fileOut = new FileOutputStream(fileString);
     	} catch (IOException ioe) {
     		ioe.printStackTrace();
-    	}
-        sheet.getPrintSetup().setLandscape(true);
+    	}*/
+        rowCS = workbook.createCellStyle();
+		rowFont = workbook.createFont();
+		rowFont.setFontHeightInPoints((short)11);
+		rowCS.setFont(rowFont);
+	    
     }
-    
 	public void addHeader()  {
-		Row headerRow = sheet.createRow(0);
-        for (int i=0;i<9;i++) {
-        	headerRow.createCell(i).setCellValue(headers[i]);
+		//Put in "NISTICA" and "please send spring rolls" in really big font
+		HSSFRow headerRow = sheet.createRow(0);
+		
+		for (int i=0;i<9;i++) {
+        	Cell c = headerRow.createCell(i);
+        	c.setCellValue(headers[i]);
+        	c.setCellStyle(headerCS);
+        	/*Cell c = headerRow.getCell(i);//.setCellStyle(headerCS);
+        	c.setCellStyle(headerCS);*/
         	sheet.autoSizeColumn(i);
         }
         try {
@@ -76,22 +114,27 @@ public class XSSFTester
 	
 	public void addOrder(String[] info) {
 		int i = 0;
-		Cell checkerCell;
-		Workbook checker = null;
+		HSSFWorkbook checker = null;
+		HSSFSheet checkerSheet;
 		try {
+			System.out.println(fileString);
 			fileIn = new FileInputStream(fileString);
+			//fileIn.close();
+			
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
-		}
-		try {
-			checker = WorkbookFactory.create(fileIn);
-		} catch (InvalidFormatException | IOException e) {
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		do {
-			checkerCell = checker.getSheet("new sheet").getRow(0).getCell(i++);
-		} while (checkerCell != null);
-		Row newOrderRow = sheet.createRow(sheet.getLastRowNum()+1);
+		try {
+			checker =new HSSFWorkbook(fileIn);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		checkerSheet = checker.getSheet("new sheet");
+		do {} while (checkerSheet.getRow(i++) != null);
+		Row newOrderRow = sheet.createRow(--i);
 		for (int j=0;j<9;j++) {
 			if ((j==2 || j==5 || j==6) && info[j] != "") {
 				newOrderRow.createCell(j).setCellValue(Integer.parseInt(info[j]));
@@ -100,7 +143,7 @@ public class XSSFTester
 			} else {
 				newOrderRow.createCell(j).setCellValue(info[j]);
 			}
-			newOrderRow.getCell(j).setCellStyle(SetCS());
+			newOrderRow.getCell(j).setCellStyle(rowCS);
         	sheet.autoSizeColumn(j);
         }
         try {

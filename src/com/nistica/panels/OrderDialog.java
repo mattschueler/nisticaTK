@@ -126,7 +126,7 @@ public class OrderDialog extends JDialog {
 						itemInfo[6] = ((MenuItem)items[i]).info[5];
 						itemInfo[7] = ((MenuItem)items[i]).info[6];
 						itemInfo[8] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
-						OrderGUI.xssftest.addOrder(itemInfo);
+						OrderGUI.hssftest.addOrder(itemInfo);
 					}				
 				} else {
 					errorLabel.setForeground(Color.RED);

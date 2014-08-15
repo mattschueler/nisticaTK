@@ -29,15 +29,14 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static final Color CONTROLCOLOR = new Color(57, 183, 250);//Color(47,211,214);
 	
 	public static XMLTester xmltest;
-	public static XSSFTester xssftest;
+	public static HSSFTester hssftest;
 
 	public OrderGUI() {
 	}
 
 	private static void createAndShowGUI() {
 		xmltest = new XMLTester();
-		xssftest = new XSSFTester();
-		xssftest.addHeader();
+		hssftest = new HSSFTester();
 		numberOfMenuItems = xmltest.theMenu.size();
 		// Create the new JFrame object
 		frame = new JFrame("Nistica Thai Kitchen Ordering System");

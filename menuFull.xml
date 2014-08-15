@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='us-ascii'?>
+
+<!--  A SAMPLE set of slides  -->
+
+<menu 
+    title="Thai Kitchen Menu (Lunch)"
+    lastUpdated="8/12/2014"
+		>
+	<lunch>
+		<soup>
+		</soup>
+		<entrees>
+		</entrees>
+			<food>
+			  <number>1</number>
+			  <name>Tom Yum Koong</name>
+			  <originalPrice>4.95</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Shrimp hot and sour lemon grass soup with bell peppers, onions, mushrooms, and scallions.</desc>
+			</food>
+			<food>
+			  <number>2</number>
+			  <name>Tom Kha Gai</name>
+			  <originalPrice>4.95</originalPrice>
+			  <hasMeatss>false</hasMeatss>
+			  <hasSpice>true</hasSpice>
+			  <desc>Chicken coconut milk soup with bell peppers, mushrooms, galanga, onions, and scallions.</desc>
+			</food>
+			<food>
+			  <number>3</number>
+			  <name>Jurd Wood Sen</name>
+			  <originalPrice>4.95</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Glass noodles soup with chicken, mushrooms, napa, baby corns, onions, and scallions.</desc>
+			</food>
+			<food>
+			  <number>4</number>
+			  <name>Pad Kra Pao</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed with basil leaves, onions, mushrooms, and bell peppers in hot and spicy chili sauce.</desc>
+			</food>
+			<food>
+			  <number>5</number>
+			  <name>Pad Kra Tiem</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed with garlic, onions, babycorn, carrots, broccoli, and white pepper.</desc>
+			</food>
+			<food>
+			  <number>6</number>
+			  <name>Pad Tou Kak</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Sauteed with long green beans, onions, chopped turnips & carrots in hot and spicy chili sauce.</desc>
+			</food>
+			<food>
+			  <number>7</number>
+			  <name>Pad Khing</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed with fresh ginger, onions, scallions, bell peppers, and mushrooms.</desc>
+			</food>
+			<food>
+			  <number>8</number>
+			  <name>Pad Cashew</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Sauteed chicken with cashew nuts, celery, bell peppers, onions, and scallions.</desc>
+			</food>
+			<food>
+			  <number>9</number>
+			  <name>Pad Tou Lun Tao</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed snowpeas, onions, mushrooms, babycorn, and scallions.</desc>
+			</food>
+			<food>
+			  <number>10</number>
+			  <name>Pad Thai</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed Thai noodles with shrimps, eggs, crushed peanuts, scallions, bean curd, and bean sprouts.</desc>
+			</food>
+			<food>
+			  <number>11</number>
+			  <name>Pad See Eue</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed broad rice noodles with Chinese broccoli in soy sauce.</desc>
+			</food>
+			<food>
+			  <number>12</number>
+			  <name>Pad Lard Nar</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Pan fried broad rice noodles with Chinese broccoli topped with brown sauce.</desc>
+			</food>
+			<food>
+			  <number>13</number>
+			  <name>Pad Ba Mee</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed egg noodles with carrots, napa, scallions, onions, bean sprouts, and mushrooms.</desc>
+			</food>
+			<food>
+			  <number>14</number>
+			  <name>Pad Ruam Pak</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Sauteed mixed vegetables and bean curd in brown sauce.</desc>
+			</food>
+			<food>
+			  <number>15</number>
+			  <name>Kao Pad</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Fried rice with mixed vegetables and eggs.</desc>
+			</food>
+			<food>
+			  <number>16</number>
+			  <name>Gang Kiew Wan</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Green curry with coconut milk, basil leaves, eggplants, bamboo shoots, onions, and bell peppers.</desc>
+			</food>
+			<food>
+			  <number>17</number>
+			  <name>Gang Karee</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Yellow curry with coconut milk, long green beans, potatoes, broccoli, onions, and bell peppers.</desc>
+			</food>
+			<food>
+			  <number>18</number>
+			  <name>Gang Dang</name>
+			  <originalPrice>6.95</originalPrice>
+			  <hasMeats>true</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Red curry with coconut milk, basil leaves, bamboo shoots, onions, and bell peppers.</desc>
+			</food>
+	</lunch>
+	<dinner>
+		<cat1>
+			<food>
+			</food>
+		</cat1>
+		<cat2>
+		</cat2>
+	</dinner>
+</menu>
