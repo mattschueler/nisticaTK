@@ -58,11 +58,13 @@ public class OrderGUI implements ScrollPaneConstants {
 		// Create a new JSplitPane with the two halves as the menu and cart
 		menuPane = new JScrollPane(menuItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
 		menuPane.setPreferredSize(splitSize);
+		menuPane.setBorder(BorderFactory.createLineBorder(Color.blue));
 		cartPane = new JScrollPane(cartItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
 		cartPane.setPreferredSize(splitSize);
 		menuCartPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuPane, cartPane);
 		menuCartPane.setDividerLocation(525);
 		menuCartPane.setEnabled(false);
+		menuPane.setBorder(BorderFactory.createLineBorder(Color.red));
 		//Create the controls panel at the top of the GUI
 		controlsPanel = new JPanel();
 		SpringLayout springControls = new SpringLayout();

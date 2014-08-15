@@ -90,6 +90,12 @@ public class OrderDialog extends JDialog {
 				System.out.println("priceClicked " +orderTotalPrice);
 				StripeOrder stripeOrder = new StripeOrder();
 				
+				if(fnameField.getText().equals("") || lnameField.getText().equals(""))
+				{
+					errorLabel.setText("Fill out both name fields");
+					return;
+				}
+				
 				String cardCheckMessage;
 				try{
 				cardCheckMessage = stripeOrder.setCreditCard(
@@ -105,7 +111,7 @@ public class OrderDialog extends JDialog {
 				if(cardCheckMessage.equals("Card Valid")) {
 					stripeOrder.sendPayment((int) (orderTotalPrice*100), "<name> is ordering <food>");
 					errorLabel.setForeground(new Color(0,127,0));
-					errorLabel.setText("This seems Legit.  Order Successful");
+					errorLabel.setText("Order Successful. Thank you.");
 					for (int i=0;i<cartItemHolder.getComponents().length;i++) {
 						String[] infoArray = new String[8];
 						for(int j=0;j<8;j++) {
