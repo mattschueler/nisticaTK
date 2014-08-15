@@ -114,7 +114,20 @@ public class OrderDialog extends JDialog {
 					stripeOrder.sendPayment((int) (orderTotalPrice*100), "<name> is ordering <food>");
 					errorLabel.setForeground(new Color(0,127,0));
 					errorLabel.setText("Order Successful. Thank you.");
-					
+					Component[] items = orderItemHolder.getComponents();
+					String[] itemInfo = new String[9];
+					for(int i=0;i<items.length;i++) {
+						itemInfo[0] = fnameField.getText();
+						itemInfo[1] = lnameField.getText();
+						itemInfo[2] = ((MenuItem)items[i]).info[0];
+						itemInfo[3] = ((MenuItem)items[i]).info[1];
+						itemInfo[4] = ((MenuItem)items[i]).info[3];
+						itemInfo[5] = ((MenuItem)items[i]).info[4];
+						itemInfo[6] = ((MenuItem)items[i]).info[5];
+						itemInfo[7] = ((MenuItem)items[i]).info[6];
+						itemInfo[8] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+						OrderGUI.xssftest.addOrder(itemInfo);
+					}				
 				} else {
 					errorLabel.setForeground(Color.RED);
 					errorLabel.setText(cardCheckMessage);

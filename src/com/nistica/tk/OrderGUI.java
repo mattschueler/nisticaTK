@@ -37,6 +37,7 @@ public class OrderGUI implements ScrollPaneConstants {
 	private static void createAndShowGUI() {
 		xmltest = new XMLTester();
 		xssftest = new XSSFTester();
+		xssftest.addHeader();
 		numberOfMenuItems = xmltest.theMenu.size();
 		// Create the new JFrame object
 		frame = new JFrame("Nistica Thai Kitchen Ordering System");

@@ -1,93 +1,92 @@
-/* ====================================================================
-   Licensed to the Apache Software Foundation (ASF) under one or more
-   contributor license agreements.  See the NOTICE file distributed with
-   this work for additional information regarding copyright ownership.
-   The ASF licenses this file to You under the Apache License, Version 2.0
-   (the "License"); you may not use this file except in compliance with
-   the License.  You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-==================================================================== */
 package com.nistica.tk;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.AreaReference;
-import org.apache.poi.ss.util.CellReference;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFTable;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTable;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableColumn;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableColumns;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableStyleInfo;
 
-/**
- * Demonstrates how to create a simple table using Apache POI.
- */
-public class XSSFTester {
-        
-    public static void main(String[] args) throws FileNotFoundException, 
-            IOException {
-        
-        Workbook wb = new XSSFWorkbook();
-        XSSFSheet sheet = (XSSFSheet) wb.createSheet();
-        
-        //Create 
-        XSSFTable table = sheet.createTable();
-        table.setDisplayName("Test");       
-        CTTable cttable = table.getCTTable();
-        
-        //Style configurations
-        CTTableStyleInfo style = cttable.addNewTableStyleInfo();
-        style.setName("TableStyleMedium2");
-        style.setShowColumnStripes(false);
-        style.setShowRowStripes(true);
-        
-        //Set which area the table should be placed in
-        AreaReference reference = new AreaReference(new CellReference(0, 0), 
-                new CellReference(2,9));
-        cttable.setRef(reference.formatAsString());
-        cttable.setId(1);
-        cttable.setName("Orders");
-        cttable.setTotalsRowCount(1);
-        
-        CTTableColumns columns = cttable.addNewTableColumns();
-        columns.setCount(9);
-        CTTableColumn column;
-        XSSFRow row;
-        XSSFCell cell;
-        String[] colNames = {"First Name", "Last Name", "Special #", "Food Name", "Meat", "Spice #", "Quantity", "Comments", "Price"};
-        for(int i=0; i<3; i++) {
-            //Create column
-            column = columns.addNewTableColumn();
-            column.setName("Column");
-            column.setId(i+1);
-            //Create row
-            row = sheet.createRow(i);
-            for(int j=0; j<9; j++) {
-                //Create cell
-                cell = row.createCell(j);
-                if(i == 0) {
-                    cell.setCellValue(colNames[j]);
-                } else {
-                    cell.setCellValue("0");
-                }
-            }
-        }
-        
-        FileOutputStream fileOut = new FileOutputStream("XSSFTEST.xlsx");
-        wb.write(fileOut);
-        fileOut.close();
+public class XSSFTester 
+{
+	private GregorianCalendar gc;
+	private String dateString;
+	private String fileString;
+	private File file;
+	
+	public XSSFWorkbook workbook;
+	public XSSFCreationHelper createHelper;
+	public XSSFSheet sheet;
+	public FileOutputStream fileOut;
+	
+	private final String[] headers = {"First name", "Last Name", "Special #", "Food Name", "Meat", "Spice #", "Quantity", "Comments", "Price"};;
+	
+    public XSSFTester() {
+    	gc = new GregorianCalendar();
+    	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
+		fileString = "orders/thaiorder" + dateString + ".xlsx";
+		file = new File(fileString);
+		int state = 2;
+		boolean created = false; 
+    	    	                
+		if (!file.exists()) {
+    		try {
+    			created = file.createNewFile();
+    		} catch (IOException ioe) {
+    			ioe.printStackTrace();
+    		}
+    		if (created) 
+    			state = 1;
+    		else if (!created) 
+    			state = 0;
+    	}
+    	if (state == 1)
+    		System.out.println("File successfully created");
+    	else if (state == 0)
+    		System.out.println("Failed to create File");
+    	else if (state == 2)
+    		System.out.println("File already exists");
+    	
+    	workbook = new XSSFWorkbook();
+    	createHelper = workbook.getCreationHelper();
+    	sheet = workbook.createSheet("new sheet");
+        try {      
+    		fileOut = new FileOutputStream(fileString);
+    	} catch (IOException ioe) {
+    		ioe.printStackTrace();
+    	}
     }
+    
+	public void addHeader()  {
+		Row headerRow = sheet.createRow(0);
+        for (int i=0;i<9;i++) {
+        	headerRow.createCell(i).setCellValue(createHelper.createRichTextString(headers[i]));
+        	sheet.autoSizeColumn(i);
+        }
+        try {
+        	fileOut = new FileOutputStream(fileString);
+        	workbook.write(fileOut);
+            fileOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void addOrder(String[] info) {
+		Row newOrderRow = sheet.createRow(sheet.getLastRowNum()+1);		
+		for (int i=0;i<9;i++) {
+        	newOrderRow.createCell(i).setCellValue(createHelper.createRichTextString(info[i]));
+        	sheet.autoSizeColumn(i);
+        }
+        try {
+        	fileOut = new FileOutputStream(fileString);
+        	workbook.write(fileOut);
+            fileOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
 }

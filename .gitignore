@@ -1,6 +1,6 @@
 /menuSystem
 /bin
-/orders/*.csv
+/orders/*.xlsx
 
 .classpath
 XSSFTEST.xlsx
