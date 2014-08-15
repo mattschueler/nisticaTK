@@ -72,6 +72,7 @@ public class OrderDialog extends JDialog {
 	 	JTextField cvcField = new JTextField("", 5);
 	 	JLabel expMonthLabel = new JLabel("Card expiration month:", JLabel.TRAILING);
 	 	JTextField expMonthField = new JTextField("", 7);
+	 	expMonthField.setInputVerifier(new CardInputVerifier());
 	 	JLabel expYearLabel = new JLabel("Card expiration year:", JLabel.TRAILING);
 	 	JTextField expYearField = new JTextField("", 9);
 	 	
@@ -89,8 +90,16 @@ public class OrderDialog extends JDialog {
 				System.out.println("priceClicked " +orderTotalPrice);
 				StripeOrder stripeOrder = new StripeOrder();
 				
-				String cardCheckMessage = stripeOrder.setCreditCard(
+				String cardCheckMessage;
+				try{
+				cardCheckMessage = stripeOrder.setCreditCard(
 						creditcardField.getText(), fnameField.getText() + lnameField.getText(), Integer.valueOf(expMonthField.getText()), Integer.valueOf(expYearField.getText()));
+				} catch(NumberFormatException e){
+					errorLabel.setText("Your fields are not filled out properly");
+					e.printStackTrace();
+					return;
+				}
+				
 				
 				System.out.println("order passed?: " + cardCheckMessage);
 				if(cardCheckMessage.equals("Card Valid")) {
@@ -176,6 +185,21 @@ public class OrderDialog extends JDialog {
  		public Dimension getPreferredSize() {
  			return new Dimension(506, (numberOfItems * 110));
  		}	
+ 	}
+ 	
+ 	private class CardInputVerifier extends InputVerifier{
+ 		
+ 		@Override
+ 		public boolean verify(JComponent input){
+ 			String text = ((JTextField)input).getText();
+ 			try{
+ 				Integer.valueOf(text); 				
+ 			} catch(NumberFormatException e){
+ 				e.printStackTrace();
+ 				return false;
+ 			}
+ 			return true;
+ 		}
  	}
  	
  	//This method is almost identical to the one in MenuPanel that sends the MenuItem to the cart, except that this method also locks
