@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -63,7 +64,12 @@ public class CartPanel extends JPanel implements MouseListener{
 					break;
 				}
 			}	
+			
+				
 		}
+		//The last item in each MenuItem is the transfer button, so the text of the transferbutton
+		//should turn into an X to show that it will be deleted if it is pressed
+		((JButton)(((JPanel)item.getComponents()[0]).getComponents()[((JPanel)item.getComponents()[0]).getComponents().length-1])).setText("X");
 		this.add(item);
 		repaint();
 		revalidate();

@@ -301,6 +301,11 @@ public class OrderDialog extends JDialog {
 				//Comment info
 				((JFormattedTextField)componentArray[j+2]).setText(sendingInfo[6]);
 				((JFormattedTextField)componentArray[j+2]).setEditable(false);
+				
+				//Transfer button
+				System.out.println(numComponents);
+				itemToSend.transferButton.setEnabled(false);
+				
 				orderItemHolder.newItem(itemToSend);
 			}
 		} else {

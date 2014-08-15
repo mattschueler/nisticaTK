@@ -97,16 +97,17 @@ public class OrderGUI implements ScrollPaneConstants {
 		springControls.putConstraint(SpringLayout.WEST, helpButton, 5, SpringLayout.WEST, controlsPanel);
 		controlsPanel.add(helpButton);
 		JButton orderButton = new JButton("Order");
+		orderButton.setPreferredSize(new Dimension(150, 50));
 		orderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				OrderDialog order = new OrderDialog(cartItemHolder);				
-			 	order.setLocation(new Point(225,50));
+			 	order.setLocation(new Point(145,30));
 			 	order.setVisible(true);
 			}
 		});
 		springControls.putConstraint(SpringLayout.NORTH, orderButton, 5, SpringLayout.NORTH, controlsPanel);
-		springControls.putConstraint(SpringLayout.WEST, orderButton, 15, SpringLayout.EAST, helpButton);
+		springControls.putConstraint(SpringLayout.EAST, orderButton, -10, SpringLayout.EAST, controlsPanel);
 		controlsPanel.add(orderButton);
 		JButton clearCart = new JButton("Clear");
 		clearCart.addActionListener(new ActionListener() {
@@ -125,7 +126,7 @@ public class OrderGUI implements ScrollPaneConstants {
 			}
 		});
 		springControls.putConstraint(SpringLayout.NORTH, clearCart, 5, SpringLayout.NORTH, controlsPanel);
-		springControls.putConstraint(SpringLayout.WEST, clearCart, 15, SpringLayout.EAST, orderButton);
+		springControls.putConstraint(SpringLayout.WEST, clearCart, 15, SpringLayout.EAST, helpButton);
 		controlsPanel.add(clearCart);
 		JLabel menuLabel = new JLabel("Menu");
 		

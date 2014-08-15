@@ -16,7 +16,7 @@ public class MenuItem extends JPanel {
 	public JComboBox<String> sizeList, meatBox;
 	public JSpinner spiceBox, qtyBox;
 	public JFormattedTextField commentBox;
-	
+	public JButton transferButton;
 	
 	//These are all the variables that store the values to be shown on the JComponents
 	public String number, name, price, originalPrice, comment, qty;
@@ -231,7 +231,7 @@ public class MenuItem extends JPanel {
 		qtyBox.setOpaque(true);
 		qtyBox.setBackground(boxColor);
 		qtyBox.setForeground(textColor);
-		sl.putConstraint(SpringLayout.WEST, qtyBox, 10, SpringLayout.EAST, qtyLabel);
+		sl.putConstraint(SpringLayout.WEST, qtyBox, 5, SpringLayout.EAST, qtyLabel);
 		sl.putConstraint(SpringLayout.NORTH, qtyBox, 15, SpringLayout.SOUTH, numberLabel);
 		internalPanel.add(qtyBox);
 		
@@ -253,11 +253,26 @@ public class MenuItem extends JPanel {
 		sl.putConstraint(SpringLayout.WEST, commentBox, 10, SpringLayout.EAST, commentLabel);
 		sl.putConstraint(SpringLayout.NORTH, commentBox, 50, SpringLayout.SOUTH, numberLabel);
 		internalPanel.add(commentBox);
+		
+		transferButton = new JButton(">");
+		transferButton.setPreferredSize(new Dimension(80, 100));
+		sl.putConstraint(SpringLayout.EAST, transferButton, 10, SpringLayout.EAST, internalPanel);
+		sl.putConstraint(SpringLayout.NORTH, transferButton, -6, SpringLayout.NORTH, numberLabel);
+		internalPanel.add(transferButton);		
+		transferButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				itemIDSender(ev);
 				
+			}
+			
+		});
+		
 		internalPanel.setPreferredSize(new Dimension(500, 100));
 		internalPanel.setMinimumSize(new Dimension(500, 100));
 		internalPanel.setMaximumSize(new Dimension(500, 100));
-		internalPanel.addMouseListener(new MouseListener() {
+		/*internalPanel.addMouseListener(new MouseListener() {
 			//This Mouse Listener allows the ID of the MenuItem what was clicked on to be sent to its parent.
 			//If it is in the menu, it is added to the cart, if it is in the cart it is deleted from the cart
 			public void mouseClicked(MouseEvent me) {
@@ -277,7 +292,7 @@ public class MenuItem extends JPanel {
 					
 			@Override
 			public void mouseReleased(MouseEvent e) {}
-		});
+		});*/
 						
 		this.setPreferredSize(new Dimension(506, 110));
 		this.setMinimumSize(new Dimension(506, 110));
@@ -286,12 +301,13 @@ public class MenuItem extends JPanel {
 		this.setBackground(Color.DARK_GRAY);
 	}
 		//This method sends the ID given by the mouse event along to the parent panel of the MenuItem (cart or menu)
-	public void itemIDSender(MouseEvent me) {
-		id = Integer.parseInt(((JLabel)((JPanel) me.getSource()).getComponents()[0]).getText());
+	public void itemIDSender(ActionEvent ev) {
+		id = Integer.parseInt(((JLabel) (((JButton) ev.getSource()).getParent()).getComponents()[0]).getText());
 		if (this.getParent() instanceof MenuPanel) {
-			((MenuPanel)((JPanel)me.getSource()).getParent().getParent()).itemIDGetter(id);
+			((MenuPanel)((MenuItem)((JButton)ev.getSource()).getParent().getParent()).getParent()).itemIDGetter(id);
 		} else if (this.getParent() instanceof CartPanel) {
-			((CartPanel)((JPanel)me.getSource()).getParent().getParent()).itemIDGetter(id);
+			((JButton) ev.getSource()).setText(">");
+			((CartPanel)((MenuItem)((JButton)ev.getSource()).getParent().getParent()).getParent()).itemIDGetter(id);
 		}
 	}
 	//This adds the event listeners to the JSpinners for spice level and quantity, if they exist in each of the MenuItems
