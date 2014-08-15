@@ -26,7 +26,7 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static int numberOfMenuItems;
 	
 	public static final Color MENUCOLOR = new Color(230,242,242);
-	public static final Color CONTROLCOLOR = new Color(47,211,214);
+	public static final Color CONTROLCOLOR = new Color(57, 183, 250);//Color(47,211,214);
 	
 	public static XMLTester xmltest;
 	public static XSSFTester xssftest;
@@ -126,17 +126,19 @@ public class OrderGUI implements ScrollPaneConstants {
 		springControls.putConstraint(SpringLayout.NORTH, clearCart, 5, SpringLayout.NORTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.WEST, clearCart, 15, SpringLayout.EAST, orderButton);
 		controlsPanel.add(clearCart);
-		JLabel menuLabel = new JLabel("MENU");
+		JLabel menuLabel = new JLabel("Menu");
+		
 		springControls.putConstraint(SpringLayout.SOUTH, menuLabel, 5, SpringLayout.SOUTH, controlsPanel);
-		springControls.putConstraint(SpringLayout.WEST, menuLabel, 200, SpringLayout.WEST, controlsPanel);
-		menuLabel.setFont(new Font("Serif", Font.PLAIN, 32));
-		menuLabel.setForeground(Color.BLACK);
+		springControls.putConstraint(SpringLayout.WEST, menuLabel,20, SpringLayout.WEST, controlsPanel);
+		menuLabel.setFont(new Font("Freestyle Script", Font.PLAIN, 58));
+		menuLabel.setForeground(Color.WHITE);
 		controlsPanel.add(menuLabel);
-		JLabel cartLabel = new JLabel("CART");
+		
+		JLabel cartLabel = new JLabel("Cart");
 		springControls.putConstraint(SpringLayout.SOUTH, cartLabel, 5, SpringLayout.SOUTH, controlsPanel);
-		springControls.putConstraint(SpringLayout.EAST, cartLabel, -230, SpringLayout.EAST, controlsPanel);
-		cartLabel.setFont(new Font("Serif", Font.PLAIN, 32));
-		cartLabel.setForeground(Color.BLACK);
+		springControls.putConstraint(SpringLayout.EAST, cartLabel, -430, SpringLayout.EAST, controlsPanel);
+		cartLabel.setFont(new Font("Freestyle Script", Font.PLAIN, 58));
+		cartLabel.setForeground(Color.WHITE);
 		controlsPanel.add(cartLabel);
 		//Create the Large JSplitPane tha contains the menu, the cart, and the control panel
 		bigPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, controlsPanel, menuCartPane);

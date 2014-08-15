@@ -29,8 +29,8 @@ public class MenuItem extends JPanel {
 	//public Item item;
 	public static SpinnerNumberModel qtySpinModel, spiceSpinModel;
 	public int id;
-	public Color itemColor = new Color(82,191,109);
-	public Color textColor = new Color(0,0,0);
+	public Color itemColor = new Color(255, 255, 255);//Color(82,191,109);
+	public Color textColor = new Color(0,140,49);//Color(0,0,0);
 	public Color boxColor = new Color(230,242,230);
 	
 	public MenuParser menuParser = new MenuParser();
@@ -66,6 +66,7 @@ public class MenuItem extends JPanel {
 		SpringLayout sl = new SpringLayout();
 		internalPanel.setLayout(sl);
 		internalPanel.setBackground(itemColor);
+		internalPanel.setBorder(BorderFactory.createLineBorder(textColor));
 		//Adding and setting up all the components to be added to the MenuItem's internalPanel
 		numberLabel = new JLabel(number);
 		numberLabel.setOpaque(true);
@@ -77,6 +78,7 @@ public class MenuItem extends JPanel {
 		
 		nameLabel = new JLabel(name);
 		nameLabel.setOpaque(true);
+		nameLabel.setFont(new Font("Huxtable", Font.BOLD, 14));
 		nameLabel.setBackground(itemColor);
 		nameLabel.setForeground(textColor);
 		sl.putConstraint(SpringLayout.WEST, nameLabel, 25, SpringLayout.EAST, numberLabel);
@@ -259,7 +261,7 @@ public class MenuItem extends JPanel {
 			//This Mouse Listener allows the ID of the MenuItem what was clicked on to be sent to its parent.
 			//If it is in the menu, it is added to the cart, if it is in the cart it is deleted from the cart
 			public void mouseClicked(MouseEvent me) {
-				if (me.getClickCount() == 2) {
+				if (me.getClickCount() == 1) {
 					itemIDSender(me);
 				}
 			}
