@@ -1,14 +1,11 @@
 package com.nistica.tk;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.*;
+import java.util.*;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
 
 public class XSSFTester 
 {
@@ -20,6 +17,7 @@ public class XSSFTester
 	public XSSFWorkbook workbook;
 	public XSSFCreationHelper createHelper;
 	public XSSFSheet sheet;
+	public FileInputStream fileIn;
 	public FileOutputStream fileOut;
 	
 	private final String[] headers = {"First name", "Last Name", "Special #", "Food Name", "Meat", "Spice #", "Quantity", "Comments", "Price"};;
@@ -53,11 +51,12 @@ public class XSSFTester
     	workbook = new XSSFWorkbook();
     	createHelper = workbook.getCreationHelper();
     	sheet = workbook.createSheet("new sheet");
-        try {      
+        try {
     		fileOut = new FileOutputStream(fileString);
     	} catch (IOException ioe) {
     		ioe.printStackTrace();
     	}
+        sheet.getPrintSetup().setLandscape(true);
     }
     
 	public void addHeader()  {
@@ -76,16 +75,33 @@ public class XSSFTester
     }
 	
 	public void addOrder(String[] info) {
-		Row newOrderRow = sheet.createRow(sheet.getLastRowNum()+1);		
-		for (int i=0;i<9;i++) {
-			if ((i==2 || i==5 || i==6) && info[i] != "") {
-				newOrderRow.createCell(i).setCellValue(Integer.parseInt(info[i]));
-			} else if (i==8) {
-				newOrderRow.createCell(i).setCellValue(Double.parseDouble(info[i]));
+		int i = 0;
+		Cell checkerCell;
+		Workbook checker = null;
+		try {
+			fileIn = new FileInputStream(fileString);
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace();
+		}
+		try {
+			checker = WorkbookFactory.create(fileIn);
+		} catch (InvalidFormatException | IOException e) {
+			e.printStackTrace();
+		}
+		do {
+			checkerCell = checker.getSheet("new sheet").getRow(0).getCell(i++);
+		} while (checkerCell != null);
+		Row newOrderRow = sheet.createRow(sheet.getLastRowNum()+1);
+		for (int j=0;j<9;j++) {
+			if ((j==2 || j==5 || j==6) && info[j] != "") {
+				newOrderRow.createCell(j).setCellValue(Integer.parseInt(info[j]));
+			} else if (j==8) {
+				newOrderRow.createCell(j).setCellValue(Double.parseDouble(info[j]));
 			} else {
-				newOrderRow.createCell(i).setCellValue(info[i]);
+				newOrderRow.createCell(j).setCellValue(info[j]);
 			}
-        	sheet.autoSizeColumn(i);
+			newOrderRow.getCell(j).setCellStyle(SetCS());
+        	sheet.autoSizeColumn(j);
         }
         try {
         	fileOut = new FileOutputStream(fileString);
@@ -94,5 +110,17 @@ public class XSSFTester
         } catch (Exception e) {
             e.printStackTrace();
         }
+	}
+	public CellStyle SetCS() {
+		CellStyle style = workbook.createCellStyle();
+		style.setBorderRight(CellStyle.BORDER_THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(CellStyle.BORDER_THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(CellStyle.BORDER_THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(CellStyle.BORDER_THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        return style;
 	}
 }
