@@ -56,17 +56,18 @@ public class XSSFTester {
         
         //Set which area the table should be placed in
         AreaReference reference = new AreaReference(new CellReference(0, 0), 
-                new CellReference(2,2));
+                new CellReference(2,9));
         cttable.setRef(reference.formatAsString());
         cttable.setId(1);
-        cttable.setName("Test");
+        cttable.setName("Orders");
         cttable.setTotalsRowCount(1);
         
         CTTableColumns columns = cttable.addNewTableColumns();
-        columns.setCount(3);
+        columns.setCount(9);
         CTTableColumn column;
         XSSFRow row;
         XSSFCell cell;
+        String[] colNames = {"First Name", "Last Name", "Special #", "Food Name", "Meat", "Spice #", "Quantity", "Comments", "Price"};
         for(int i=0; i<3; i++) {
             //Create column
             column = columns.addNewTableColumn();
@@ -74,11 +75,11 @@ public class XSSFTester {
             column.setId(i+1);
             //Create row
             row = sheet.createRow(i);
-            for(int j=0; j<3; j++) {
+            for(int j=0; j<9; j++) {
                 //Create cell
                 cell = row.createCell(j);
                 if(i == 0) {
-                    cell.setCellValue("Column"+j);
+                    cell.setCellValue(colNames[j]);
                 } else {
                     cell.setCellValue("0");
                 }
