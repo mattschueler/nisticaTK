@@ -29,8 +29,8 @@ public class MenuItem extends JPanel {
 	//public Item item;
 	public static SpinnerNumberModel qtySpinModel, spiceSpinModel;
 	public int id;
-	public Color itemColor = new Color(255, 255, 255);//Color(82,191,109);
-	public Color textColor = new Color(0,140,49);//Color(0,0,0);
+	public Color itemColor = new Color(230,242,230);//Color(82,191,109);
+	public Color textColor = new Color(0,70,25);//Color(0,0,0);
 	public Color boxColor = new Color(230,242,230);
 	
 	public MenuParser menuParser = new MenuParser();

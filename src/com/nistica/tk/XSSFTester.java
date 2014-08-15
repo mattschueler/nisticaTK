@@ -63,7 +63,7 @@ public class XSSFTester
 	public void addHeader()  {
 		Row headerRow = sheet.createRow(0);
         for (int i=0;i<9;i++) {
-        	headerRow.createCell(i).setCellValue(createHelper.createRichTextString(headers[i]));
+        	headerRow.createCell(i).setCellValue(headers[i]);
         	sheet.autoSizeColumn(i);
         }
         try {
@@ -78,7 +78,13 @@ public class XSSFTester
 	public void addOrder(String[] info) {
 		Row newOrderRow = sheet.createRow(sheet.getLastRowNum()+1);		
 		for (int i=0;i<9;i++) {
-        	newOrderRow.createCell(i).setCellValue(createHelper.createRichTextString(info[i]));
+			if ((i==2 || i==5 || i==6) && info[i] != "") {
+				newOrderRow.createCell(i).setCellValue(Integer.parseInt(info[i]));
+			} else if (i==8) {
+				newOrderRow.createCell(i).setCellValue(Double.parseDouble(info[i]));
+			} else {
+				newOrderRow.createCell(i).setCellValue(info[i]);
+			}
         	sheet.autoSizeColumn(i);
         }
         try {
