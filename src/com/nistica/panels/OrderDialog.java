@@ -53,6 +53,7 @@ public class OrderDialog extends JDialog {
 		JScrollPane orderPane = new JScrollPane(orderItemHolder,  javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS , javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		orderPane.setPreferredSize(new Dimension(525,631));		
 	 	orderPane.setVisible(true);
+	 	orderPane.getVerticalScrollBar().setUnitIncrement(14);
 	 	
 	 	//Setup the checkout panel
 	 	JPanel bigCheckoutPanel = new JPanel();
@@ -88,6 +89,7 @@ public class OrderDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("priceClicked " +orderTotalPrice);
+				errorLabel.setText("");
 				StripeOrder stripeOrder = new StripeOrder();
 				
 				if(fnameField.getText().equals("") || lnameField.getText().equals(""))

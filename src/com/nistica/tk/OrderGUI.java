@@ -56,13 +56,14 @@ public class OrderGUI implements ScrollPaneConstants {
 		// Create a new JSplitPane with the two halves as the menu and cart
 		menuPane = new JScrollPane(menuItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
 		menuPane.setPreferredSize(splitSize);
-		menuPane.setBorder(BorderFactory.createLineBorder(Color.blue));
+		menuPane.getVerticalScrollBar().setUnitIncrement(14);
 		cartPane = new JScrollPane(cartItemHolder, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
 		cartPane.setPreferredSize(splitSize);
+		cartPane.getVerticalScrollBar().setUnitIncrement(14);
+		
 		menuCartPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuPane, cartPane);
 		menuCartPane.setDividerLocation(525);
 		menuCartPane.setEnabled(false);
-		menuPane.setBorder(BorderFactory.createLineBorder(Color.red));
 		//Create the controls panel at the top of the GUI
 		controlsPanel = new JPanel();
 		SpringLayout springControls = new SpringLayout();
@@ -84,7 +85,7 @@ public class OrderGUI implements ScrollPaneConstants {
 			{
 				// display/center the jdialog when the button is pressed				
 				HelpDialog help = new HelpDialog();
-			 	help.setLocation(new Point(325,200));
+			 	help.setLocation(new Point(265,200));
 			 	help.pack();
 			 	help.setVisible(true);
 			}
@@ -97,7 +98,7 @@ public class OrderGUI implements ScrollPaneConstants {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				OrderDialog order = new OrderDialog(cartItemHolder);				
-			 	order.setLocation(new Point(325,100));
+			 	order.setLocation(new Point(225,50));
 			 	order.setVisible(true);
 			}
 		});
