@@ -71,10 +71,10 @@ public class OrderDialog extends JDialog {
 	 	JTextField creditcardField = new JTextField("", 20);
 	 	JLabel cvcLabel = new JLabel("CVC:", JLabel.TRAILING);
 	 	JTextField cvcField = new JTextField("", 5);
-	 	JLabel expMonthLabel = new JLabel("Card expiration month:", JLabel.TRAILING);
+	 	JLabel expMonthLabel = new JLabel("Card expiration month #:", JLabel.TRAILING);
 	 	JTextField expMonthField = new JTextField("", 7);
 	 	expMonthField.setInputVerifier(new CardInputVerifier());
-	 	JLabel expYearLabel = new JLabel("Card expiration year:", JLabel.TRAILING);
+	 	JLabel expYearLabel = new JLabel("Card expiration year #:", JLabel.TRAILING);
 	 	JTextField expYearField = new JTextField("", 9);
 	 	
 	 	
@@ -302,8 +302,7 @@ public class OrderDialog extends JDialog {
 				((JFormattedTextField)componentArray[j+2]).setText(sendingInfo[6]);
 				((JFormattedTextField)componentArray[j+2]).setEditable(false);
 				
-				//Transfer button
-				System.out.println(numComponents);
+				//Transfer button				
 				itemToSend.transferButton.setEnabled(false);
 				
 				orderItemHolder.newItem(itemToSend);
