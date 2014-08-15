@@ -1,5 +1,6 @@
 package com.nistica.tk;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -30,7 +31,7 @@ public class MenuParser {
 		try{
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			
-			InputStream in = new FileInputStream(menuFile);
+			InputStream in = MenuParser.class.getResourceAsStream(menuFile);
 			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 			
 			//read the file
@@ -95,8 +96,6 @@ public class MenuParser {
 				}
 				
 			}
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
 		}catch(XMLStreamException e){
 			e.printStackTrace();
 		}
