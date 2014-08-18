@@ -18,10 +18,15 @@ public class MenuPanel extends JPanel implements MouseListener {
 	public void getPartner (CartPanel cartPanel) {
 		this.cartPanel = cartPanel;
 	}
+	
+	public void updateSize(int items){
+		this.numberOfItems = items;
+		this.revalidate();
+	}
 	//This makes it so the MenuPanel is always created to be the correct size to hold all the MenuItems
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension(506, (numberOfItems * 110));
+		return new Dimension(506, (numberOfItems * 112));
 	}
 	//This method creates a clone of the MenuItem that is being sent to the cart panel.  It saves the values of each component, then creates a new
 	//one from scratch and sets all the values of the new components in the "clone" panel.  Since SpringLayout is not serializable, the MenuItem cannot be

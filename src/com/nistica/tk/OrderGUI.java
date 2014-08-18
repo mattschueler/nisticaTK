@@ -9,8 +9,11 @@ import com.nistica.tk.MenuItem.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class OrderGUI implements ScrollPaneConstants {
@@ -18,6 +21,7 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static JFrame frame;
 	public static JScrollPane menuPane, cartPane;
 	public static JSplitPane menuCartPane, bigPane;
+	public static JComboBox foodTypeChooser;
 	public static JPanel controlsPanel, newMenuItem;
 	public static MenuPanel menuItemHolder;
 	public static CartPanel cartItemHolder;
@@ -28,25 +32,88 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static final Color MENUCOLOR = new Color(230,242,242);
 	public static final Color CONTROLCOLOR = new Color(57, 183, 250);//Color(47,211,214);
 	
-	public static XMLTester xmltest;
+	public static List<MenuItem> theMenu;
+	static MenuParser menuParser;
 	public static HSSFTester hssftest;
+	
+	//DINNER HAS 3 SPACES, LUNCH HAS 2 FOR EACH CATEGORY
+	static HashMap<String, String> foodCategories;
+	static String[] foodTypes = {"Lunch", "  Soups", "  Entrees", 
+		"Dinner", "   Appetizers and Soups", "   Salad", "   Chef's Special", 
+		"   Entrees-Main", "   Thai Curry", "   Duck Entrees", "   Noodles and Fried Rice"};
+	static String[] lunchTypes = {"Lunch", "  Soups", "  Entrees"};
+	static String[] dinnerTypes = {"   Appetizers and Soups", "   Salad", "   Chef's Special", 
+		"   Entrees-Main", "   Thai Curry", "   Duck Entrees", "   Noodles and Fried Rice"};
 
 	public OrderGUI() {
 	}
 
 	private static void createAndShowGUI() {
-		xmltest = new XMLTester();
+		
+		//Used by the drop down to map the chosen element with the name used in MenuParser
+		foodCategories = new HashMap<String, String>();
+		foodCategories.put(foodTypes[0], MenuParser.LUNCH);
+		foodCategories.put(foodTypes[1], MenuParser.SOUP);
+		foodCategories.put(foodTypes[2], MenuParser.ENTREE);
+		foodCategories.put(foodTypes[3], MenuParser.DINNER);
+		foodCategories.put(foodTypes[4], MenuParser.APPETIZERS);
+		foodCategories.put(foodTypes[5], MenuParser.SALAD);
+		foodCategories.put(foodTypes[6], MenuParser.SPECIAL);
+		foodCategories.put(foodTypes[7], MenuParser.ENTREE_MAIN);
+		foodCategories.put(foodTypes[8], MenuParser.THAI_CURRY);
+		foodCategories.put(foodTypes[9], MenuParser.DUCK);
+		foodCategories.put(foodTypes[10], MenuParser.NOODLES_FRIED);
+		
+		
+		menuParser = new MenuParser();
+		theMenu = menuParser.readMenu("/other/menuFull.xml", MenuParser.LUNCH, MenuParser.ENTREE);
 		hssftest = new HSSFTester();
-		numberOfMenuItems = xmltest.theMenu.size();
+		numberOfMenuItems = theMenu.size();
+		
+		
 		// Create the new JFrame object
 		frame = new JFrame("Nistica Thai Kitchen Ordering System");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension splitSize = new Dimension(519, 600);
 		
+		foodTypeChooser = new JComboBox(foodTypes);
+		foodTypeChooser.setPreferredSize(new Dimension(100, 20));
+		foodTypeChooser.setMaximumSize(new Dimension(Integer.MAX_VALUE, foodTypeChooser.getMinimumSize().height));
+		foodTypeChooser.setBackground(new Color(40, 40, 40));
+		foodTypeChooser.setForeground(Color.white);
+		foodTypeChooser.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent a) {
+				String course, category;
+				JComboBox box = (JComboBox)a.getSource();
+				String choice = (String)box.getSelectedItem();
+				
+				if(Arrays.asList(lunchTypes).contains(choice))
+				{
+					course = MenuParser.LUNCH;
+					//There are two kinds of entrees, so need to check if it is the lunch or dinner entree
+					//The lunch entree is the second item in the list, so it has an index of 2,
+					//and the dinner one is greater than that
+					if(choice.equals("Entrees") && box.getSelectedIndex()>2)
+						course = MenuParser.DINNER;
+				}
+				else
+					course = MenuParser.DINNER;
+				System.out.println(course + "|||" + foodCategories.get(choice));
+				//figure out what category the selected item was in and then call
+				theMenu = menuParser.readMenu("/other/menuFull.xml", course, foodCategories.get(choice));
+				numberOfMenuItems = theMenu.size();
+				
+				reInitMenuItems();
+			}
+			
+		});
 		// Create all the menu item objects
-		menuItemHolder = new MenuPanel(numberOfMenuItems);
+		menuItemHolder = new MenuPanel(numberOfMenuItems+1);
+		menuItemHolder.add(foodTypeChooser);
 		menuItemHolder.setLayout(new BoxLayout(menuItemHolder, BoxLayout.PAGE_AXIS));
-		for (MenuItem menuItem : xmltest.theMenu) {
+		for (MenuItem menuItem : theMenu) {
 			//newMenuItem = new MenuItem();
 			menuItemHolder.add(menuItem);
 		}
@@ -161,6 +228,16 @@ public class OrderGUI implements ScrollPaneConstants {
 				createAndShowGUI();
 			}
 		});
+	}
+	
+	private static void reInitMenuItems(){
+		menuItemHolder.updateSize(numberOfMenuItems);
+		menuItemHolder.removeAll();//removes all components
+		
+		menuItemHolder.add(foodTypeChooser);
+		for (MenuItem menuItem : theMenu) {
+			menuItemHolder.add(menuItem);
+		}
 	}
 	
 }

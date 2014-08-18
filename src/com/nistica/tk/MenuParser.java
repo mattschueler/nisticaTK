@@ -18,6 +18,18 @@ import javax.xml.stream.events.XMLEvent;
 
 @SuppressWarnings("unused")
 public class MenuParser {
+	static final String LUNCH = "lunch";
+	static final String DINNER = "dinner";
+	static final String SOUP = "soup";
+	static final String ENTREE = "entree";
+	static final String APPETIZERS = "appetizer_soup";
+	static final String SALAD = "salad";
+	static final String SPECIAL = "chefs_special";
+	static final String ENTREE_MAIN= "entree_main";
+	static final String THAI_CURRY= "entree_thai_curry";
+	static final String DUCK = "entree_duck";
+	static final String NOODLES_FRIED= "entree_noodles_fried_rice";
+	
 	static final String FOOD = "food";
 	static final String NUMBER = "number";
 	static final String NAME = "name";
@@ -25,8 +37,10 @@ public class MenuParser {
 	static final String HASMEATS = "hasMeats";
 	static final String HASSPICE = "hasSpice";
 	
-	public List<MenuItem> readMenu(String menuFile){
+	public List<MenuItem> readMenu(String menuFile, String course, String category){
 		List<MenuItem> items = new ArrayList<MenuItem>();
+		boolean correctCourse = false;
+		boolean correctCategory = false;
 		
 		try{
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -41,12 +55,26 @@ public class MenuParser {
 				if(event.isStartElement()){
 					StartElement startElement = event.asStartElement();
 					//If it's a food make a new menuitem
-					if(startElement.getName().getLocalPart() == FOOD){
-						item = new MenuItem();
+					//System.out.println(startElement.getName().getLocalPart());
+					
+					if(startElement.getName().getLocalPart().equals(course)){
+						correctCourse = true;
 						//get all the attributes
 						
 					}
 					
+					if(correctCourse && startElement.getName().getLocalPart().equals(category))
+						correctCategory = true;
+					
+				}
+				if(correctCourse != true || correctCategory != true)
+					continue;
+				
+				if(event.isStartElement()){
+					if(event.asStartElement().getName().getLocalPart().equals(FOOD)){
+						item = new MenuItem();
+						continue;
+					}					
 				}
 				if(event.isStartElement()){
 					if(event.asStartElement().getName().getLocalPart().equals(NUMBER)){
@@ -92,6 +120,18 @@ public class MenuParser {
 						item.setInfo();
 						item.createComponents();
 						items.add(item);
+					}
+					
+					if(endElement.getName().getLocalPart().equals(course))
+					{
+						correctCourse = false;
+						System.out.println("end of course reached");
+					}
+					
+					if(endElement.getName().getLocalPart().equals(category))
+					{
+						correctCategory = false;
+						break;
 					}
 				}
 				
