@@ -24,8 +24,8 @@ public class HelpDialog extends JDialog{
 	    		"be saved.\nTo remove an item from your cart, simply click the x button on the right of each item.\nIf you add an item on the menu that is already in " + 
 	    		"your cart, the item in the cart will be overwritten.\nWhen you are ready to submit your order, hit the order button to review your order.\n" +
 	    		"If you are happy with your order, click the next order button to submit your order.  If you are not, simply close the window and make any changes " +
-	    		"you wish to make.\nYou can also hit the clear button to clear out your entire cart and start from the beginning.\n\nThank you for using the " +
-	    		"Nistica Thai Kitchen Ordering System!"
+	    		"you wish to make.\nYou can also hit the clear button to clear out your entire cart and start from the beginning.\nHover over an item to see its description."+
+	    		"\n\nThank you for using the Nistica Thai Kitchen Ordering System!"
 	    		);
 		helpInfo.setLineWrap(true);
 		helpInfo.setWrapStyleWord(true);

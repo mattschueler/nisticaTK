@@ -22,9 +22,11 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static JScrollPane menuPane, cartPane;
 	public static JSplitPane menuCartPane, bigPane;
 	public static JComboBox foodTypeChooser;
+	public static JLabel hoverHelp;
 	public static JPanel controlsPanel, newMenuItem;
 	public static MenuPanel menuItemHolder;
 	public static CartPanel cartItemHolder;
+	
 	//public static OrderPanel orderItemHolder;
 	
 	public static int numberOfMenuItems;
@@ -197,8 +199,15 @@ public class OrderGUI implements ScrollPaneConstants {
 		springControls.putConstraint(SpringLayout.NORTH, foodTypeChooser, 80, SpringLayout.NORTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.WEST, foodTypeChooser, 10, SpringLayout.EAST, clearCart);
 		controlsPanel.add(foodTypeChooser);
-		JLabel menuLabel = new JLabel("Menu");
 		
+		JLabel hoverHelp = new JLabel("Hover over an item to see a description!");
+		springControls.putConstraint(SpringLayout.NORTH, hoverHelp, 10, SpringLayout.NORTH, controlsPanel);
+		springControls.putConstraint(SpringLayout.WEST, hoverHelp, 20, SpringLayout.EAST, clearCart);
+		hoverHelp.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		controlsPanel.add(hoverHelp);
+		
+		
+		JLabel menuLabel = new JLabel("Menu");
 		springControls.putConstraint(SpringLayout.SOUTH, menuLabel, 5, SpringLayout.SOUTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.WEST, menuLabel,20, SpringLayout.WEST, controlsPanel);
 		menuLabel.setFont(new Font("Freestyle Script", Font.PLAIN, 58));
