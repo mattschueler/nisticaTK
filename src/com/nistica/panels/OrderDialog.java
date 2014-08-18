@@ -57,7 +57,7 @@ public class OrderDialog extends JDialog {
 	 	
 	 	//Setup the checkout panel
 	 	JPanel bigCheckoutPanel = new JPanel();
-	 	bigCheckoutPanel.setLayout(new GridLayout(3, 1));
+	 	bigCheckoutPanel.setLayout(new GridLayout(4, 1));
 	 	bigCheckoutPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 	 	bigCheckoutPanel.setPreferredSize(new Dimension(525,525));
 	 	
@@ -76,7 +76,8 @@ public class OrderDialog extends JDialog {
 	 	expMonthField.setInputVerifier(new CardInputVerifier());
 	 	JLabel expYearLabel = new JLabel("Card expiration year #:", JLabel.TRAILING);
 	 	JTextField expYearField = new JTextField("", 9);
-	 	
+	 	JTextArea totalsText = new JTextArea();
+	 	totalsText.setPreferredSize(new Dimension(200,200));
 	 	
 	 	JButton submitButton = new JButton("Submit order");
 	 	JLabel errorLabel = new JLabel("");
@@ -122,6 +123,7 @@ public class OrderDialog extends JDialog {
 						itemInfo[4] = ((MenuItem)items[i]).info[5];
 						itemInfo[5] = ((MenuItem)items[i]).info[6];
 						itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+						orderTotalPrice += Double.parseDouble(itemInfo[6]);
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
 							break;
@@ -145,6 +147,7 @@ public class OrderDialog extends JDialog {
 	 		
 	 	});
 	 	
+	 	totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07)));
 	 	
 	 	SpringLayout springLayout = new SpringLayout();
 	 	checkoutPanel = new JPanel();
@@ -169,6 +172,7 @@ public class OrderDialog extends JDialog {
 	 	bigCheckoutPanel.add(checkoutPanel);
 	 	bigCheckoutPanel.add(submitButton);
 	 	bigCheckoutPanel.add(errorLabel);
+	 	bigCheckoutPanel.add(totalsText);
 	 	/*SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
 				4, 4, //initx, initx
 				6, 6); //xpad, ypad

@@ -124,8 +124,8 @@ public class MenuItem extends JPanel {
 					//The originalPrice (info[7]) is also checked to determine what the cost is because there are different levels of pricing
 					//for the different meats/veggies/other.  i.e. the starting price determines what the other prices will be
 					((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j] = String.valueOf(((JComboBox<?>)child).getSelectedItem());
-					switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[7]) {
-					case "6.95":
+					//switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) {
+					if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 2 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 18) {
 						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
 						case "Chicken":case "Beef":case "Pork":case "Veggies/Tofu":
 							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "6.95";
@@ -136,51 +136,47 @@ public class MenuItem extends JPanel {
 							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
 							break;
 						}
-						break;
-					case "8.95":
+					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 48 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 59) {
 						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
-						case "Chicken":case "Beef":case "Pork":case "Veggies/Tofu":
+						case "Chicken":case "Pork":case "Veggies/Tofu":
+							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							break;
+						case "Beef":
+							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							break;	
+						case "Squid":case "Shrimp":
+							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							break;
+						}
+					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 60 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 68) {
+						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
+						case "Chicken":case "Pork":case "Veggies/Tofu":
+							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							break;
+						case "Beef":
+							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "12.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							break;
+						case "Squid":case "Shrimp":
+							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							break;
+						}
+					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 71 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 81) {
+						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
+						case "Chicken":case "Pork":case "Beef":case "Veggies/Tofu":
 							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
 							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
 							break;
 						case "Squid":case "Shrimp":
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "9.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
-							break;
-						}
-						break;
-					case "9.95":
-						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
-						case "Chicken":case "Pork":case "Veggies/Tofu":
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "9.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
-							break;
-						case "Beef":
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
-							break;
-						case "Squid":case "Shrimp":
 							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
 							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
 							break;
 						}
-						break;
-					case "10.95":
-						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
-						case "Chicken":case "Pork":case "Veggies/Tofu":
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
-							break;
-						case "Beef":
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "11.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
-							break;
-						case "Squid":case "Shrimp":
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
-							break;
-						}
-						break;
 					}
 				}
 			});
