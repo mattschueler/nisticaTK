@@ -71,6 +71,7 @@ public class CartPanel extends JPanel implements MouseListener{
 		//should turn into an X to show that it will be deleted if it is pressed
 		((JButton)(((JPanel)item.getComponents()[0]).getComponents()[((JPanel)item.getComponents()[0]).getComponents().length-1])).setText("X");
 		this.add(item);
+		item.setToolTipText(((MenuItem)item).info[8]);
 		repaint();
 		revalidate();
 	}

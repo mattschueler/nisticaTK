@@ -242,7 +242,7 @@ public class OrderDialog extends JDialog {
 		
 		
 		MenuItem itemToSend;
-		String[] sendingInfo = new String[7];
+		String[] sendingInfo = new String[9];
 		int numComponents = cartItemHolder.getComponents().length;
 		int i, j;
 		if (numComponents>0) {
@@ -313,7 +313,7 @@ public class OrderDialog extends JDialog {
 				
 				//Transfer button				
 				itemToSend.transferButton.setEnabled(false);
-				
+				itemToSend.setToolTipText(sendingInfo[8]);
 				orderItemHolder.newItem(itemToSend);
 			}
 		} else {

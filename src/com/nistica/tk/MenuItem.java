@@ -68,7 +68,6 @@ public class MenuItem extends JPanel {
 		internalPanel.setLayout(sl);
 		internalPanel.setBackground(itemColor);
 		internalPanel.setBorder(BorderFactory.createLineBorder(textColor));
-		internalPanel.setToolTipText(desc);
 		//Adding and setting up all the components to be added to the MenuItem's internalPanel
 		numberLabel = new JLabel(number);
 		numberLabel.setOpaque(true);
@@ -301,6 +300,7 @@ public class MenuItem extends JPanel {
 		this.setMaximumSize(new Dimension(506, 110));
 		this.add(internalPanel);
 		this.setBackground(Color.DARK_GRAY);
+		this.setToolTipText(desc);
 	}
 		//This method sends the ID given by the mouse event along to the parent panel of the MenuItem (cart or menu)
 	public void itemIDSender(ActionEvent ev) {
