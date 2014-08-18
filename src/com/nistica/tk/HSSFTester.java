@@ -31,7 +31,7 @@ public class HSSFTester
     	gc = new GregorianCalendar();
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
 		fileString = "orders/thaiorder" + dateString + ".xls";
-		templateLocation = "ordersTemplate/TEMPLATE.xls";
+		templateLocation = "/ordersTemplate/TEMPLATE.xls";
     	//fileString = "orders/TEMPLATE.xls";
 		
 		file = new File(fileString);
@@ -40,7 +40,8 @@ public class HSSFTester
     	    	                
 		if (!file.exists()) {
     		try {
-    			FileInputStream tempIn = new FileInputStream(templateLocation);
+    			//FileInputStream tempIn = new FileInputStream(templateLocation);
+    			InputStream tempIn = HSSFTester.class.getResourceAsStream(templateLocation);
     			HSSFWorkbook temp = new HSSFWorkbook(tempIn);
     			FileOutputStream tempOut = new FileOutputStream(fileString);
     			temp.write(tempOut);

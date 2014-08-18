@@ -165,6 +165,7 @@ public class OrderGUI implements ScrollPaneConstants {
 		foodTypeChooser.setMaximumSize(new Dimension(Integer.MAX_VALUE, foodTypeChooser.getMinimumSize().height));
 		foodTypeChooser.setBackground(new Color(40, 40, 40));
 		foodTypeChooser.setForeground(Color.white);
+		foodTypeChooser.setMaximumRowCount(11);
 		foodTypeChooser.addActionListener(new ActionListener(){
 
 			@Override
