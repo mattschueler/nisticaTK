@@ -150,7 +150,7 @@ public class HSSFTester
         	workbook.write(fileOut);
             fileOut.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
             successful = false;
         }
         return successful;
