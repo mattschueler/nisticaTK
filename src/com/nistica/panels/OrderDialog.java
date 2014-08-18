@@ -45,7 +45,7 @@ public class OrderDialog extends JDialog {
 		orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
 		
 		orderSender(cartItemHolder);//sets the orderTotalPrice and adds each food item
-		System.out.println("price1 " +orderTotalPrice);
+		System.out.println("price w/o tax " +orderTotalPrice);
 		orderItemHolder.setVisible(true);
 		orderItemHolder.setLayout(new BoxLayout(orderItemHolder, BoxLayout.PAGE_AXIS));
 		orderItemHolder.setBackground(OrderGUI.MENUCOLOR);
@@ -135,7 +135,7 @@ public class OrderDialog extends JDialog {
 					if (successfulOrder) {
 						errorLabel.setForeground(new Color(0,127,0));
 						errorLabel.setText("Order Successful. Thank you.");
-						stripeOrder.sendPayment((int) (orderTotalPrice*100), "<name> is ordering <food>");
+						stripeOrder.sendPayment((int) (orderTotalPrice*100), fnameField+" " + lnameField+" has ordered");
 					} else {
 						errorLabel.setForeground(Color.RED);
 						errorLabel.setText("Error in sending order.");
@@ -256,7 +256,8 @@ public class OrderDialog extends JDialog {
 					 Double.valueOf( ((MenuItem)cartItemHolder.getComponents()[i]).info[5]) ;
 		}
 		
-		System.out.println("order total price (in cents) " + (int) (orderTotalPrice*100));
+		//It's 107 because *100 to conver to cents and then the 7% tax
+		System.out.println("order total price with tax (in cents) " + (int) (orderTotalPrice*107));
 		this.orderTotalPrice = orderTotalPrice;
 		
 		

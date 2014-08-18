@@ -140,6 +140,7 @@ public class OrderGUI implements ScrollPaneConstants {
 			 	order.setVisible(true);
 			}
 		});
+		System.out.println(System.getProperty("user.home"));
 		springControls.putConstraint(SpringLayout.NORTH, orderButton, 5, SpringLayout.NORTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.EAST, orderButton, -10, SpringLayout.EAST, controlsPanel);
 		controlsPanel.add(orderButton);
