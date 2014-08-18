@@ -135,7 +135,7 @@ public class OrderDialog extends JDialog {
 					if (successfulOrder) {
 						errorLabel.setForeground(new Color(0,127,0));
 						errorLabel.setText("Order Successful. Thank you.");
-						stripeOrder.sendPayment((int) (orderTotalPrice*100), fnameField+" " + lnameField+" has ordered");
+						stripeOrder.sendPayment((int) (orderTotalPrice*100), fnameField.getText()+" " + lnameField.getText()+" has ordered");
 					} else {
 						errorLabel.setForeground(Color.RED);
 						errorLabel.setText("Error in sending order.");
