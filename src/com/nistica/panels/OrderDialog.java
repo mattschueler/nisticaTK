@@ -109,7 +109,7 @@ public class OrderDialog extends JDialog {
 				}
 				
 				
-				System.out.println("order passed?: " + cardCheckMessage);
+				//System.out.println("order passed?: " + cardCheckMessage);
 				if(cardCheckMessage.equals("Card Valid")) {
 					boolean successfulOrder = false;
 					Component[] items = orderItemHolder.getComponents();

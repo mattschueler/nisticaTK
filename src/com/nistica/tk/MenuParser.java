@@ -125,7 +125,7 @@ public class MenuParser {
 					if(endElement.getName().getLocalPart().equals(course))
 					{
 						correctCourse = false;
-						System.out.println("end of course reached");
+						//System.out.println("end of course reached");
 					}
 					
 					if(endElement.getName().getLocalPart().equals(category))

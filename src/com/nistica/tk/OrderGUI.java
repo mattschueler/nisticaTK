@@ -76,42 +76,8 @@ public class OrderGUI implements ScrollPaneConstants {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension splitSize = new Dimension(519, 600);
 		
-		foodTypeChooser = new JComboBox(foodTypes);
-		foodTypeChooser.setPreferredSize(new Dimension(100, 20));
-		foodTypeChooser.setMaximumSize(new Dimension(Integer.MAX_VALUE, foodTypeChooser.getMinimumSize().height));
-		foodTypeChooser.setBackground(new Color(40, 40, 40));
-		foodTypeChooser.setForeground(Color.white);
-		foodTypeChooser.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent a) {
-				String course, category;
-				JComboBox box = (JComboBox)a.getSource();
-				String choice = (String)box.getSelectedItem();
-				
-				if(Arrays.asList(lunchTypes).contains(choice))
-				{
-					course = MenuParser.LUNCH;
-					//There are two kinds of entrees, so need to check if it is the lunch or dinner entree
-					//The lunch entree is the second item in the list, so it has an index of 2,
-					//and the dinner one is greater than that
-					if(choice.equals("Entrees") && box.getSelectedIndex()>2)
-						course = MenuParser.DINNER;
-				}
-				else
-					course = MenuParser.DINNER;
-				System.out.println(course + "|||" + foodCategories.get(choice));
-				//figure out what category the selected item was in and then call
-				theMenu = menuParser.readMenu("/other/menuFull.xml", course, foodCategories.get(choice));
-				numberOfMenuItems = theMenu.size();
-				
-				reInitMenuItems();
-			}
-			
-		});
 		// Create all the menu item objects
 		menuItemHolder = new MenuPanel(numberOfMenuItems+1);
-		menuItemHolder.add(foodTypeChooser);
 		menuItemHolder.setLayout(new BoxLayout(menuItemHolder, BoxLayout.PAGE_AXIS));
 		for (MenuItem menuItem : theMenu) {
 			//newMenuItem = new MenuItem();
@@ -194,6 +160,42 @@ public class OrderGUI implements ScrollPaneConstants {
 		springControls.putConstraint(SpringLayout.NORTH, clearCart, 5, SpringLayout.NORTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.WEST, clearCart, 15, SpringLayout.EAST, helpButton);
 		controlsPanel.add(clearCart);
+		foodTypeChooser = new JComboBox(foodTypes);
+		foodTypeChooser.setPreferredSize(new Dimension(350, 20));
+		foodTypeChooser.setMaximumSize(new Dimension(Integer.MAX_VALUE, foodTypeChooser.getMinimumSize().height));
+		foodTypeChooser.setBackground(new Color(40, 40, 40));
+		foodTypeChooser.setForeground(Color.white);
+		foodTypeChooser.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent a) {
+				String course, category;
+				JComboBox box = (JComboBox)a.getSource();
+				String choice = (String)box.getSelectedItem();
+				
+				if(Arrays.asList(lunchTypes).contains(choice))
+				{
+					course = MenuParser.LUNCH;
+					//There are two kinds of entrees, so need to check if it is the lunch or dinner entree
+					//The lunch entree is the second item in the list, so it has an index of 2,
+					//and the dinner one is greater than that
+					if(choice.equals("Entrees") && box.getSelectedIndex()>2)
+						course = MenuParser.DINNER;
+				}
+				else
+					course = MenuParser.DINNER;
+				//System.out.println(course + "|||" + foodCategories.get(choice));
+				//figure out what category the selected item was in and then call
+				theMenu = menuParser.readMenu("/other/menuFull.xml", course, foodCategories.get(choice));
+				numberOfMenuItems = theMenu.size();
+				
+				reInitMenuItems();
+			}
+			
+		});
+		springControls.putConstraint(SpringLayout.NORTH, foodTypeChooser, 80, SpringLayout.NORTH, controlsPanel);
+		springControls.putConstraint(SpringLayout.WEST, foodTypeChooser, 10, SpringLayout.EAST, clearCart);
+		controlsPanel.add(foodTypeChooser);
 		JLabel menuLabel = new JLabel("Menu");
 		
 		springControls.putConstraint(SpringLayout.SOUTH, menuLabel, 5, SpringLayout.SOUTH, controlsPanel);
@@ -233,8 +235,6 @@ public class OrderGUI implements ScrollPaneConstants {
 	private static void reInitMenuItems(){
 		menuItemHolder.updateSize(numberOfMenuItems);
 		menuItemHolder.removeAll();//removes all components
-		
-		menuItemHolder.add(foodTypeChooser);
 		for (MenuItem menuItem : theMenu) {
 			menuItemHolder.add(menuItem);
 		}
