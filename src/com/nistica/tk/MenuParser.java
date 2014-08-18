@@ -36,6 +36,7 @@ public class MenuParser {
 	static final String ORIGINALPRICE = "originalPrice";
 	static final String HASMEATS = "hasMeats";
 	static final String HASSPICE = "hasSpice";
+	static final String DESC = "desc";
 	
 	public List<MenuItem> readMenu(String menuFile, String course, String category){
 		List<MenuItem> items = new ArrayList<MenuItem>();
@@ -111,6 +112,13 @@ public class MenuParser {
 					if(event.asStartElement().getName().getLocalPart().equals(HASSPICE)){
 						event = eventReader.nextEvent();
 						item.setHasSpice(event.asCharacters().getData().equals("true") ? true : false);
+						continue;
+					}					
+				}
+				if(event.isStartElement()){
+					if(event.asStartElement().getName().getLocalPart().equals(DESC)){
+						event = eventReader.nextEvent();
+						item.setDesc(event.asCharacters().getData());
 						continue;
 					}					
 				}
