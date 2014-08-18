@@ -113,17 +113,15 @@ public class OrderDialog extends JDialog {
 				if(cardCheckMessage.equals("Card Valid")) {
 					boolean successfulOrder = false;
 					Component[] items = orderItemHolder.getComponents();
-					String[] itemInfo = new String[9];
+					String[] itemInfo = new String[7];
 					for(int i=0;i<items.length;i++) {
-						itemInfo[0] = fnameField.getText();
-						itemInfo[1] = lnameField.getText();
-						itemInfo[2] = ((MenuItem)items[i]).info[0];
-						itemInfo[3] = ((MenuItem)items[i]).info[1];
-						itemInfo[4] = ((MenuItem)items[i]).info[3];
-						itemInfo[5] = ((MenuItem)items[i]).info[4];
-						itemInfo[6] = ((MenuItem)items[i]).info[5];
-						itemInfo[7] = ((MenuItem)items[i]).info[6];
-						itemInfo[8] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+						itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
+						itemInfo[1] = ((MenuItem)items[i]).info[0];
+						itemInfo[2] = ((MenuItem)items[i]).info[3];
+						itemInfo[3] = ((MenuItem)items[i]).info[4];
+						itemInfo[4] = ((MenuItem)items[i]).info[5];
+						itemInfo[5] = ((MenuItem)items[i]).info[6];
+						itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
 							break;

@@ -12,6 +12,7 @@ public class HSSFTester
 	private GregorianCalendar gc;
 	private String dateString;
 	private String fileString;
+	private String templateLocation;
 	private File file;
 	
 	public HSSFWorkbook workbook;
@@ -24,37 +25,26 @@ public class HSSFTester
 	private HSSFCellStyle rowCS;
 	private HSSFFont rowFont;
 	
-	private final String[] headers = {"First name", "Last Name", "Special #", "Food Name", "Meat", "Spice #", "Quantity", "Comments", "Price"};;
+	private final String[] headers = {"Initials", "Special #", "Meat", "Spice #", "Quantity", "Comments", "Price"};
 	
     public HSSFTester() {
     	gc = new GregorianCalendar();
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
 		fileString = "orders/thaiorder" + dateString + ".xls";
+		templateLocation = "ordersTemplate/TEMPLATE.xls";
+    	//fileString = "orders/TEMPLATE.xls";
+		
 		file = new File(fileString);
 		int state = 2;
 		boolean created = false; 
     	    	                
 		if (!file.exists()) {
     		try {
-    			//created = file.createNewFile();
-    			workbook = new HSSFWorkbook();
-    			sheet = workbook.createSheet("new sheet");
-    			sheet.getPrintSetup().setLandscape(true);
-    			sheet.setMargin(Sheet.TopMargin, 0.2);
-    			sheet.setMargin(Sheet.BottomMargin, 0.2);
-    			sheet.setMargin(Sheet.LeftMargin, 0.2);
-    			sheet.setMargin(Sheet.RightMargin, 0.2);
-    			
-    			headerCS = workbook.createCellStyle();
-    			headerFont = workbook.createFont();
-    			headerFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
-    			headerFont.setFontHeightInPoints((short)13);
-    			headerCS.setFont(headerFont);
-    	    
-    			addHeader();
-    			FileOutputStream fileOut = new FileOutputStream(file);
-    			workbook.write(fileOut);
-    			fileOut.close();
+    			FileInputStream tempIn = new FileInputStream(templateLocation);
+    			HSSFWorkbook temp = new HSSFWorkbook(tempIn);
+    			FileOutputStream tempOut = new FileOutputStream(fileString);
+    			temp.write(tempOut);
+    			tempOut.close();
     			created=true;
     		} catch (IOException ioe) {
     			ioe.printStackTrace();
@@ -80,27 +70,22 @@ public class HSSFTester
 			e.printStackTrace();
 		}
     	sheet = workbook.getSheet("new sheet");
-       /* try {
-    		fileOut = new FileOutputStream(fileString);
-    	} catch (IOException ioe) {
-    		ioe.printStackTrace();
-    	}*/
-        rowCS = workbook.createCellStyle();
+        
+    	rowCS = workbook.createCellStyle();
 		rowFont = workbook.createFont();
 		rowFont.setFontHeightInPoints((short)11);
 		rowCS.setFont(rowFont);
 	    
     }
-	public void addHeader()  {
+	/*public void addHeader()  {
 		//Put in "NISTICA" and "please send spring rolls" in really big font
-		HSSFRow headerRow = sheet.createRow(0);
-		
-		for (int i=0;i<9;i++) {
+		HSSFRow headerRow = sheet.createRow(0);		
+		for (int i=5;i<14;i++) {
         	Cell c = headerRow.createCell(i);
-        	c.setCellValue(headers[i]);
+        	c.setCellValue(headers[i-5]);
         	c.setCellStyle(headerCS);
-        	/*Cell c = headerRow.getCell(i);//.setCellStyle(headerCS);
-        	c.setCellStyle(headerCS);*/
+        	//Cell c = headerRow.getCell(i);//.setCellStyle(headerCS);
+        	//c.setCellStyle(headerCS);
         	sheet.autoSizeColumn(i);
         }
         try {
@@ -110,7 +95,7 @@ public class HSSFTester
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 	
 	public boolean addOrder(String[] info) {
 		int i = 0;
@@ -120,7 +105,6 @@ public class HSSFTester
 		try {
 			System.out.println(fileString);
 			fileIn = new FileInputStream(fileString);
-			//fileIn.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			successful = false;
@@ -134,17 +118,18 @@ public class HSSFTester
 		checkerSheet = checker.getSheet("new sheet");
 		do {} while (checkerSheet.getRow(i++) != null);
 		Row newOrderRow = sheet.createRow(--i);
-		for (int j=0;j<9;j++) {
-			if ((j==2 || j==5 || j==6) && info[j] != "") {
-				newOrderRow.createCell(j).setCellValue(Integer.parseInt(info[j]));
-			} else if (j==8) {
-				newOrderRow.createCell(j).setCellValue(Double.parseDouble(info[j]));
-			} else {
-				newOrderRow.createCell(j).setCellValue(info[j]);
-			}
-			newOrderRow.getCell(j).setCellStyle(rowCS);
-        	sheet.autoSizeColumn(j);
-        }
+		int startRow = 1;
+		newOrderRow.createCell(startRow).setCellValue(info[0]);
+		newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1]));
+		newOrderRow.createCell(startRow+2).setCellValue(info[2]);
+		if (info[3] != "") {
+			newOrderRow.createCell(startRow+3).setCellValue(Integer.parseInt(info[3]));
+		} else {
+			newOrderRow.createCell(startRow+3).setCellValue(info[3]);	
+		}
+		newOrderRow.createCell(startRow+4).setCellValue(Integer.parseInt(info[4]));
+		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
+		newOrderRow.createCell(startRow+6).setCellValue(info[6]);		
         try {
         	fileOut = new FileOutputStream(fileString);
         	workbook.write(fileOut);
