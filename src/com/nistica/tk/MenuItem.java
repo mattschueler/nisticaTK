@@ -40,7 +40,8 @@ public class MenuItem extends JPanel {
 		qtySpinModel = new SpinnerNumberModel(1, 1, 20, 1);
 		spiceSpinModel = new SpinnerNumberModel(0, 0, 5, 1);
 		internalPanel = new JPanel();
-		info = new String[8];
+		info = new String[9];
+		
 	}
 	public void setInfo() {	
 		info[0] = number;
@@ -59,7 +60,7 @@ public class MenuItem extends JPanel {
 		info[5] = "1"; //default quantity of one
 		info[6] = ""; //default comment of ""
 		info[7] = originalPrice;
-		
+		info[8] = desc;
 	}
 	public void createComponents() {
 		//Setting up the layout of each MenuItem
@@ -67,6 +68,7 @@ public class MenuItem extends JPanel {
 		internalPanel.setLayout(sl);
 		internalPanel.setBackground(itemColor);
 		internalPanel.setBorder(BorderFactory.createLineBorder(textColor));
+		internalPanel.setToolTipText(desc);
 		//Adding and setting up all the components to be added to the MenuItem's internalPanel
 		numberLabel = new JLabel(number);
 		numberLabel.setOpaque(true);
