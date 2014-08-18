@@ -148,6 +148,7 @@ public class OrderDialog extends JDialog {
 	 	});
 	 	
 	 	totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07)));
+	 	totalsText.setEditable(false);
 	 	
 	 	SpringLayout springLayout = new SpringLayout();
 	 	checkoutPanel = new JPanel();
