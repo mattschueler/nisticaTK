@@ -57,9 +57,10 @@ public class OrderDialog extends JDialog {
 	 	
 	 	//Setup the checkout panel
 	 	JPanel bigCheckoutPanel = new JPanel();
-	 	bigCheckoutPanel.setLayout(new GridLayout(4, 1));
+	 	SpringLayout bcplayout = new SpringLayout();
+	 	bigCheckoutPanel.setLayout(bcplayout);
 	 	bigCheckoutPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-	 	bigCheckoutPanel.setPreferredSize(new Dimension(525,525));
+	 	bigCheckoutPanel.setPreferredSize(new Dimension(525,625));
 	 	
 	 	
 	 	//components inside checkout panel
@@ -77,7 +78,7 @@ public class OrderDialog extends JDialog {
 	 	JLabel expYearLabel = new JLabel("Card expiration year #:", JLabel.TRAILING);
 	 	JTextField expYearField = new JTextField("", 9);
 	 	JTextArea totalsText = new JTextArea();
-	 	totalsText.setPreferredSize(new Dimension(200,200));
+	 	totalsText.setPreferredSize(new Dimension(200,50));
 	 	
 	 	JButton submitButton = new JButton("Submit order");
 	 	JLabel errorLabel = new JLabel("");
@@ -169,11 +170,24 @@ public class OrderDialog extends JDialog {
 	 	SpringUtilities.makeCompactGrid(checkoutPanel, 6, 2, //rows, cols
 	 									4, 4, //initx, initx
 	 									6, 6); //xpad, ypad
-	 	
+	 	bcplayout.putConstraint(SpringLayout.WEST, checkoutPanel, 15, SpringLayout.WEST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, checkoutPanel, -15, SpringLayout.EAST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, checkoutPanel, 5, SpringLayout.NORTH, bigCheckoutPanel);
 	 	bigCheckoutPanel.add(checkoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.WEST, submitButton, 15, SpringLayout.WEST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, submitButton, -15, SpringLayout.EAST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, submitButton, 15, SpringLayout.SOUTH, checkoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.SOUTH, submitButton, 75, SpringLayout.NORTH, submitButton);
 	 	bigCheckoutPanel.add(submitButton);
+	 	bcplayout.putConstraint(SpringLayout.WEST, errorLabel, 15, SpringLayout.WEST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, errorLabel, -15, SpringLayout.EAST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, errorLabel, 15, SpringLayout.SOUTH, submitButton);
+	 	bcplayout.putConstraint(SpringLayout.SOUTH, errorLabel, 275, SpringLayout.NORTH, errorLabel);
 	 	bigCheckoutPanel.add(errorLabel);
-	 	bigCheckoutPanel.add(totalsText);
+	 	bcplayout.putConstraint(SpringLayout.WEST, totalsText, 15, SpringLayout.WEST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, -15, SpringLayout.EAST, bigCheckoutPanel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 15, SpringLayout.SOUTH, errorLabel);
+	 	bigCheckoutPanel.add(totalsText);	 	
 	 	/*SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
 				4, 4, //initx, initx
 				6, 6); //xpad, ypad
