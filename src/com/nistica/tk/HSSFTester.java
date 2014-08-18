@@ -112,25 +112,24 @@ public class HSSFTester
         }
     }
 	
-	public void addOrder(String[] info) {
+	public boolean addOrder(String[] info) {
 		int i = 0;
+		boolean successful = true;
 		HSSFWorkbook checker = null;
 		HSSFSheet checkerSheet;
 		try {
 			System.out.println(fileString);
 			fileIn = new FileInputStream(fileString);
 			//fileIn.close();
-			
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			successful = false;
 		}
 		try {
 			checker =new HSSFWorkbook(fileIn);
 		} catch (IOException e) {
 			e.printStackTrace();
+			successful = false;
 		}
 		checkerSheet = checker.getSheet("new sheet");
 		do {} while (checkerSheet.getRow(i++) != null);
@@ -152,7 +151,9 @@ public class HSSFTester
             fileOut.close();
         } catch (Exception e) {
             e.printStackTrace();
+            successful = false;
         }
+        return successful;
 	}
 	public CellStyle SetCS() {
 		CellStyle style = workbook.createCellStyle();
