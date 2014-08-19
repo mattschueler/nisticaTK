@@ -235,7 +235,7 @@ public class HSSFTester
 		}
 		newOrderRow.createCell(startRow+4).setCellValue(Integer.parseInt(info[4]));
 		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
-		newOrderRow.createCell(startRow+6).setCellValue(info[6]);	
+		newOrderRow.createCell(startRow+6).setCellValue(Double.parseDouble(info[6]));	
 		System.out.println("THIS IS #6---" + info[6]);
         try {
         	lock.release();

@@ -123,7 +123,7 @@ public class OrderGUI implements ScrollPaneConstants {
 			{
 				// display/center the jdialog when the button is pressed				
 				HelpDialog help = new HelpDialog();
-			 	help.setLocation(new Point(265,200));
+			 	help.setLocation(new Point(325,170));
 			 	help.pack();
 			 	help.setVisible(true);
 			}

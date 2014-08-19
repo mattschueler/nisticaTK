@@ -66,7 +66,7 @@ public class StripeOrder {
 	}
 	
 	//remove static later
-	public boolean sendPayment(int amount, String desc){
+	public boolean sendPayment(double amount, String desc){
 		
 		
 		if(!cardSet)
@@ -75,9 +75,18 @@ public class StripeOrder {
 			return false;
 		}
 		
-		amount*=107;
+		amount*=1.07;//Adds 7% sales tax 
+		//This finds how much more to charge the customer 
+		//so that when stripe takes their cut of 2.9% of $.30 on each transaction,
+		//the leftover will still equal what the customer had to pay with sales tax. 
+		//To figure out how this works, do the math like I did.
+		double transactionOffset = (amount*(.029)+.3)/(.971);
+		amount+=transactionOffset;
+		//turns it into cents bc stripe only accepts in cents
+		amount*=100;
+		
 		System.out.println("amount is in cents " + amount);
-		chargeMap.put("amount", amount);//amount in cents
+		chargeMap.put("amount", Math.round(amount));//amount in cents
 		chargeMap.put("currency", "usd");
 		chargeMap.put("description", desc);
 		

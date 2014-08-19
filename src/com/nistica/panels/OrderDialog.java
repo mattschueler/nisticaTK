@@ -101,7 +101,7 @@ public class OrderDialog extends JDialog {
 	 	expYearLabel = new JLabel("Card expiration year #:", JLabel.TRAILING);
 	 	expYearField = new JTextField("", 9);
 	 	totalsText = new JTextArea();
-	 	totalsText.setPreferredSize(new Dimension(200,50));
+	 	totalsText.setPreferredSize(new Dimension(200,70));
 	 	
 	 	submitButton = new JButton("Submit order");
 	 	errorLabel = new JLabel("");
@@ -183,7 +183,7 @@ public class OrderDialog extends JDialog {
 						System.out.println("Indiv price:" + itemInfo[6]);
 						//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
 						//Math.round(
-						orderTotalPrice += Double.parseDouble(itemInfo[6]);
+						//orderTotalPrice += Double.parseDouble(itemInfo[6]);
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
 							break;
@@ -192,10 +192,11 @@ public class OrderDialog extends JDialog {
 						}
 					}
 					if (successfulOrder) {
+						System.out.println("amount sent to striper " + orderTotalPrice);
 						errorLabel.setForeground(new Color(0,127,0));
 						errorLabel.setText("Order Successful. Thank you.");
 						System.out.println(orderTotalPrice);
-						stripeOrder.sendPayment((int) (orderTotalPrice), fnameField.getText()+" " + lnameField.getText()+" has ordered");
+						stripeOrder.sendPayment(orderTotalPrice, fnameField.getText()+" " + lnameField.getText()+" has ordered");
 					} else {
 						errorLabel.setForeground(Color.RED);
 						errorLabel.setText("Error in sending order.");
@@ -208,7 +209,10 @@ public class OrderDialog extends JDialog {
 	 		
 	 	});
 	 	
-	 	totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07)));
+	 	double transactionFee = (orderTotalPrice*1.07*(.029)+.3)/(.971); //Explained in StripeOrder.java
+	 	totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
+	 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
+	 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+transactionFee));
 	 	totalsText.setEditable(false);
 	 	
 	 	SpringLayout springLayout = new SpringLayout();
@@ -246,7 +250,7 @@ public class OrderDialog extends JDialog {
 	 	bigCheckoutPanel.add(errorLabel);
 	 	bcplayout.putConstraint(SpringLayout.WEST, totalsText, 15, SpringLayout.WEST, bigCheckoutPanel);
 	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, -15, SpringLayout.EAST, bigCheckoutPanel);
-	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 15, SpringLayout.SOUTH, errorLabel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 5, SpringLayout.SOUTH, errorLabel);
 	 	bigCheckoutPanel.add(totalsText);	 	
 	 	/*SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
 				4, 4, //initx, initx
