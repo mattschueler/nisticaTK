@@ -178,18 +178,29 @@ public class OrderDialog extends JDialog {
 						return;
 					
 					for(int i=0;i<items.length;i++) {
-						itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
-						itemInfo[1] = ((MenuItem)items[i]).info[0];
-						itemInfo[2] = ((MenuItem)items[i]).info[3];
-						itemInfo[3] = ((MenuItem)items[i]).info[4];
-						itemInfo[4] = ((MenuItem)items[i]).info[5];
-						itemInfo[5] = ((MenuItem)items[i]).info[6];
-						itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
-						itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
-						System.out.println("Indiv price:" + itemInfo[6]);
-						//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
-						//Math.round(
-						orderTotalPrice += Double.parseDouble(itemInfo[6]);
+						if (Integer.parseInt(((MenuItem)items[i]).info[0]) < 200) {
+							itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
+							itemInfo[1] = ((MenuItem)items[i]).info[0];
+							itemInfo[2] = ((MenuItem)items[i]).info[3];
+							itemInfo[3] = ((MenuItem)items[i]).info[4];
+							itemInfo[4] = ((MenuItem)items[i]).info[5];
+							itemInfo[5] = ((MenuItem)items[i]).info[6];
+							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
+							System.out.println("Indiv price:" + itemInfo[6]);
+							//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
+							//Math.round(
+							orderTotalPrice += Double.parseDouble(itemInfo[6]);
+						} else {
+							itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
+							itemInfo[1] = "";
+							itemInfo[2] = "";
+							itemInfo[3] = "";
+							itemInfo[4] = ((MenuItem)items[i]).info[5];
+							itemInfo[5] = ((MenuItem)items[i]).info[1];
+							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
+						}
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
 							break;

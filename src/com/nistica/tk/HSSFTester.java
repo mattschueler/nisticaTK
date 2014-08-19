@@ -226,7 +226,11 @@ public class HSSFTester
 		Row newOrderRow = sheet.createRow(--i);
 		int startRow = 1;
 		newOrderRow.createCell(startRow).setCellValue(info[0]);
-		newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1]));
+		if (info[1] != "") {
+			newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1]));
+		} else {
+			newOrderRow.createCell(startRow+1).setCellValue(info[1]);
+		}
 		newOrderRow.createCell(startRow+2).setCellValue(info[2]);
 		if (info[3] != "") {
 			newOrderRow.createCell(startRow+3).setCellValue(Integer.parseInt(info[3]));
