@@ -157,9 +157,9 @@
 		</entree>
 	</lunch>
 	<dinner>
-		<appetizer_soup>
+		<appetizer>
 			<food>
-			  <number>19</number>
+			  <number>1</number>
 			  <name>Thai Egg Rolls (3)</name>
 			  <originalPrice>4.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -167,7 +167,7 @@
 			  <desc>Fried egg rolls stuffed with glass noodles, cabbage and carrots served with sweet and sour sauce.</desc>
 			</food>
 			<food>
-			  <number>20</number>
+			  <number>2</number>
 			  <name>Tao Hou Todd (Tofu)</name>
 			  <originalPrice>5.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -175,7 +175,7 @@
 			  <desc>Fried tofu served with spicy sauce and crushed peanuts.</desc>
 			</food>
 			<food>
-			  <number>21</number>
+			  <number>3</number>
 			  <name>Mee Grob</name>
 			  <originalPrice>5.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -183,7 +183,7 @@
 			  <desc>Fried cripsy thin rice noodles and shrimp marinated in special sweet and sour sauce, garnished with bean sprouts, red bell peppers, tofu. and carrots.</desc>
 			</food>
 			<food>
-			  <number>22</number>
+			  <number>4</number>
 			  <name>Steamed Shrimp Dumplings</name>
 			  <originalPrice>5.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -191,7 +191,7 @@
 			  <desc>Served with house ginger and garlic sauce.</desc>
 			</food>
 			<food>
-			  <number>23</number>
+			  <number>5</number>
 			  <name>Satae</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -199,7 +199,7 @@
 			  <desc>BBQ chicken or beef on skewers marinated Thai-style served with peanut sauce and cucumber sauce (5 skewers).</desc>
 			</food>
 			<food>
-			  <number>24</number>
+			  <number>6</number>
 			  <name>Pla Muk Yang</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -207,7 +207,7 @@
 			  <desc>BBQ squid served with spicy sauce and crushed peanuts.</desc>
 			</food>
 			<food>
-			  <number>25</number>
+			  <number>7</number>
 			  <name>Curry Puff</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -215,17 +215,59 @@
 			  <desc>Puff pastry filled with mince chicken curried, potatoes, onions, carrots and celery, seved with cucumber relish.</desc>
 			</food>
 			<food>
-			  <number>26</number>
+			  <number>8</number>
 			  <name>Yum Ped Yang</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>false</hasMeats>
 			  <hasSpice>true</hasSpice>
 			  <desc>Crispy duck seasoned with lime juice, hot pepper, cucumber, tomatoes, ginger, pineapple, celery and cashew nuts.</desc>
 			</food>
-		</appetizer_soup>
+		</appetizer>
+		<soup>
+			<food>
+			  <number>9</number>
+			  <name>Tom Tum Koong</name>
+			  <originalPrice>5.95</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Hot and sour shrimp soup with lemongrass, lime juice, mushrooms, bell peppers, onions, hot chili paste and chinese parsley.</desc>
+			</food>
+			<food>
+			  <number>10</number>
+			  <name>Tom Kha Gai</name>
+			  <originalPrice>5.95</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>true</hasSpice>
+			  <desc>Chicken in coconut milk soup with galanga, lime juice, bell peppers, onions, mushrooms and chili paste.</desc>
+			</food>
+			<food>
+			  <number>11</number>
+			  <name>Jurd Woon-sen</name>
+			  <originalPrice>4.95</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Glass noodles soup with chicken, mushrooms, scallions, onions, napa and baby corns.</desc>
+			</food>
+			<food>
+			  <number>12</number>
+			  <name>Jurd Sarai Gai</name>
+			  <originalPrice>4.95</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Seaweed soup with chicken, carrots, onions, and scallions.</desc>
+			</food>
+			<food>
+			  <number>13</number>
+			  <name>Jurd Moo Sup</name>
+			  <originalPrice>4.95</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Tofu soup with grounded pork, mushrooms, napa, baby corns, onions, scallions.</desc>
+			</food>
+		</soup>
 		<salad>
 			<food>
-			  <number>27</number>
+			  <number>14</number>
 			  <name>Thai Salad</name>
 			  <originalPrice>4.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -233,15 +275,17 @@
 			  <desc>Crispy duck seasoned with lime juice, hot pepper, cucumber, tomatoes, ginger, pineapple, celery and cashew nuts.</desc>
 			</food>
 			<food>
-			  <number>28</number>
+			  <number>15</number>
 			  <name>Som Tum</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>false</hasMeats>
 			  <hasSpice>true</hasSpice>
 			  <desc>Shredded raw papaya salad marinated with spicy chili, lime juice, crushed peanuts and palm sugar.</desc>
 			</food>
+		</salad>
+		<yum_yum>
 			<food>
-			  <number>29</number>
+			  <number>16</number>
 			  <name>Yum Nurr</name>
 			  <originalPrice>9.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -249,7 +293,7 @@
 			  <desc>Sliced charcoal steak seasoned with scallions, red onions, Chinese parsley, cucumbers, bell peppers, tomatoes, lime juice and spicy chili served on a bed of lettuce.</desc>
 			</food>
 			<food>
-			  <number>30</number>
+			  <number>17</number>
 			  <name>Nurr Nam Toak</name>
 			  <originalPrice>9.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -257,7 +301,7 @@
 			  <desc>Sliced charcoal steak seasoned with crispy crushed rice, scallions, red onions, bell peppers, lemon juice and chili paste served on a bed of lettuce.</desc>
 			</food>
 			<food>
-			  <number>31</number>
+			  <number>18</number>
 			  <name>Larb</name>
 			  <originalPrice>9.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -265,7 +309,7 @@
 			  <desc>Choice of grounded beef or chicken seasoned with hot pepper, red onions, scallions, bell peppers, crispy crushed rice, Chinese parsley and lime juice, served with a bed of lettuce.</desc>
 			</food>
 			<food>
-			  <number>32</number>
+			  <number>19</number>
 			  <name>Namm Sod</name>
 			  <originalPrice>9.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -273,7 +317,7 @@
 			  <desc>Grounded pork with ginger and roasted peanuts seasoned with lime juice, and hot pepper, served on a bed of lettuce.</desc>
 			</food>
 			<food>
-			  <number>33</number>
+			  <number>20</number>
 			  <name>Yum Talay</name>
 			  <originalPrice>12.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -281,7 +325,7 @@
 			  <desc>Shrimp, scallop and squid seasoned with lime juice, garlic, chili, bell peppers, red onions and scallions.</desc>
 			</food>
 			<food>
-			  <number>34</number>
+			  <number>21</number>
 			  <name>Yum Woon-Sen</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -289,7 +333,7 @@
 			  <desc>Bean thread noodles (glass noodles), grounded pork and shrimps seasoned with peanuts, lime juice, and hot pepper, served on a bed of lettuce.</desc>
 			</food>
 			<food>
-			  <number>35</number>
+			  <number>22</number>
 			  <name>Yum Pla Muk</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -297,17 +341,17 @@
 			  <desc>Squid seasoned with lime juice, hot peppers, cucumbers and tomatoes, served on a bed of lettuce.</desc>
 			</food>
 			<food>
-			  <number>36</number>
+			  <number>23</number>
 			  <name>Pla Koong</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>false</hasMeats>
 			  <hasSpice>true</hasSpice>
 			  <desc>Shrimps seasoned with lime juice, chili paste, bell peppers, cucumbers, tomatoes, red onions, crispy crushed rice, cilentros and served on a bed of lettuce.</desc>
 			</food>
-		</salad>
+		</yum_yum>
 		<chefs_special>
 			<food>
-			  <number>37</number>
+			  <number>24</number>
 			  <name>Ped Chiangmai</name>
 			  <originalPrice>17.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -315,7 +359,7 @@
 			  <desc>Roasted duck sauteed with bell peppers, cashed nuts, onions, scallions, and pineapples in hoy sen sauce.</desc>
 			</food>
 			<food>
-			  <number>38</number>
+			  <number>25</number>
 			  <name>Pad Phet Scallops</name>
 			  <originalPrice>18.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -323,7 +367,7 @@
 			  <desc>Fresh scallops, bamboo shoots, bell peppers, and onions with a chef's special curry.</desc>
 			</food>
 			<food>
-			  <number>39</number>
+			  <number>26</number>
 			  <name>Koong Phutkit</name>
 			  <originalPrice>17.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -331,7 +375,7 @@
 			  <desc>Shrimps sauteed with bell peppers, onions, ginger, bamboo shoots, toamatoes, coconut milk with curry powder.</desc>
 			</food>
 			<food>
-			  <number>40</number>
+			  <number>27</number>
 			  <name>Squid In Love</name>
 			  <originalPrice>17.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -339,7 +383,7 @@
 			  <desc>Sauteed squid, shrimp and chicken with bell peppers, scallions, and mushrooms with chef's special sauce.</desc>
 			</food>
 			<food>
-			  <number>41</number>
+			  <number>28</number>
 			  <name>Pad Prik Khing</name>
 			  <originalPrice>17.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -347,7 +391,7 @@
 			  <desc>Shrimp and chicken sauteed with long green beans, onions and bell peppers with chef's special curry sauceShrimp and chicken sauteed with long green beans, onions and bell peppers with chef's special curry sauce.</desc>
 			</food>
 			<food>
-			  <number>42</number>
+			  <number>29</number>
 			  <name>Tamarind Duck</name>
 			  <originalPrice>17.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -355,7 +399,7 @@
 			  <desc>Pieces of crispy tender duck with a special tamarind sauce over a bed of crispy noodles.</desc>
 			</food>
 			<food>
-			  <number>43</number>
+			  <number>30</number>
 			  <name>Pla Sam Loot</name>
 			  <originalPrice>19.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -363,7 +407,7 @@
 			  <desc>Deep fried filet or whole fish top with fresh chili, garlic, and tamarind in chef's special sauce.</desc>
 			</food>
 			<food>
-			  <number>44</number>
+			  <number>31</number>
 			  <name>Pla Lad Prik (Thai Style)</name>
 			  <originalPrice>23.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -371,7 +415,7 @@
 			  <desc>Deep fried filet or whole fish top with bell peppers with chef's special curry sauce.</desc>
 			</food>
 			<food>
-			  <number>45</number>
+			  <number>32</number>
 			  <name>Pla Jean</name>
 			  <originalPrice>23.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -379,7 +423,7 @@
 			  <desc>Deep fried filet or whole fish top with pork, ginger, onions, and scallions in bean sauce.</desc>
 			</food>
 			<food>
-			  <number>46</number>
+			  <number>33</number>
 			  <name>Kra Pao Talay</name>
 			  <originalPrice>23.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -387,7 +431,7 @@
 			  <desc>Shrimp, squid, and scallop sauteed with bell peppers, onions, and mushrooms with basil leaves and lime leaves in a chili paste sauce.</desc>
 			</food>
 			<food>
-			  <number>47</number>
+			  <number>34</number>
 			  <name>Pad Talay</name>
 			  <originalPrice>17.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -397,7 +441,7 @@
 		</chefs_special>
 		<entree_main>
 			<food>
-			  <number>48</number>
+			  <number>35</number>
 			  <name>Pad Tau Kak</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -405,7 +449,7 @@
 			  <desc>Sauteed with long beans, onions, red peppers, carrots, and chopped turnips in hot and spicy chili sauce.</desc>
 			</food>
 			<food>
-			  <number>49</number>
+			  <number>36</number>
 			  <name>Pad Kra Pao</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -413,7 +457,7 @@
 			  <desc>Sauteed with basil leaves, onions, mushrooms, bell peppers in hot and spicy chili sauce.</desc>
 			</food>
 			<food>
-			  <number>50</number>
+			  <number>37</number>
 			  <name>Pad Kra Tiem</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -421,7 +465,7 @@
 			  <desc>Sauteed with garlic and white pepper, broccoli, baby corn, carrots, red bell peppers, garnished with sliced cucumber and tomatoes.</desc>
 			</food>
 			<food>
-			  <number>51</number>
+			  <number>38</number>
 			  <name>Pad Phet Nor Mai</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -429,7 +473,7 @@
 			  <desc>Sauteed with bamboo shoots, bell peppers, long beans, and onions, in hot and spicy chili sauce.</desc>
 			</food>
 			<food>
-			  <number>52</number>
+			  <number>39</number>
 			  <name>Pad Khing</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -437,7 +481,7 @@
 			  <desc>Sauteed with fresh ginger, onions, scallions, bell peppers and mushrooms.</desc>
 			</food>
 			<food>
-			  <number>53</number>
+			  <number>40</number>
 			  <name>Pad Ka Nar</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -445,7 +489,7 @@
 			  <desc>Sauteed with Chinese broccoli, onions, carrots and oyster sauce.</desc>
 			</food>
 			<food>
-			  <number>54</number>
+			  <number>41</number>
 			  <name>Pad Woon-Sen</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -453,7 +497,7 @@
 			  <desc>Sauteed with glass noodles (bean threads), eggs, bean sprouts, napa, baby corn, scallions, onions and red bell peppers.</desc>
 			</food>
 			<food>
-			  <number>55</number>
+			  <number>42</number>
 			  <name>Pad Preow Wan</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -461,7 +505,7 @@
 			  <desc>Sauteed in sweet and sour sauce with pineapple, bell peppers, baby corn, celery, cucumbers and tomatoes.</desc>
 			</food>
 			<food>
-			  <number>56</number>
+			  <number>43</number>
 			  <name>Pad Cashew</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -469,7 +513,7 @@
 			  <desc>Sauteed with bell peppers, cashew nuts, celery, onions, and scallions in a chili paste sauce.</desc>
 			</food>
 			<food>
-			  <number>57</number>
+			  <number>44</number>
 			  <name>Eight Is Enough</name>
 			  <originalPrice>14.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -477,7 +521,7 @@
 			  <desc>Sauteed combination of chicken, shrimps, squid, mushrooms, onions, red bell peppers, bean sprouts and scallions.</desc>
 			</food>
 			<food>
-			  <number>58</number>
+			  <number>45</number>
 			  <name>Gai Yang</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -485,7 +529,7 @@
 			  <desc>Thai Style BBQ chicken served with spicy and sweet sauce.</desc>
 			</food>
 			<food>
-			  <number>59</number>
+			  <number>46</number>
 			  <name>Jay Ma Khoa</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -495,7 +539,7 @@
 		</entree_main>
 		<entree_thai_curry>
 			<food>
-			  <number>60</number>
+			  <number>47</number>
 			  <name>Gang Kiew Wan</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -503,7 +547,7 @@
 			  <desc>Green curry and coconut milk with eggplant, bell peppers, onions, bamboo shoots, lime leaves and basil leaves.</desc>
 			</food>
 			<food>
-			  <number>61</number>
+			  <number>48</number>
 			  <name>Gang Karee</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -511,7 +555,7 @@
 			  <desc>Yellow curry and coconut milk with potatoes, long green beans, broccoli, onioins and bell peppers.</desc>
 			</food>
 			<food>
-			  <number>62</number>
+			  <number>49</number>
 			  <name>Gang Dang</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -519,7 +563,7 @@
 			  <desc>Red curry and coconut milk with bamboo shoots, bell peppers, onions, lime leaves and basil leaves.</desc>
 			</food>
 			<food>
-			  <number>63</number>
+			  <number>505</number>
 			  <name>Mus-sa-mum</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -527,7 +571,7 @@
 			  <desc>Mussamum curry in coconut milk with peanuts, potatoes, onions, carrots, and bell peppers.</desc>
 			</food>
 			<food>
-			  <number>64</number>
+			  <number>51</number>
 			  <name>Pra Raam</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -535,7 +579,7 @@
 			  <desc>Spicy peanut curry sauce served over green vegetables.</desc>
 			</food>
 			<food>
-			  <number>65</number>
+			  <number>52</number>
 			  <name>Pa Nang</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -543,7 +587,7 @@
 			  <desc>Panang curry in coconut milk with lime leaves, onions, carrots and bell peppers.</desc>
 			</food>
 			<food>
-			  <number>66</number>
+			  <number>53</number>
 			  <name>Gang Paa</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -551,7 +595,7 @@
 			  <desc>Jungle curry (without coconut milk) with hot and spicy chili sauce, lime leaves, bell peppers, onions, long green beans, bamboo shoots, and basil leaves.</desc>
 			</food>
 			<food>
-			  <number>67</number>
+			  <number>54</number>
 			  <name>Pad Phet Paa</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -559,7 +603,7 @@
 			  <desc>Sauteed with dry curry paste, bamboo shoots, long beans, onions bell peppers, lime leaves and basil leaves.</desc>
 			</food>
 			<food>
-			  <number>68</number>
+			  <number>55</number>
 			  <name>Jay Panang</name>
 			  <originalPrice>10.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -569,7 +613,7 @@
 		</entree_thai_curry>
 		<entree_duck>
 			<food>
-			  <number>69</number>
+			  <number>56</number>
 			  <name>Gang Ped Yang</name>
 			  <originalPrice>16.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -577,7 +621,7 @@
 			  <desc>Roasted duck top with red curry and coconut milk with bamboo shoots, onions, bell peppers, tomatoes, pineapples, lime leaves and basil leaves.</desc>
 			</food>
 			<food>
-			  <number>70</number>
+			  <number>57</number>
 			  <name>Ped Nor Mai</name>
 			  <originalPrice>16.95</originalPrice>
 			  <hasMeats>false</hasMeats>
@@ -587,7 +631,7 @@
 		</entree_duck>
 		<entree_noodles_fried_rice>
 			<food>
-			  <number>71</number>
+			  <number>58</number>
 			  <name>Pad Thai</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -595,7 +639,7 @@
 			  <desc>Stir fried thin Thai rice noodles with eggs, chopped peanuts, bean curd and bean sprouts, served with raw bean sprouts and lemon.</desc>
 			</food>
 			<food>
-			  <number>72</number>
+			  <number>59</number>
 			  <name>Pad Hai Lum</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -603,7 +647,7 @@
 			  <desc>Stir fried broad rice noodles with eggs, chopped turnips, baby corn, onions, napa, mushrooms and scallions.</desc>
 			</food>
 			<food>
-			  <number>73</number>
+			  <number>60</number>
 			  <name>Pad See Eue</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -611,7 +655,7 @@
 			  <desc>Stir fried broad rice noodles with chinese broccoli and soy sauce.</desc>
 			</food>
 			<food>
-			  <number>74</number>
+			  <number>61</number>
 			  <name>Pad Lard Nar</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -619,7 +663,7 @@
 			  <desc>Stir fried broad rice noodles with Chinese broccoli, topped with brown gravy.</desc>
 			</food>
 			<food>
-			  <number>75</number>
+			  <number>62</number>
 			  <name>Pad Ba Mee</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -627,7 +671,7 @@
 			  <desc>Stir fried egg noodles with bean sprouts, baby corns, onions, mushrooms, napa, carrots and scallions.</desc>
 			</food>
 			<food>
-			  <number>76</number>
+			  <number>63</number>
 			  <name>Kao Pad</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -635,7 +679,7 @@
 			  <desc>Thai fried rice with onions, scallions, tomatoes and eggs.</desc>
 			</food>
 			<food>
-			  <number>77</number>
+			  <number>64</number>
 			  <name>Kao Pad Phet Jay</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -643,7 +687,7 @@
 			  <desc>Mixed vegetables and tofu fried rice with basil leaves and hot and spicy chili.</desc>
 			</food>
 			<food>
-			  <number>78</number>
+			  <number>65</number>
 			  <name>Pad Kee Mao</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -651,7 +695,7 @@
 			  <desc>Sauteed broad rice noodles with shrimp, chicken, basil leaves, onions, mushrooms, bell peppers and hot and spicy chili paste.</desc>
 			</food>
 			<food>
-			  <number>79</number>
+			  <number>66</number>
 			  <name>Lard Nar Talay</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -659,7 +703,7 @@
 			  <desc>Combination of shrimp, squid, crab sticks and vegetables, served on a bed of crispy egg noodles with gravy.</desc>
 			</food>
 			<food>
-			  <number>80</number>
+			  <number>67</number>
 			  <name>Duck Noodles</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -667,7 +711,7 @@
 			  <desc>Stir fried shredded duck with board rice noodles, white onions, red onions, scallions, bean sprouts and eggs.</desc>
 			</food>
 			<food>
-			  <number>81</number>
+			  <number>68</number>
 			  <name>Mee Siam</name>
 			  <originalPrice>8.95</originalPrice>
 			  <hasMeats>true</hasMeats>
@@ -676,4 +720,96 @@
 			</food>
 		</entree_noodles_fried_rice>	
 	</dinner>
+	<sides>
+		<food>
+		  <number>201</number>
+		  <name>Steamed Jasmine Rice (Sm)</name>
+		  <originalPrice>1.00</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Small side of steamed white rice.</desc>
+		</food>
+		<food>
+		  <number>202</number>
+		  <name>Steamed Jasmine Rice (Lg)</name>
+		  <originalPrice>2.00</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Large side of steamed white rice.</desc>
+		</food>
+		<food>
+		  <number>203</number>
+		  <name>Brown Rice (Sm)</name>
+		  <originalPrice>2.00</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Small side of brown rice.</desc>
+		</food>
+		<food>
+		  <number>204</number>
+		  <name>Brown Rice (Lg)</name>
+		  <originalPrice>4.00</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Large side of brown rice.</desc>
+		</food>
+		<food>
+		  <number>205</number>
+		  <name>Sweet Coconut Rice (Sm)</name>
+		  <originalPrice>2.00</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Small side of sweet coconut rice.</desc>
+		</food>
+		<food>
+		  <number>206</number>
+		  <name>Sweet Coconut Rice (Lg)</name>
+		  <originalPrice>4.00</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Large side of sweet coconut rice.</desc>
+		</food>
+	</sides>
+	<beverages>
+		<food>
+		  <number>207</number>
+		  <name>Bottle Water</name>
+		  <originalPrice>1.50</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Bottled Water.</desc>
+		</food>
+		<food>
+		  <number>208</number>
+		  <name>Perrier</name>
+		  <originalPrice>2.50</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Perrier.</desc>
+		</food>
+		<food>
+		  <number>209</number>
+		  <name>Thai Ice Tea/Ice Coffee</name>
+		  <originalPrice>2.50</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Thai Ice Tea or Ice Coffee.</desc>
+		</food>
+		<food>
+		  <number>210</number>
+		  <name>Tea (Jasmine, Green or Lipton)</name>
+		  <originalPrice>1.50</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Choice of Jasmine tea, Green tea or Lipton Tea.</desc>
+		</food>
+		<food>
+		  <number>211</number>
+		  <name>Soda</name>
+		  <originalPrice>1.50</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Soda.</desc>
+		</food>
+	</beverages>
 </menu>
