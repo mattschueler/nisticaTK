@@ -27,6 +27,9 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static MenuPanel menuItemHolder;
 	public static CartPanel cartItemHolder;
 	
+	public static JButton helpButton;
+	public static JButton clearCart;
+	
 	//public static OrderPanel orderItemHolder;
 	
 	public static int numberOfMenuItems;
@@ -115,7 +118,7 @@ public class OrderGUI implements ScrollPaneConstants {
 		//user can change the order and resubmit it.  If there is no saved order, then a dialog box will open up informing the user
 		//of this.
 		//any other buttons that I can think of will be added as necessary in the best possible location
-		JButton helpButton = new JButton("Help");
+		helpButton = new JButton("Help");
 		helpButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -144,7 +147,7 @@ public class OrderGUI implements ScrollPaneConstants {
 		springControls.putConstraint(SpringLayout.NORTH, orderButton, 5, SpringLayout.NORTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.EAST, orderButton, -10, SpringLayout.EAST, controlsPanel);
 		controlsPanel.add(orderButton);
-		JButton clearCart = new JButton("Clear");
+		clearCart = new JButton("Clear");
 		clearCart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {

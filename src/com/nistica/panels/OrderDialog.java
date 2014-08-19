@@ -29,6 +29,23 @@ public class OrderDialog extends JDialog {
 	double orderTotalPrice;
 	CartPanel cartItemHolder;
 	
+	public static JLabel fnameLabel;
+	public static JTextField fnameField;
+	public static JLabel lnameLabel;
+	public static JTextField lnameField;
+	public static JLabel creditcardLabel;
+	public static JTextField creditcardField;
+	public static JLabel cvcLabel;
+	public static JTextField cvcField;
+	public static JLabel expMonthLabel;
+	public static JTextField expMonthField;
+	public static JLabel expYearLabel;
+	public static JTextField expYearField;
+	public static JTextArea totalsText;
+	
+	public static JButton submitButton;
+	public static JLabel errorLabel;
+	
 	public OrderDialog(CartPanel cih){
 		
 		this.setTitle("Your Order");
@@ -64,24 +81,24 @@ public class OrderDialog extends JDialog {
 	 	
 	 	
 	 	//components inside checkout panel
-	 	JLabel fnameLabel = new JLabel("First Name:", JLabel.TRAILING);
-	 	JTextField fnameField = new JTextField("", 15);
-	 	JLabel lnameLabel = new JLabel("Last Name:", JLabel.TRAILING);
-	 	JTextField lnameField = new JTextField("", 15);
-	 	JLabel creditcardLabel = new JLabel("Credit card number:", JLabel.TRAILING);
-	 	JTextField creditcardField = new JTextField("", 20);
-	 	JLabel cvcLabel = new JLabel("CVC:", JLabel.TRAILING);
-	 	JTextField cvcField = new JTextField("", 5);
-	 	JLabel expMonthLabel = new JLabel("Card expiration month #:", JLabel.TRAILING);
-	 	JTextField expMonthField = new JTextField("", 7);
+	 	fnameLabel = new JLabel("First Name:", JLabel.TRAILING);
+	 	fnameField = new JTextField("", 15);
+	 	lnameLabel = new JLabel("Last Name:", JLabel.TRAILING);
+	 	lnameField = new JTextField("", 15);
+	 	creditcardLabel = new JLabel("Credit card number:", JLabel.TRAILING);
+	 	creditcardField = new JTextField("", 20);
+	 	cvcLabel = new JLabel("CVC:", JLabel.TRAILING);
+	 	cvcField = new JTextField("", 5);
+	 	expMonthLabel = new JLabel("Card expiration month #:", JLabel.TRAILING);
+	 	expMonthField = new JTextField("", 7);
 	 	expMonthField.setInputVerifier(new CardInputVerifier());
-	 	JLabel expYearLabel = new JLabel("Card expiration year #:", JLabel.TRAILING);
-	 	JTextField expYearField = new JTextField("", 9);
-	 	JTextArea totalsText = new JTextArea();
+	 	expYearLabel = new JLabel("Card expiration year #:", JLabel.TRAILING);
+	 	expYearField = new JTextField("", 9);
+	 	totalsText = new JTextArea();
 	 	totalsText.setPreferredSize(new Dimension(200,50));
 	 	
-	 	JButton submitButton = new JButton("Submit order");
-	 	JLabel errorLabel = new JLabel("");
+	 	submitButton = new JButton("Submit order");
+	 	errorLabel = new JLabel("");
 	 	errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	 	errorLabel.setFont(new Font("Serif", Font.BOLD, 24));
 	 	errorLabel.setForeground(Color.RED);
