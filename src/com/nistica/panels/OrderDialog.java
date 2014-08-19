@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.text.DecimalFormat;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalComboBoxButton;
@@ -141,6 +142,10 @@ public class OrderDialog extends JDialog {
 						itemInfo[4] = ((MenuItem)items[i]).info[5];
 						itemInfo[5] = ((MenuItem)items[i]).info[6];
 						itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+						itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
+						System.out.println("Indiv price:" + itemInfo[6]);
+						//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
+						//Math.round(
 						orderTotalPrice += Double.parseDouble(itemInfo[6]);
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
