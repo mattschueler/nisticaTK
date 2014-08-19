@@ -12,6 +12,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
@@ -134,7 +139,38 @@ public class OrderDialog extends JDialog {
 					boolean successfulOrder = false;
 					Component[] items = orderItemHolder.getComponents();
 					String[] itemInfo = new String[7];
-					System.out.println("ITEMS LENGTHHHHHHHHHH: " + items.length); 
+					System.out.println("ITEMS LENGTHHHHHHHHHH: " + items.length);
+					/*try {
+				        // Get a file channel for the file
+				        File file = new File("filename");
+				        FileChannel channel = new RandomAccessFile(file, "rw").getChannel();
+
+				        // Use the file channel to create a lock on the file.
+				        // This method blocks until it can retrieve the lock.
+				        FileLock lock = channel.lock();
+
+				        
+				           use channel.lock OR channel.tryLock();
+				        
+
+				        // Try acquiring the lock without blocking. This method returns
+				        // null or throws an exception if the file is already locked.
+				        try {
+				            lock = channel.tryLock();
+				        } catch (OverlappingFileLockException e) {
+				            // File is already locked in this thread or virtual machine
+				        }
+
+				        // Release the lock
+				        lock.release();
+
+				        // Close the file
+				        channel.close();
+				    } catch (Exception e) {
+				    }*/
+					if(!OrderGUI.hssftest.init())
+						return;
+					
 					for(int i=0;i<items.length;i++) {
 						itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
 						itemInfo[1] = ((MenuItem)items[i]).info[0];
@@ -158,7 +194,8 @@ public class OrderDialog extends JDialog {
 					if (successfulOrder) {
 						errorLabel.setForeground(new Color(0,127,0));
 						errorLabel.setText("Order Successful. Thank you.");
-						stripeOrder.sendPayment((int) (orderTotalPrice*100), fnameField.getText()+" " + lnameField.getText()+" has ordered");
+						System.out.println(orderTotalPrice);
+						stripeOrder.sendPayment((int) (orderTotalPrice), fnameField.getText()+" " + lnameField.getText()+" has ordered");
 					} else {
 						errorLabel.setForeground(Color.RED);
 						errorLabel.setText("Error in sending order.");

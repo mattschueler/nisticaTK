@@ -1,6 +1,9 @@
 package com.nistica.tk;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.util.*;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -11,7 +14,7 @@ public class HSSFTester
 {
 	private GregorianCalendar gc;
 	private String dateString;
-	private String fileString;
+	public static String fileString;
 	private String templateLocation;
 	private File file;
 	
@@ -24,6 +27,8 @@ public class HSSFTester
 	private HSSFFont headerFont;
 	private HSSFCellStyle rowCS;
 	private HSSFFont rowFont;
+	FileChannel channel;
+	FileLock lock;
 	
 	private final String[] headers = {"Initials", "Special #", "Meat", "Spice #", "Quantity", "Comments", "Price"};
 	
@@ -33,8 +38,43 @@ public class HSSFTester
 		fileString = "P:/testOrder/orders/thaiorder" + dateString + ".xls";
 		templateLocation = "/ordersTemplate/TEMPLATE.xls";
     	//fileString = "orders/TEMPLATE.xls";
+		init();
+    }
+    
+    public boolean init(){
 		
-		file = new File(fileString);
+		try {
+	        // Get a file channel for the file
+
+			file = new File(fileString);
+	        channel = new RandomAccessFile(file, "rw").getChannel();
+
+	        // Use the file channel to create a lock on the file.
+	        // This method blocks until it can retrieve the lock.
+	        //lock = channel.lock();
+
+	        /*
+	           use channel.lock OR channel.tryLock();
+	        */
+
+	        // Try acquiring the lock without blocking. This method returns
+	        // null or throws an exception if the file is already locked.
+	        try {
+	            lock = channel.tryLock();
+	        } catch (OverlappingFileLockException e) {
+	            // File is already locked in this thread or virtual machine
+	        	e.printStackTrace();
+	        }
+
+/*	        // Release the lock
+	        lock.release();
+
+	        // Close the file
+	        channel.close();*/
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	return false;
+	    }
 		int state = 2;
 		boolean created = false; 
     	    	                
@@ -63,20 +103,67 @@ public class HSSFTester
     		System.out.println("File already exists");
     	
     	try {
+    		 // Release the lock
+	        lock.release();
+
+	        // Close the file
+	        channel.close();
 			fileIn = new FileInputStream(fileString);
 			System.out.println(fileString);
 			workbook = new HSSFWorkbook(fileIn);
 			fileIn.close();
+			
+	       
+			
 		} catch (IOException e) {
 			e.printStackTrace();
+			if(fileIn!=null)
+				try {
+					fileIn.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			return false;
 		}
+    	/*try {
+	        // Get a file channel for the file
+
+			//file = new File(fileString);
+	        channel = new RandomAccessFile(file, "rw").getChannel();
+
+	        // Use the file channel to create a lock on the file.
+	        // This method blocks until it can retrieve the lock.
+	        //lock = channel.lock();
+
+	        
+	           use channel.lock OR channel.tryLock();
+	        
+
+	        // Try acquiring the lock without blocking. This method returns
+	        // null or throws an exception if the file is already locked.
+	        try {
+	            lock = channel.tryLock();
+	        } catch (OverlappingFileLockException e) {
+	            // File is already locked in this thread or virtual machine
+	        	e.printStackTrace();
+	        }
+
+	        // Release the lock
+	        lock.release();
+
+	        // Close the file
+	        channel.close();
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }*/
     	sheet = workbook.getSheet("new sheet");
         
     	rowCS = workbook.createCellStyle();
 		rowFont = workbook.createFont();
 		rowFont.setFontHeightInPoints((short)11);
 		rowCS.setFont(rowFont);
-	    
+	    return true;
     }
 	/*public void addHeader()  {
 		//Put in "NISTICA" and "please send spring rolls" in really big font
@@ -104,17 +191,48 @@ public class HSSFTester
 		HSSFWorkbook checker = null;
 		HSSFSheet checkerSheet;
 		try {
+			//file = new File(fileString);
+	        channel = new RandomAccessFile(file, "rw").getChannel();
+
+	        // Use the file channel to create a lock on the file.
+	        // This method blocks until it can retrieve the lock.
+	        //lock = channel.lock();
+	        try {
+	            lock = channel.tryLock();
+	        } catch (OverlappingFileLockException e) {
+	            // File is already locked in this thread or virtual machine
+	        	e.printStackTrace();
+	        }
+	        
 			System.out.println(fileString);
 			fileIn = new FileInputStream(fileString);
 		} catch (IOException e) {
 			e.printStackTrace();
 			successful = false;
+			return false;
 		}
 		try {
+			  lock.release();
+
+		        // Close the file
+		        channel.close();
 			checker =new HSSFWorkbook(fileIn);
+			
+			 channel = new RandomAccessFile(file, "rw").getChannel();
+
+		        // Use the file channel to create a lock on the file.
+		        // This method blocks until it can retrieve the lock.
+		        //lock = channel.lock();
+		        try {
+		            lock = channel.tryLock();
+		        } catch (OverlappingFileLockException e) {
+		            // File is already locked in this thread or virtual machine
+		        	e.printStackTrace();
+		        }
 		} catch (IOException e) {
 			e.printStackTrace();
 			successful = false;
+			return false;
 		}
 		checkerSheet = checker.getSheet("new sheet");
 		do {} while (checkerSheet.getRow(i++) != null);
@@ -133,12 +251,28 @@ public class HSSFTester
 		newOrderRow.createCell(startRow+6).setCellValue(info[6]);	
 		System.out.println("THIS IS #6---" + info[6]);
         try {
+        	lock.release();
+
+	        // Close the file
+	        channel.close();
         	fileOut = new FileOutputStream(fileString);
+        	
+        	
         	workbook.write(fileOut);
-            fileOut.close();
+            
         } catch (Exception e) {
             e.printStackTrace(); 
             successful = false;
+            return false;
+        } finally{
+        	if(fileOut!=null)
+				try {
+					fileOut.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	
         }
 		/*if(!writeWorkbook())
 			successful = false;*/
