@@ -19,10 +19,11 @@ public class MenuItem extends JPanel {
 	public JButton transferButton;
 	
 	//These are all the variables that store the values to be shown on the JComponents
-	public String number, name, price, originalPrice, comment, qty, desc;
+	public String number, name, price, originalPrice, comment, qty, desc, course;
 	public boolean hasMeats, hasSpice;
 	public static String[] meats = {"Chicken", "Beef", "Pork", "Veggies/Tofu", "Shrimp", "Squid"};
 	public String[] info;
+	
 	
 	
 	//Misc variables for use in the program
@@ -61,6 +62,7 @@ public class MenuItem extends JPanel {
 		info[6] = ""; //default comment of ""
 		info[7] = originalPrice;
 		info[8] = desc;
+		//set info[9] to course
 	}
 	public void createComponents() {
 		//Setting up the layout of each MenuItem
@@ -379,6 +381,12 @@ public class MenuItem extends JPanel {
 	}
 	public void setDesc(String desc){
 		this.desc = desc;
+	}	
+	public String getCourse(){
+		return course;
+	}
+	public void setCourse(String course){
+		this.course = course;
 	}
 	
 	@Override
