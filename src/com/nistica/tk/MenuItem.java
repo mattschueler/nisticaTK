@@ -19,19 +19,11 @@ public class MenuItem extends JPanel {
 	public JButton transferButton;
 	
 	//These are all the variables that store the values to be shown on the JComponents
-<<<<<<< HEAD
-	private String number, name, price, originalPrice, comment, qty, desc;
+	private String number, name, price, originalPrice, comment, qty, desc, course;
 	private boolean hasMeats, hasSpice;
 	private static final String[] meats = {"Chicken", "Beef", "Pork", "Veggies/Tofu", "Shrimp", "Squid"};
-=======
-	public String number, name, price, originalPrice, comment, qty, desc, course;
-	public boolean hasMeats, hasSpice;
-	public static String[] meats = {"Chicken", "Beef", "Pork", "Veggies/Tofu", "Shrimp", "Squid"};
->>>>>>> origin/master
 	public String[] info;
-	
-	
-	
+		
 	//Misc variables for use in the program
 	//public Item item;
 	public static SpinnerNumberModel qtySpinModel, spiceSpinModel;
@@ -68,11 +60,7 @@ public class MenuItem extends JPanel {
 		info[6] = ""; //default comment of ""
 		info[7] = originalPrice;
 		info[8] = desc;
-<<<<<<< HEAD
 		info[9] = this.getCourse();
-=======
-		//set info[9] to course
->>>>>>> origin/master
 	}
 	public void createComponents() {
 		//Setting up the layout of each MenuItem
@@ -269,13 +257,9 @@ public class MenuItem extends JPanel {
 		sl.putConstraint(SpringLayout.NORTH, transferButton, -6, SpringLayout.NORTH, numberLabel);
 		internalPanel.add(transferButton);		
 		transferButton.addActionListener(new ActionListener(){
-
-			@Override
 			public void actionPerformed(ActionEvent ev) {
 				itemIDSender(ev);
-				
-			}
-			
+			}			
 		});
 		
 		internalPanel.setPreferredSize(new Dimension(500, 100));
