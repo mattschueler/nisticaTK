@@ -1,7 +1,10 @@
 package com.nistica.tk;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.text.*;
 
 import java.awt.*;
@@ -301,7 +304,13 @@ public class MenuItem extends JPanel {
 		this.setMaximumSize(new Dimension(506, 110));
 		this.add(internalPanel);
 		this.setBackground(Color.DARK_GRAY);
-		this.setToolTipText(desc);
+		
+		UIManager.put("ToolTip.background", new ColorUIResource(255, 247, 200));
+		Border border = BorderFactory.createLineBorder(new Color(76, 79, 83));
+		UIManager.put("ToolTip.border", border);
+		ToolTipManager.sharedInstance().setDismissDelay(15000);
+		UIManager.put("ToolTip.font", new FontUIResource("Arial", Font.BOLD, 16));
+		this.setToolTipText("<html><p width=\"500\">"+desc+"</p></html>");
 	}
 		//This method sends the ID given by the mouse event along to the parent panel of the MenuItem (cart or menu)
 	public void itemIDSender(ActionEvent ev) {

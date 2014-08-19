@@ -805,7 +805,7 @@
 		</food>
 		<food>
 		  <number>211</number>
-		  <name>Soda</name>
+		  <name>Choose Soda</name>
 		  <originalPrice>1.50</originalPrice>
 		  <hasMeats>false</hasMeats>
 		  <hasSpice>false</hasSpice>

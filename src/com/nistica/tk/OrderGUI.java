@@ -210,7 +210,8 @@ public class OrderGUI implements ScrollPaneConstants {
 		JLabel hoverHelp = new JLabel("Hover over an item to see a description!");
 		springControls.putConstraint(SpringLayout.NORTH, hoverHelp, 10, SpringLayout.NORTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.WEST, hoverHelp, 20, SpringLayout.EAST, clearCart);
-		hoverHelp.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		hoverHelp.setFont(new Font("Huxtable", Font.PLAIN, 18));
+		hoverHelp.setForeground(Color.white);
 		controlsPanel.add(hoverHelp);
 		
 		
