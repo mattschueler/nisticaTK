@@ -132,16 +132,16 @@ public class HSSFTester
 		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
 		newOrderRow.createCell(startRow+6).setCellValue(info[6]);	
 		System.out.println("THIS IS #6---" + info[6]);
-       /* try {
+        try {
         	fileOut = new FileOutputStream(fileString);
         	workbook.write(fileOut);
             fileOut.close();
         } catch (Exception e) {
             e.printStackTrace(); 
             successful = false;
-        }*/
-		if(!writeWorkbook())
-			successful = false;
+        }
+		/*if(!writeWorkbook())
+			successful = false;*/
        
         return successful;
 	}

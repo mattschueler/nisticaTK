@@ -82,7 +82,7 @@ public class StripeOrder {
 		
 		try{
 			Charge charge = Charge.create(chargeMap);
-			System.out.println(charge);
+			//System.out.println(charge);
 		} catch(StripeException e){
 			e.printStackTrace();
 		}

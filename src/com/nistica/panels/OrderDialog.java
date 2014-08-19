@@ -134,6 +134,7 @@ public class OrderDialog extends JDialog {
 					boolean successfulOrder = false;
 					Component[] items = orderItemHolder.getComponents();
 					String[] itemInfo = new String[7];
+					System.out.println("ITEMS LENGTHHHHHHHHHH: " + items.length); 
 					for(int i=0;i<items.length;i++) {
 						itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
 						itemInfo[1] = ((MenuItem)items[i]).info[0];
