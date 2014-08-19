@@ -191,7 +191,7 @@ public class OrderDialog extends JDialog {
 							System.out.println("Indiv price:" + itemInfo[6]);
 							//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
 							//Math.round(
-							orderTotalPrice += Double.parseDouble(itemInfo[6]);
+							//orderTotalPrice += Double.parseDouble(itemInfo[6]);
 						} else {
 							itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
 							itemInfo[1] = "";
@@ -261,7 +261,11 @@ public class OrderDialog extends JDialog {
 	 			tip = Double.parseDouble(tipText.getText());
 				totalsText.setText("");
 				//subtotal = orderTotalPrice + tip;
-				totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07 + tip)));
+				//totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07 + tip)));
+				double transactionFee = ( ( (orderTotalPrice*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
+				totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
+			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
+			 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
 				System.out.println("action event triggered");
 	 		}
 	 	});
