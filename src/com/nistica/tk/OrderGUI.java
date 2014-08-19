@@ -43,11 +43,13 @@ public class OrderGUI implements ScrollPaneConstants {
 	//DINNER HAS 3 SPACES, LUNCH HAS 2 FOR EACH CATEGORY
 	static HashMap<String, String> foodCategories;
 	static String[] foodTypes = {"Lunch", "  Soups", "  Entrees", 
-		"Dinner", "   Appetizers and Soups", "   Salad", "   Chef's Special", 
-		"   Entrees-Main", "   Thai Curry", "   Duck Entrees", "   Noodles and Fried Rice"};
+		"Dinner", "   Appetizers", "   Soups", "   Salad", "   Yum Yum", "   Chef's Special", 
+		"   Entrees-Main", "   Thai Curry", "   Duck Entrees", "   Noodles and Fried Rice",
+		"Sides", "Beverages"};
 	static String[] lunchTypes = {"Lunch", "  Soups", "  Entrees"};
-	static String[] dinnerTypes = {"   Appetizers and Soups", "   Salad", "   Chef's Special", 
-		"   Entrees-Main", "   Thai Curry", "   Duck Entrees", "   Noodles and Fried Rice"};
+	static String[] dinnerTypes = {"Dinner","   Appetizers", "   Soups", "   Salad", "   Yum Yum", 
+		"   Chef's Special", "   Entrees-Main", "   Thai Curry", 
+		"   Duck Entrees", "   Noodles and Fried Rice"};
 
 	public OrderGUI() {
 	}
@@ -61,12 +63,16 @@ public class OrderGUI implements ScrollPaneConstants {
 		foodCategories.put(foodTypes[2], MenuParser.ENTREE);
 		foodCategories.put(foodTypes[3], MenuParser.DINNER);
 		foodCategories.put(foodTypes[4], MenuParser.APPETIZERS);
-		foodCategories.put(foodTypes[5], MenuParser.SALAD);
-		foodCategories.put(foodTypes[6], MenuParser.SPECIAL);
-		foodCategories.put(foodTypes[7], MenuParser.ENTREE_MAIN);
-		foodCategories.put(foodTypes[8], MenuParser.THAI_CURRY);
-		foodCategories.put(foodTypes[9], MenuParser.DUCK);
-		foodCategories.put(foodTypes[10], MenuParser.NOODLES_FRIED);
+		foodCategories.put(foodTypes[5], MenuParser.SOUP);
+		foodCategories.put(foodTypes[6], MenuParser.SALAD);
+		foodCategories.put(foodTypes[7], MenuParser.YUMYUM);
+		foodCategories.put(foodTypes[8], MenuParser.SPECIAL);
+		foodCategories.put(foodTypes[9], MenuParser.ENTREE_MAIN);
+		foodCategories.put(foodTypes[10], MenuParser.THAI_CURRY);
+		foodCategories.put(foodTypes[11], MenuParser.DUCK);
+		foodCategories.put(foodTypes[12], MenuParser.NOODLES_FRIED);
+		foodCategories.put(foodTypes[13], MenuParser.SIDE);
+		foodCategories.put(foodTypes[14], MenuParser.BEVERAGE);
 		
 		
 		menuParser = new MenuParser();
@@ -168,7 +174,7 @@ public class OrderGUI implements ScrollPaneConstants {
 
 			@Override
 			public void actionPerformed(ActionEvent a) {
-				String course, category;
+				String course=null, category;
 				JComboBox box = (JComboBox)a.getSource();
 				String choice = (String)box.getSelectedItem();
 				
@@ -181,9 +187,14 @@ public class OrderGUI implements ScrollPaneConstants {
 					if(choice.equals("Entrees") && box.getSelectedIndex()>2)
 						course = MenuParser.DINNER;
 				}
-				else
+				else if(Arrays.asList(dinnerTypes).contains(choice))
 					course = MenuParser.DINNER;
-				//System.out.println(course + "|||" + foodCategories.get(choice));
+				else if(choice.equals("Sides"))
+					course = MenuParser.SIDE;
+				else
+					course = MenuParser.BEVERAGE;
+				
+				System.out.println(course + "|||" + foodCategories.get(choice));
 				//figure out what category the selected item was in and then call
 				theMenu = menuParser.readMenu("/other/menuFull.xml", course, foodCategories.get(choice));
 				numberOfMenuItems = theMenu.size();

@@ -720,7 +720,7 @@
 			</food>
 		</entree_noodles_fried_rice>	
 	</dinner>
-	<sides>
+	<side>
 		<food>
 		  <number>201</number>
 		  <name>Steamed Jasmine Rice (Sm)</name>
@@ -769,8 +769,8 @@
 		  <hasSpice>false</hasSpice>
 		  <desc>Large side of sweet coconut rice.</desc>
 		</food>
-	</sides>
-	<beverages>
+	</side>
+	<beverage>
 		<food>
 		  <number>207</number>
 		  <name>Bottle Water</name>
@@ -809,7 +809,7 @@
 		  <originalPrice>1.50</originalPrice>
 		  <hasMeats>false</hasMeats>
 		  <hasSpice>false</hasSpice>
-		  <desc>Soda.</desc>
+		  <desc>Soda type:</desc>
 		</food>
-	</beverages>
+	</beverage>
 </menu>

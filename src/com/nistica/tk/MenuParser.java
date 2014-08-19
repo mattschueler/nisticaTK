@@ -20,10 +20,14 @@ import javax.xml.stream.events.XMLEvent;
 public class MenuParser {
 	static final String LUNCH = "lunch";
 	static final String DINNER = "dinner";
+	static final String SIDE = "side";
+	static final String BEVERAGE = "beverage";
 	static final String SOUP = "soup";
 	static final String ENTREE = "entree";
-	static final String APPETIZERS = "appetizer_soup";
+	static final String APPETIZERS = "appetizer";
+	//soup in dinner too
 	static final String SALAD = "salad";
+	static final String YUMYUM = "yum_yum";
 	static final String SPECIAL = "chefs_special";
 	static final String ENTREE_MAIN= "entree_main";
 	static final String THAI_CURRY= "entree_thai_curry";
