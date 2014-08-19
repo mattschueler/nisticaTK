@@ -49,8 +49,8 @@ public class MenuPanel extends JPanel implements MouseListener {
 		sendingInfo = ((MenuItem)(this.getComponents()[itemToSendID])).info;
 		itemToSend = new MenuItem();
 		itemToSend.info = sendingInfo;
-		itemToSend.hasMeats = (sendingInfo[3] != "");
-		itemToSend.hasSpice = (sendingInfo[4] != "");
+		itemToSend.setHasMeats((sendingInfo[3] != ""));
+		itemToSend.setHasSpice((sendingInfo[4] != ""));
 		itemToSend.createComponents();
 		//rewrite the old values onto the new item
 		//Meat info
@@ -59,7 +59,7 @@ public class MenuPanel extends JPanel implements MouseListener {
 		((JLabel)componentArray[1]).setText(sendingInfo[1]);
 		((JLabel)componentArray[2]).setText("$" + sendingInfo[2]);
 		int j=3;
-		if (itemToSend.hasMeats) {
+		if (itemToSend.isHasMeats()) {
 			for (;j<componentArray.length;j++) {
 				if (componentArray[j] instanceof JComboBox<?>) {
 					break;
@@ -68,7 +68,7 @@ public class MenuPanel extends JPanel implements MouseListener {
 			((JComboBox<?>)componentArray[j]).setSelectedItem(sendingInfo[3]);
 		}
 		//Spice info
-		if (itemToSend.hasSpice) {
+		if (itemToSend.isHasSpice()) {
 			for (;j<componentArray.length;j++) {
 				if (componentArray[j] instanceof JSpinner) {
 					break;
