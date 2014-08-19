@@ -3,8 +3,7 @@ package com.nistica.tk;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalComboBoxButton;
 
-import com.nistica.panels.HelpDialog;
-import com.nistica.panels.OrderDialog;
+import com.nistica.panels.*;
 import com.nistica.tk.MenuItem.*;
 
 import java.awt.*;
@@ -35,7 +34,7 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static int numberOfMenuItems;
 	
 	public static final Color MENUCOLOR = new Color(230,242,242);
-	public static final Color CONTROLCOLOR = new Color(57, 183, 250);//Color(47,211,214);
+	public static final Color CONTROLCOLOR = new Color(57,183,250);//Color(47,211,214);
 	
 	public static List<MenuItem> theMenu;
 	static MenuParser menuParser;
@@ -105,19 +104,12 @@ public class OrderGUI implements ScrollPaneConstants {
 		menuCartPane.setDividerLocation(525);
 		menuCartPane.setEnabled(false);
 		//Create the controls panel at the top of the GUI
-		controlsPanel = new JPanel();
+		controlsPanel = new ControlPanel();
 		SpringLayout springControls = new SpringLayout();
 		controlsPanel.setLayout(springControls);
-		controlsPanel.setBackground(CONTROLCOLOR);
-		//add all of the control buttons here, such as order, clear cart, help, change order (maybe), etc
-		//the help button will create a new popup dialog box telling the user all the controls for using the program
-		//the order button will prompt the user (possibly with a dialog box, but maybe with JOptionPane) if they want to submit
-		//the clear cart button will do the same as above but with a clear message
-		//the change order button will probably be tricky.  if possible: this button would go to the database and access the order
-		//that corresponds to the user that prompted the access.  If there is an order found, then the session is "reopened" so the
-		//user can change the order and resubmit it.  If there is no saved order, then a dialog box will open up informing the user
-		//of this.
-		//any other buttons that I can think of will be added as necessary in the best possible location
+		//controlsPanel.setBackground(CONTROLCOLOR);
+		
+		//This is where all the control buttons go: order, help, etc
 		helpButton = new JButton("Help");
 		helpButton.addActionListener(new ActionListener() {
 			@Override
