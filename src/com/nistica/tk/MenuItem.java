@@ -125,7 +125,7 @@ public class MenuItem extends JPanel {
 					//for the different meats/veggies/other.  i.e. the starting price determines what the other prices will be
 					((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j] = String.valueOf(((JComboBox<?>)child).getSelectedItem());
 					//switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) {
-					if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 2 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 18) {
+					if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 3 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 19) {
 						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
 						case "Chicken":case "Beef":case "Pork":case "Veggies/Tofu":
 							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "6.95";
@@ -136,7 +136,7 @@ public class MenuItem extends JPanel {
 							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
 							break;
 						}
-					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 48 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 59) {
+					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 47 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 60) {
 						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
 						case "Chicken":case "Pork":case "Veggies/Tofu":
 							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
@@ -151,7 +151,7 @@ public class MenuItem extends JPanel {
 							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
 							break;
 						}
-					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 60 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 68) {
+					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 59 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 69) {
 						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
 						case "Chicken":case "Pork":case "Veggies/Tofu":
 							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
@@ -166,7 +166,7 @@ public class MenuItem extends JPanel {
 							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
 							break;
 						}
-					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 71 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 81) {
+					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 70 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 82) {
 						switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]) {
 						case "Chicken":case "Pork":case "Beef":case "Veggies/Tofu":
 							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
