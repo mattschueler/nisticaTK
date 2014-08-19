@@ -66,7 +66,7 @@ public class StripeOrder {
 	}
 	
 	//remove static later
-	public boolean sendPayment(double amount, String desc){
+	public boolean sendPayment(double amount, double tip, String desc){
 		
 		
 		if(!cardSet)
@@ -76,6 +76,7 @@ public class StripeOrder {
 		}
 		
 		amount*=1.07;//Adds 7% sales tax 
+		amount+=tip;
 		//This finds how much more to charge the customer 
 		//so that when stripe takes their cut of 2.9% of $.30 on each transaction,
 		//the leftover will still equal what the customer had to pay with sales tax. 

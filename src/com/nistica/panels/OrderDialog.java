@@ -20,6 +20,8 @@ import java.nio.channels.OverlappingFileLockException;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.metal.MetalComboBoxButton;
 
 import com.nistica.tk.CartPanel;
@@ -51,6 +53,10 @@ public class OrderDialog extends JDialog {
 	
 	public static JButton submitButton;
 	public static JLabel errorLabel;
+	public static JLabel tipLabel;
+	public static JTextField tipText;
+	
+	public static double tip;
 	
 	public OrderDialog(CartPanel cih){
 		
@@ -172,18 +178,36 @@ public class OrderDialog extends JDialog {
 						return;
 					
 					for(int i=0;i<items.length;i++) {
-						itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
-						itemInfo[1] = ((MenuItem)items[i]).info[0];
-						itemInfo[2] = ((MenuItem)items[i]).info[3];
-						itemInfo[3] = ((MenuItem)items[i]).info[4];
-						itemInfo[4] = ((MenuItem)items[i]).info[5];
-						itemInfo[5] = ((MenuItem)items[i]).info[6];
-						itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
-						itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
-						System.out.println("Indiv price:" + itemInfo[6]);
-						//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
-						//Math.round(
-						//orderTotalPrice += Double.parseDouble(itemInfo[6]);
+						
+						if (Integer.parseInt(((MenuItem)items[i]).info[0]) < 200) {
+							itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
+							itemInfo[1] = ((MenuItem)items[i]).info[0];
+							itemInfo[2] = ((MenuItem)items[i]).info[3];
+							itemInfo[3] = ((MenuItem)items[i]).info[4];
+							itemInfo[4] = ((MenuItem)items[i]).info[5];
+							itemInfo[5] = ((MenuItem)items[i]).info[6];
+							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
+							System.out.println("Indiv price:" + itemInfo[6]);
+							//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
+							//Math.round(
+							orderTotalPrice += Double.parseDouble(itemInfo[6]);
+						} else {
+							itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
+							itemInfo[1] = "";
+							itemInfo[2] = "";
+							itemInfo[3] = "";
+							itemInfo[4] = ((MenuItem)items[i]).info[5];
+							itemInfo[5] = ((MenuItem)items[i]).info[1];
+							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
+							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
+						}
+						
+						
+						
+						
+						
+						
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
 							break;
@@ -195,8 +219,10 @@ public class OrderDialog extends JDialog {
 						System.out.println("amount sent to striper " + orderTotalPrice);
 						errorLabel.setForeground(new Color(0,127,0));
 						errorLabel.setText("Order Successful. Thank you.");
-						System.out.println(orderTotalPrice);
-						stripeOrder.sendPayment(orderTotalPrice, fnameField.getText()+" " + lnameField.getText()+" has ordered");
+						System.out.println(orderTotalPrice+tip);
+
+						stripeOrder.sendPayment(orderTotalPrice, tip, fnameField.getText()+" " + lnameField.getText()+" has ordered");
+
 					} else {
 						errorLabel.setForeground(Color.RED);
 						errorLabel.setText("Error in sending order.");
@@ -209,11 +235,37 @@ public class OrderDialog extends JDialog {
 	 		
 	 	});
 	 	
+
 	 	double transactionFee = (orderTotalPrice*1.07*(.029)+.3)/(.971); //Explained in StripeOrder.java
 	 	totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
 	 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
-	 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+transactionFee));
+	 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
+
 	 	totalsText.setEditable(false);
+	 	
+	 	tipLabel = new JLabel("Tip:");
+	 	tipText = new JTextField("");
+	 	tipText.getDocument().addDocumentListener(new DocumentListener(){
+	 		@Override
+			
+	 		public void changedUpdate(DocumentEvent e) {
+	 			change();
+	 		  }
+	 		public void removeUpdate(DocumentEvent e) {
+	 			change();
+	 		}
+	 		public void insertUpdate(DocumentEvent e) {
+	 			change();
+	 		}
+	 		public void change() {
+	 			tip = Double.parseDouble(tipText.getText());
+				totalsText.setText("");
+				//subtotal = orderTotalPrice + tip;
+				totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07 + tip)));
+				System.out.println("action event triggered");
+	 		}
+	 	});
+	 	tipText.setInputVerifier(new TipInputVerifier());
 	 	
 	 	SpringLayout springLayout = new SpringLayout();
 	 	checkoutPanel = new JPanel();
@@ -249,9 +301,23 @@ public class OrderDialog extends JDialog {
 	 	bcplayout.putConstraint(SpringLayout.SOUTH, errorLabel, 275, SpringLayout.NORTH, errorLabel);
 	 	bigCheckoutPanel.add(errorLabel);
 	 	bcplayout.putConstraint(SpringLayout.WEST, totalsText, 15, SpringLayout.WEST, bigCheckoutPanel);
-	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, -15, SpringLayout.EAST, bigCheckoutPanel);
+
+	 	/*bcplayout.putConstraint(SpringLayout.EAST, totalsText, -15, SpringLayout.EAST, bigCheckoutPanel);
 	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 5, SpringLayout.SOUTH, errorLabel);
-	 	bigCheckoutPanel.add(totalsText);	 	
+	 	bigCheckoutPanel.add(totalsText);	 	*/
+
+	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, 225, SpringLayout.WEST, totalsText);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 15, SpringLayout.SOUTH, errorLabel);
+	 	bigCheckoutPanel.add(totalsText);
+	 	bcplayout.putConstraint(SpringLayout.WEST, tipLabel, 15, SpringLayout.EAST, totalsText);
+	 	bcplayout.putConstraint(SpringLayout.EAST, tipLabel, 25, SpringLayout.WEST, tipLabel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, tipLabel, 25, SpringLayout.SOUTH, errorLabel);
+	 	bigCheckoutPanel.add(tipLabel);
+	 	bcplayout.putConstraint(SpringLayout.WEST, tipText, 15, SpringLayout.EAST, tipLabel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, tipText, 150, SpringLayout.WEST, tipText);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, tipText, 25, SpringLayout.SOUTH, errorLabel);
+	 	bigCheckoutPanel.add(tipText);
+	 	
 	 	/*SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
 				4, 4, //initx, initx
 				6, 6); //xpad, ypad
@@ -293,10 +359,38 @@ public class OrderDialog extends JDialog {
  		@Override
  		public boolean verify(JComponent input){
  			String text = ((JTextField)input).getText();
- 			try{
- 				Integer.valueOf(text); 				
+ 			try {
+ 				Integer.valueOf(text); 	
+ 				if (!(Integer.valueOf(text) > 0 && Integer.valueOf(text) < 13)) {
+ 					JOptionPane.showMessageDialog(null,
+ 	 	                    "Error: Please enter a month between 1 and 12", "Error Message",
+ 	 	                    JOptionPane.ERROR_MESSAGE);
+ 					return false;
+ 				}
  			} catch(NumberFormatException e){
  				e.printStackTrace();
+ 				JOptionPane.showMessageDialog(null,
+ 	                    "Error: Please enter a valid number", "Error Message",
+ 	                    JOptionPane.ERROR_MESSAGE);
+ 				return false;
+ 			}
+ 			return true;
+ 		}
+ 	}
+ 	
+private class TipInputVerifier extends InputVerifier{
+ 		
+ 		@Override
+ 		public boolean verify(JComponent input){
+ 			String text = ((JTextField)input).getText();
+ 			try {
+ 				Double.valueOf(text); 				
+ 			} catch(NumberFormatException e){
+ 				((JTextField)input).setText("");
+ 				e.printStackTrace();
+ 				JOptionPane.showMessageDialog(null,
+ 	                    "Error: Please enter a valid tip of form ##.##", "Error Message",
+ 	                    JOptionPane.ERROR_MESSAGE);
  				return false;
  			}
  			return true;

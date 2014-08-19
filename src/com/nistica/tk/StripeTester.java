@@ -6,6 +6,6 @@ public class StripeTester {
 		
 		String bob = stripeOrder.setCreditCard("4242424242424242", "Person Name", 12, 2020);
 		System.out.println(bob);
-		stripeOrder.sendPayment(100, "<name> is ordering <food>");
+		stripeOrder.sendPayment(100, 0, "<name> is ordering <food>");
 	}
 }
