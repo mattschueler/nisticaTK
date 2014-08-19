@@ -13,7 +13,7 @@ public class MenuItem extends JPanel {
 	//These are all of the visible JComponents that will be shown in the GUI
 	public JPanel internalPanel;
 	public JLabel nameLabel, numberLabel, priceLabel, sizeLabel, meatLabel, spiceLabel, commentLabel, qtyLabel;
-	public JComboBox<String> sizeList, meatBox;
+	public JComboBox sizeList, meatBox;
 	public JSpinner spiceBox, qtyBox;
 	public JFormattedTextField commentBox;
 	public JButton transferButton;
@@ -102,7 +102,7 @@ public class MenuItem extends JPanel {
 			sl.putConstraint(SpringLayout.NORTH, meatLabel, 15, SpringLayout.SOUTH, numberLabel);
 			sl.putConstraint(SpringLayout.WEST, meatLabel, 5, SpringLayout.WEST, internalPanel);
 			internalPanel.add(meatLabel);
-			meatBox = new JComboBox<String>(meats);
+			meatBox = new JComboBox(meats);
 			//This Action Listener allows the JComboBox's value to change what the price tag is on each MenuItem
 			meatBox.addActionListener(new ActionListener() {
 				@Override
@@ -123,67 +123,67 @@ public class MenuItem extends JPanel {
 					//This gets the selected item and compares it to a list of possible values to see what the new price is
 					//The originalPrice (info[7]) is also checked to determine what the cost is because there are different levels of pricing
 					//for the different meats/veggies/other.  i.e. the starting price determines what the other prices will be
-					((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j] = String.valueOf(((JComboBox<?>)child).getSelectedItem());
+					((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[j] = String.valueOf(((JComboBox)child).getSelectedItem());
 					//switch (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) {
-					if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 3 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 19) {
-						String condition = ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]; 
+					if (Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) > 3 && Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) < 19) {
+						String condition = ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[j]; 
 						if(condition.equals("Chicken") || condition.equals("Beef") || condition.equals("Pork") || condition.equals("Veggies/Tofu"))
 						{						
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "6.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);							
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "6.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);							
 						}
 						else if(condition.equals("Squid") || condition.equals("Shrimp"))
 						{						
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "7.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);						
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "7.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);						
 						}
 					}
-					 else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 47 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 60) {
-						 String condition = ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]; 
+					 else if (Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) > 47 && Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) < 60) {
+						 String condition = ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[j]; 
 						 if(condition.equals("Chicken") || condition.equals("Pork") || condition.equals("Veggies/Tofu"))
 						 {
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						 }
 						 else if(condition.equals("Beef"))
 						 {
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						 }
 						 else if(condition.equals("Squid") || condition.equals("Shrimp"))
 						 {
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						 }
 					
-					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 59 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 69) {
-						String condition = (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]);
+					} else if (Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) > 59 && Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) < 69) {
+						String condition = (((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[j]);
 						if(condition.equals("Chicken") || condition.equals("Pork") || condition.equals("Veggies/Tofu"))
 						{
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "10.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						}
 						else if(condition.equals("Beef"))
 						{
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "12.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "12.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						}
 						else if(condition.equals("Squid") || condition.equals("Shrimp"))
 						{
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						}
-					} else if (Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) > 70 && Integer.parseInt(((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[0]) < 82) {
-						String condition= (((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[j]);
+					} else if (Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) > 70 && Integer.parseInt(((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[0]) < 82) {
+						String condition= (((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[j]);
 						if(condition.equals("Chicken") || condition.equals("Beef") || condition.equals("Pork") || condition.equals("Veggies/Tofu"))
 						{
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "8.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						}
 						else if(condition.equals("Squid") || condition.equals("Shrimp"))
 						{
-							((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
-							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox<?>)(ae.getSource())).getParent().getParent()).info[2]);
+							((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2] = "13.95";
+							((JLabel)(parent[2])).setText("$" + ((MenuItem)((JComboBox)(ae.getSource())).getParent().getParent()).info[2]);
 						
 						}
 					}

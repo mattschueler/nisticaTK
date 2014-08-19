@@ -344,23 +344,23 @@ public class OrderDialog extends JDialog {
 				//Meat info
 				if (itemToSend.isHasMeats()) {
 					for (;j<componentArray.length;j++) {
-						if (componentArray[j] instanceof JComboBox<?>) {
+						if (componentArray[j] instanceof JComboBox) {
 							break;
 						}
 					}
-					((JComboBox<?>)componentArray[j]).setSelectedItem(sendingInfo[3]);
-					((JComboBox<?>)componentArray[j]).setEditable(false);
-					((JTextField)((JComboBox<?>)componentArray[j]).getEditor().getEditorComponent()).setEditable(false);
-					((MetalComboBoxButton)((JComboBox<?>)componentArray[j]).getComponents()[0]).setEnabled(false);
+					((JComboBox)componentArray[j]).setSelectedItem(sendingInfo[3]);
+					((JComboBox)componentArray[j]).setEditable(false);
+					((JTextField)((JComboBox)componentArray[j]).getEditor().getEditorComponent()).setEditable(false);
+					((MetalComboBoxButton)((JComboBox)componentArray[j]).getComponents()[0]).setEnabled(false);
 					int k;
 					//This disables the mouse listeners on the JComboBox so that the user cannot interact with it
-					MouseListener[] listeners = ((JComboBox<?>)componentArray[j]).getMouseListeners();
+					MouseListener[] listeners = ((JComboBox)componentArray[j]).getMouseListeners();
 					for (k=0;k<listeners.length;k++) {
-						((JComboBox<?>)componentArray[j]).removeMouseListener(listeners[k]);
+						((JComboBox)componentArray[j]).removeMouseListener(listeners[k]);
 					}
-					listeners = ((MetalComboBoxButton)((JComboBox<?>)componentArray[j]).getComponents()[0]).getMouseListeners();
+					listeners = ((MetalComboBoxButton)((JComboBox)componentArray[j]).getComponents()[0]).getMouseListeners();
 					for (k=0;k<listeners.length;k++) {
-						((MetalComboBoxButton)((JComboBox<?>)componentArray[j]).getComponents()[0]).removeMouseListener(listeners[k]);
+						((MetalComboBoxButton)((JComboBox)componentArray[j]).getComponents()[0]).removeMouseListener(listeners[k]);
 					}
 				}
 				//Spice info

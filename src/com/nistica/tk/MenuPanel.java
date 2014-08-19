@@ -61,11 +61,11 @@ public class MenuPanel extends JPanel implements MouseListener {
 		int j=3;
 		if (itemToSend.isHasMeats()) {
 			for (;j<componentArray.length;j++) {
-				if (componentArray[j] instanceof JComboBox<?>) {
+				if (componentArray[j] instanceof JComboBox) {
 					break;
 				}
 			}
-			((JComboBox<?>)componentArray[j]).setSelectedItem(sendingInfo[3]);
+			((JComboBox)componentArray[j]).setSelectedItem(sendingInfo[3]);
 		}
 		//Spice info
 		if (itemToSend.isHasSpice()) {
