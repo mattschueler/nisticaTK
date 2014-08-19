@@ -42,39 +42,9 @@ public class HSSFTester
     }
     
     public boolean init(){
+
+		file = new File(fileString);
 		
-		try {
-	        // Get a file channel for the file
-
-			file = new File(fileString);
-	        channel = new RandomAccessFile(file, "rw").getChannel();
-
-	        // Use the file channel to create a lock on the file.
-	        // This method blocks until it can retrieve the lock.
-	        //lock = channel.lock();
-
-	        /*
-	           use channel.lock OR channel.tryLock();
-	        */
-
-	        // Try acquiring the lock without blocking. This method returns
-	        // null or throws an exception if the file is already locked.
-	        try {
-	            lock = channel.tryLock();
-	        } catch (OverlappingFileLockException e) {
-	            // File is already locked in this thread or virtual machine
-	        	e.printStackTrace();
-	        }
-
-/*	        // Release the lock
-	        lock.release();
-
-	        // Close the file
-	        channel.close();*/
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    	return false;
-	    }
 		int state = 2;
 		boolean created = false; 
     	    	                
@@ -87,6 +57,7 @@ public class HSSFTester
     			temp.write(tempOut);
     			tempOut.close();
     			created=true;
+    			  			
     		} catch (IOException ioe) {
     			ioe.printStackTrace();
     		}
@@ -95,6 +66,22 @@ public class HSSFTester
     		else if (!created) 
     			state = 0;
     	}
+		try {
+			channel = new RandomAccessFile(file, "rw").getChannel();
+			try {
+	            lock = channel.tryLock();
+	        } catch (OverlappingFileLockException e) {
+	            // File is already locked in this thread or virtual machine
+	        	e.printStackTrace();
+	        } catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
     	if (state == 1)
     		System.out.println("File successfully created");
     	else if (state == 0)
