@@ -30,7 +30,7 @@ public class HSSFTester
     public HSSFTester() {
     	gc = new GregorianCalendar();
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
-		fileString = "orders/thaiorder" + dateString + ".xls";
+		fileString = "P:/testOrder/orders/thaiorder" + dateString + ".xls";
 		templateLocation = "/ordersTemplate/TEMPLATE.xls";
     	//fileString = "orders/TEMPLATE.xls";
 		
@@ -131,15 +131,41 @@ public class HSSFTester
 		newOrderRow.createCell(startRow+4).setCellValue(Integer.parseInt(info[4]));
 		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
 		newOrderRow.createCell(startRow+6).setCellValue(info[6]);		
-        try {
+       /* try {
         	fileOut = new FileOutputStream(fileString);
         	workbook.write(fileOut);
             fileOut.close();
         } catch (Exception e) {
             e.printStackTrace(); 
             successful = false;
-        }
+        }*/
+		if(!writeWorkbook())
+			successful = false;
+       
         return successful;
+	}
+	private boolean writeWorkbook(){
+		 System.out.println("Trying to write to xls");
+        try
+	    {
+        	fileOut = new FileOutputStream(fileString);
+        	workbook.write(fileOut);
+            fileOut.close();
+			
+	    }
+	    catch (IOException err) // Can't access
+	    {
+	        try
+	        {
+	            Thread.sleep(200); // Sleep a bit
+	            return writeWorkbook(); // Try again
+	        }
+	        catch (InterruptedException err2)
+	        {
+	           return writeWorkbook(); // Could not sleep, try again anyway
+	        }
+	    }
+        return true;
 	}
 	public CellStyle SetCS() {
 		CellStyle style = workbook.createCellStyle();
