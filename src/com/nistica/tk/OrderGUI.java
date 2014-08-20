@@ -29,12 +29,10 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static JButton helpButton;
 	public static JButton clearCart;
 	
-	//public static OrderPanel orderItemHolder;
-	
 	public static int numberOfMenuItems;
 	
 	public static final Color MENUCOLOR = new Color(230,242,242);
-	public static final Color CONTROLCOLOR = new Color(57,183,250);//Color(47,211,214);
+	public static final Color CONTROLCOLOR = new Color(57,183,250);
 	
 	public static List<MenuItem> theMenu;
 	static MenuParser menuParser;
@@ -90,7 +88,6 @@ public class OrderGUI implements ScrollPaneConstants {
 		menuItemHolder = new MenuPanel(numberOfMenuItems+1);
 		menuItemHolder.setLayout(new BoxLayout(menuItemHolder, BoxLayout.PAGE_AXIS));
 		for (MenuItem menuItem : theMenu) {
-			//newMenuItem = new MenuItem();
 			menuItemHolder.add(menuItem);
 		}
 		menuItemHolder.setBackground(MENUCOLOR);
@@ -113,7 +110,6 @@ public class OrderGUI implements ScrollPaneConstants {
 		controlsPanel = new ControlPanel();
 		SpringLayout springControls = new SpringLayout();
 		controlsPanel.setLayout(springControls);
-		//controlsPanel.setBackground(CONTROLCOLOR);
 		
 		//This is where all the control buttons go: order, help, etc
 		helpButton = new JButton("Help");
@@ -194,7 +190,6 @@ public class OrderGUI implements ScrollPaneConstants {
 				else
 					course = MenuParser.BEVERAGE;
 				
-				//System.out.println(course + "|||" + foodCategories.get(choice));
 				//figure out what category the selected item was in and then call
 				theMenu = menuParser.readMenu("orders/menuFull.xml", course, foodCategories.get(choice));
 				numberOfMenuItems = theMenu.size();

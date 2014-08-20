@@ -60,7 +60,6 @@ public class MenuParser {
 				if(event.isStartElement()){
 					StartElement startElement = event.asStartElement();
 					//If it's a food make a new menuitem
-					//System.out.println(startElement.getName().getLocalPart());
 					
 					if(startElement.getName().getLocalPart().equals(course)){
 						correctCourse = true;
@@ -92,7 +91,6 @@ public class MenuParser {
 					if(event.asStartElement().getName().getLocalPart().equals(NAME)){
 						event = eventReader.nextEvent();
 						item.setName(event.asCharacters().getData());
-						//System.out.println(event.asCharacters().getData());
 						continue;
 					}					
 				}
@@ -101,7 +99,6 @@ public class MenuParser {
 						event = eventReader.nextEvent();
 						
 						item.setOriginalPrice(event.asCharacters().getData());
-						//System.out.println(event.asCharacters().getData());
 						continue;
 					}					
 				}
@@ -139,7 +136,6 @@ public class MenuParser {
 					if(endElement.getName().getLocalPart().equals(course))
 					{
 						correctCourse = false;
-						//System.out.println("end of course reached");
 					}
 					
 					if(endElement.getName().getLocalPart().equals(category))

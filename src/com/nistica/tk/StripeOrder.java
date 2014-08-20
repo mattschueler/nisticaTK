@@ -2,7 +2,7 @@ package com.nistica.tk;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+//import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,10 +34,8 @@ public class StripeOrder {
 			System.out.println(reader.readLine());
 			Stripe.apiKey = "sk_test_4aGesuqZhhrj4LhMeV9d0EiM";
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -65,11 +63,9 @@ public class StripeOrder {
 			e.printStackTrace();
 			return "Authentication Error";
 		} catch (InvalidRequestException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "Invalid Request";
 		} catch (APIConnectionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "API Connection Error: "+e.getMessage();
 		} catch (CardException e) {
@@ -77,7 +73,6 @@ public class StripeOrder {
 			e.printStackTrace();
 			return e.getMessage();
 		} catch (APIException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -86,9 +81,7 @@ public class StripeOrder {
 	}
 	
 	//remove static later
-	public boolean sendPayment(double amount, double tip, String desc){
-		
-		
+	public boolean sendPayment(double amount, double tip, String desc){		
 		if(!cardSet)
 		{
 			System.err.println("Credit card not set");
@@ -113,7 +106,6 @@ public class StripeOrder {
 		
 		try{
 			Charge charge = Charge.create(chargeMap);
-			//System.out.println(charge);
 		} catch(StripeException e){
 			e.printStackTrace();
 		}

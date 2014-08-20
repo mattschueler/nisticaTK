@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-//import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -53,13 +52,9 @@ public class OrderDialog extends JDialog {
 		
 		this.setTitle("Your Order");
 		this.setModal(true);
-		//this.setResizable(false);
 		
 		JPanel bigPanel = new JPanel();
 		this.cartItemHolder = cih;
-		
-		//this.getContentPane().setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		//this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		orderItemHolder = new OrderPanel();
 		orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
@@ -129,40 +124,12 @@ public class OrderDialog extends JDialog {
 					e.printStackTrace();
 					return;
 				}
-				//System.out.println("order passed?: " + cardCheckMessage);
 				if(cardCheckMessage.equals("Card Valid")) {
 					boolean successfulOrder = false;
 					Component[] items = orderItemHolder.getComponents();
 					String[] itemInfo = new String[8];
 					System.out.println("ITEMS LENGTHHHHHHHHHH: " + items.length);
-					/*try {
-				        // Get a file channel for the file
-				        File file = new File("filename");
-				        FileChannel channel = new RandomAccessFile(file, "rw").getChannel();
-
-				        // Use the file channel to create a lock on the file.
-				        // This method blocks until it can retrieve the lock.
-				        FileLock lock = channel.lock();
-
-				        
-				           use channel.lock OR channel.tryLock();
-				        
-
-				        // Try acquiring the lock without blocking. This method returns
-				        // null or throws an exception if the file is already locked.
-				        try {
-				            lock = channel.tryLock();
-				        } catch (OverlappingFileLockException e) {
-				            // File is already locked in this thread or virtual machine
-				        }
-
-				        // Release the lock
-				        lock.release();
-
-				        // Close the file
-				        channel.close();
-				    } catch (Exception e) {
-				    }*/
+					
 					if(!OrderGUI.hssftest.init())
 					{
 						errorLabel.setText("Could not save your order. Is someone accessing the file?");
@@ -185,9 +152,6 @@ public class OrderDialog extends JDialog {
 							else
 								itemInfo[7] = "";
 							System.out.println("Indiv price:" + itemInfo[6]);
-							//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
-							//Math.round(
-							//orderTotalPrice += Double.parseDouble(itemInfo[6]);
 						} else {
 							itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
 							itemInfo[1] = "";
@@ -258,16 +222,12 @@ public class OrderDialog extends JDialog {
 	 			else
 	 			{
 	 				tip = 0;
-	 				//tipText.setText("0");
 	 			}
 				totalsText.setText("");
-				//subtotal = orderTotalPrice + tip;
-				//totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07 + tip)));
 				double transactionFee = ( ( (orderTotalPrice*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
 				totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
 			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
 			 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
-				//System.out.println("action event triggered");
 	 		}
 	 	});
 	 	tipText.setInputVerifier(new TipInputVerifier());
@@ -306,11 +266,6 @@ public class OrderDialog extends JDialog {
 	 	bcplayout.putConstraint(SpringLayout.SOUTH, errorLabel, 275, SpringLayout.NORTH, errorLabel);
 	 	bigCheckoutPanel.add(errorLabel);
 	 	bcplayout.putConstraint(SpringLayout.WEST, totalsText, 15, SpringLayout.WEST, bigCheckoutPanel);
-
-	 	/*bcplayout.putConstraint(SpringLayout.EAST, totalsText, -15, SpringLayout.EAST, bigCheckoutPanel);
-	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 5, SpringLayout.SOUTH, errorLabel);
-	 	bigCheckoutPanel.add(totalsText);	 	*/
-
 	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, 225, SpringLayout.WEST, totalsText);
 	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 0, SpringLayout.SOUTH, errorLabel);
 	 	bigCheckoutPanel.add(totalsText);
@@ -323,10 +278,6 @@ public class OrderDialog extends JDialog {
 	 	bcplayout.putConstraint(SpringLayout.NORTH, tipText, 25, SpringLayout.SOUTH, errorLabel);
 	 	bigCheckoutPanel.add(tipText);
 	 	
-	 	/*SpringUtilities.makeCompactGrid(bigCheckoutPanel, 3, 1, //rows, cols
-				4, 4, //initx, initx
-				6, 6); //xpad, ypad
-*/	 	
 	 	bigPanel.add(orderPane);
 	 	bigPanel.add(bigCheckoutPanel);
 	 	
@@ -422,7 +373,7 @@ public class OrderDialog extends JDialog {
 					 Double.valueOf( ((MenuItem)cartItemHolder.getComponents()[i]).info[5]) ;
 		}
 		
-		//It's 107 because *100 to conver to cents and then the 7% tax
+		//It's 107 because *100 to converts to cents and then the 7% tax
 		System.out.println("order total price with tax (in cents) " + (int) (orderTotalPrice*107));
 		this.orderTotalPrice = orderTotalPrice;
 		

@@ -32,7 +32,6 @@ public class HSSFTester
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
 		fileString = "orders/thaiorder" + dateString + ".xls";
 		templateLocation = "/ordersTemplate/TEMPLATE.xls";
-    	//fileString = "orders/TEMPLATE.xls";
 		init();
     }
     
@@ -45,7 +44,6 @@ public class HSSFTester
     	    	                
 		if (!file.exists()) {
     		try {
-    			//FileInputStream tempIn = new FileInputStream(templateLocation);
     			InputStream tempIn = HSSFTester.class.getResourceAsStream(templateLocation);
     			HSSFWorkbook temp = new HSSFWorkbook(tempIn);
     			FileOutputStream tempOut = new FileOutputStream(fileString);
@@ -69,11 +67,9 @@ public class HSSFTester
 	            // File is already locked in this thread or virtual machine
 	        	e.printStackTrace();
 	        } catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}  
 		} catch (FileNotFoundException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 			return false;
 		}
@@ -109,77 +105,25 @@ public class HSSFTester
 				}
 			return false;
 		}
-    	/*try {
-	        // Get a file channel for the file
-
-			//file = new File(fileString);
-	        channel = new RandomAccessFile(file, "rw").getChannel();
-
-	        // Use the file channel to create a lock on the file.
-	        // This method blocks until it can retrieve the lock.
-	        //lock = channel.lock();
-
-	        
-	           use channel.lock OR channel.tryLock();
-	        
-
-	        // Try acquiring the lock without blocking. This method returns
-	        // null or throws an exception if the file is already locked.
-	        try {
-	            lock = channel.tryLock();
-	        } catch (OverlappingFileLockException e) {
-	            // File is already locked in this thread or virtual machine
-	        	e.printStackTrace();
-	        }
-
-	        // Release the lock
-	        lock.release();
-
-	        // Close the file
-	        channel.close();
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    }*/
+    	
     	sheet = workbook.getSheet("new sheet");
-        
     	rowCS = workbook.createCellStyle();
 		rowFont = workbook.createFont();
 		rowFont.setFontHeightInPoints((short)11);
 		rowCS.setFont(rowFont);
 	    return true;
     }
-	/*public void addHeader()  {
-		//Put in "NISTICA" and "please send spring rolls" in really big font
-		HSSFRow headerRow = sheet.createRow(0);		
-		for (int i=5;i<14;i++) {
-        	Cell c = headerRow.createCell(i);
-        	c.setCellValue(headers[i-5]);
-        	c.setCellStyle(headerCS);
-        	//Cell c = headerRow.getCell(i);//.setCellStyle(headerCS);
-        	//c.setCellStyle(headerCS);
-        	sheet.autoSizeColumn(i);
-        }
-        try {
-        	fileOut = new FileOutputStream(fileString);
-        	workbook.write(fileOut);
-            fileOut.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-	
+    
 	public boolean addOrder(String[] info) {
 		int i = 0;
 		boolean successful = true;
 		HSSFWorkbook checker = null;
 		HSSFSheet checkerSheet;
 		try {
-			//file = new File(fileString);
-	        channel = new RandomAccessFile(file, "rw").getChannel();
+			channel = new RandomAccessFile(file, "rw").getChannel();
 
 	        // Use the file channel to create a lock on the file.
 	        // This method blocks until it can retrieve the lock.
-	        //lock = channel.lock();
 	        try {
 	            lock = channel.tryLock();
 	        } catch (OverlappingFileLockException e) {
@@ -205,7 +149,6 @@ public class HSSFTester
 
 		        // Use the file channel to create a lock on the file.
 		        // This method blocks until it can retrieve the lock.
-		        //lock = channel.lock();
 		        try {
 		            lock = channel.tryLock();
 		        } catch (OverlappingFileLockException e) {
@@ -271,15 +214,11 @@ public class HSSFTester
 				try {
 					fileOut.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         	
         }
-		/*if(!writeWorkbook())
-			successful = false;*/
-       
-        return successful;
+		return successful;
 	}
 	private boolean writeWorkbook(){
 		 System.out.println("Trying to write to xls");
