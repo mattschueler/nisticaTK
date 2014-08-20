@@ -241,6 +241,10 @@ public class HSSFTester
 		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
 		newOrderRow.createCell(startRow+6).setCellValue(Double.parseDouble(info[6]));	
 		System.out.println("THIS IS #6---" + info[6]);
+		HSSFFormulaEvaluator form = new HSSFFormulaEvaluator(workbook);
+		form.evaluateInCell(sheet.getRow(3).getCell(9));
+		form.evaluateInCell(sheet.getRow(5).getCell(9));
+		form.evaluateInCell(sheet.getRow(7).getCell(9));
         try {
         	lock.release();
 

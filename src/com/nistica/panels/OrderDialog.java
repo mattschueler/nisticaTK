@@ -24,6 +24,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.metal.MetalComboBoxButton;
 
+import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
+
 import com.nistica.tk.CartPanel;
 import com.nistica.tk.MenuItem;
 import com.nistica.tk.OrderGUI;
@@ -138,8 +140,6 @@ public class OrderDialog extends JDialog {
 					e.printStackTrace();
 					return;
 				}
-				
-				
 				//System.out.println("order passed?: " + cardCheckMessage);
 				if(cardCheckMessage.equals("Card Valid")) {
 					boolean successfulOrder = false;
@@ -202,12 +202,6 @@ public class OrderDialog extends JDialog {
 							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
 							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
 						}
-						
-						
-						
-						
-						
-						
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
 							break;
