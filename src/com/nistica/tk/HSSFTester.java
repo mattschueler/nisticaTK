@@ -35,7 +35,7 @@ public class HSSFTester
     public HSSFTester() {
     	gc = new GregorianCalendar();
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
-		fileString = "P:/testOrder/orders/thaiorder" + dateString + ".xls";
+		fileString = "orders/thaiorder" + dateString + ".xls";
 		templateLocation = "/ordersTemplate/TEMPLATE.xls";
     	//fileString = "orders/TEMPLATE.xls";
 		init();
