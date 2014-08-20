@@ -76,7 +76,7 @@ public class OrderGUI implements ScrollPaneConstants {
 		
 		
 		menuParser = new MenuParser();
-		theMenu = menuParser.readMenu("/other/menuFull.xml", MenuParser.LUNCH, MenuParser.ENTREE);
+		theMenu = menuParser.readMenu("orders/menuFull.xml", MenuParser.LUNCH, MenuParser.ENTREE);
 		hssftest = new HSSFTester();
 		numberOfMenuItems = theMenu.size();
 		
@@ -196,7 +196,7 @@ public class OrderGUI implements ScrollPaneConstants {
 				
 				//System.out.println(course + "|||" + foodCategories.get(choice));
 				//figure out what category the selected item was in and then call
-				theMenu = menuParser.readMenu("/other/menuFull.xml", course, foodCategories.get(choice));
+				theMenu = menuParser.readMenu("orders/menuFull.xml", course, foodCategories.get(choice));
 				numberOfMenuItems = theMenu.size();
 				
 				reInitMenuItems();

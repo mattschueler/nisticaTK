@@ -50,7 +50,7 @@ public class MenuParser {
 		try{
 			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 			
-			InputStream in = MenuParser.class.getResourceAsStream(menuFile);
+			InputStream in = new FileInputStream(new File(menuFile));
 			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
 			
 			//read the file
@@ -151,6 +151,9 @@ public class MenuParser {
 				
 			}
 		}catch(XMLStreamException e){
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return items;
