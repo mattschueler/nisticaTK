@@ -243,7 +243,6 @@ public class HSSFTester
 		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
 		newOrderRow.createCell(startRow+6).setCellValue(Double.parseDouble(info[6]));	
 		System.out.println("THIS IS #6---" + info[6]);
-		HSSFFormulaEvaluator form = new HSSFFormulaEvaluator(workbook);
 		sheet.getRow(3).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);
 		sheet.getRow(3).getCell(9).setCellFormula("SUM(H:H)");
 		sheet.getRow(5).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);;
