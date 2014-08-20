@@ -3,28 +3,17 @@ package com.nistica.panels;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-//import java.awt.FlowLayout;
 import java.awt.Font;
-//import java.awt.GridBagConstraints;
-//import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 //import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.metal.MetalComboBoxButton;
-
-import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 
 import com.nistica.tk.CartPanel;
 import com.nistica.tk.MenuItem;
@@ -239,7 +228,7 @@ public class OrderDialog extends JDialog {
 	 	
 
 	 	double transactionFee = (orderTotalPrice*1.07*(.029)+.3)/(.971); //Explained in StripeOrder.java
-	 	totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
+	 	totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
 	 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
 	 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
 
@@ -274,8 +263,9 @@ public class OrderDialog extends JDialog {
 				totalsText.setText("");
 				//subtotal = orderTotalPrice + tip;
 				//totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07 + tip)));
+
 				double transactionFee = ( ( (orderTotalPrice*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
-				totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
+				totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
 			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
 			 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
 				//System.out.println("action event triggered");
