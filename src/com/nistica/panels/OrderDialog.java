@@ -261,9 +261,16 @@ public class OrderDialog extends JDialog {
 	 		}
 	 		public void change() {
 	 			if(!tipText.getText().equals(""))
+	 				try{
 	 				tip = Double.parseDouble(tipText.getText());
+	 				} catch(NumberFormatException e){
+	 					e.printStackTrace();
+	 				}
 	 			else
+	 			{
 	 				tip = 0;
+	 				tipText.setText("0");
+	 			}
 				totalsText.setText("");
 				//subtotal = orderTotalPrice + tip;
 				//totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07 + tip)));
@@ -271,7 +278,7 @@ public class OrderDialog extends JDialog {
 				totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
 			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
 			 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
-				System.out.println("action event triggered");
+				//System.out.println("action event triggered");
 	 		}
 	 	});
 	 	tipText.setInputVerifier(new TipInputVerifier());
@@ -387,7 +394,7 @@ public class OrderDialog extends JDialog {
  		}
  	}
  	
-private class TipInputVerifier extends InputVerifier{
+ 	private class TipInputVerifier extends InputVerifier{
  		
  		@Override
  		public boolean verify(JComponent input){
@@ -395,11 +402,14 @@ private class TipInputVerifier extends InputVerifier{
  			try {
  				Double.valueOf(text); 				
  			} catch(NumberFormatException e){
- 				((JTextField)input).setText("");
+ 				if(text.equals(""))
+ 					((JTextField)input).setText("0");
+ 				else
+ 					JOptionPane.showMessageDialog(null,
+ 	 	                    "Error: Please enter a valid number0", "Error Message",
+ 	 	                    JOptionPane.ERROR_MESSAGE);
+ 	 				
  				e.printStackTrace();
- 				JOptionPane.showMessageDialog(null,
- 	                    "Error: Please enter a valid tip of form ##.##", "Error Message",
- 	                    JOptionPane.ERROR_MESSAGE);
  				return false;
  			}
  			return true;

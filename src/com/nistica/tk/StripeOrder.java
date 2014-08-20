@@ -1,5 +1,11 @@
 package com.nistica.tk;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +26,21 @@ public class StripeOrder {
 	boolean cardSet = false;
 
 	public StripeOrder(){
-		Stripe.apiKey = "sk_test_4aGesuqZhhrj4LhMeV9d0EiM";
+		Stripe.apiKey = null;
+		try {
+			
+			InputStream in = MenuParser.class.getResourceAsStream("/other/apikey.txt");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			System.out.println(reader.readLine());
+			Stripe.apiKey = "sk_test_4aGesuqZhhrj4LhMeV9d0EiM";
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

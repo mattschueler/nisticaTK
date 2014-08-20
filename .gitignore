@@ -1,6 +1,7 @@
 /menuSystem
 /bin
 /orders/*.xls
+/src/other/apikey.txt
 
 .classpath
 XSSFTEST.xlsx
