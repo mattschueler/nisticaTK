@@ -80,6 +80,7 @@ public class HSSFTester
 		} catch (FileNotFoundException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
+			return false;
 		}
 		
     	if (state == 1)
@@ -225,11 +226,12 @@ public class HSSFTester
 		do {} while (checkerSheet.getRow(i++) != null);
 		Row newOrderRow = sheet.createRow(--i);
 		int startRow = 1;
+		
 		newOrderRow.createCell(startRow).setCellValue(info[0]);
 		if (info[1] != "") {
-			newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1]));
+			newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1])+" " +info[7]);
 		} else {
-			newOrderRow.createCell(startRow+1).setCellValue(info[1]);
+			newOrderRow.createCell(startRow+1).setCellValue(info[1]+" " +info[7]);
 		}
 		newOrderRow.createCell(startRow+2).setCellValue(info[2]);
 		if (info[3] != "") {

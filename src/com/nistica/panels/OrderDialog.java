@@ -144,7 +144,7 @@ public class OrderDialog extends JDialog {
 				if(cardCheckMessage.equals("Card Valid")) {
 					boolean successfulOrder = false;
 					Component[] items = orderItemHolder.getComponents();
-					String[] itemInfo = new String[7];
+					String[] itemInfo = new String[8];
 					System.out.println("ITEMS LENGTHHHHHHHHHH: " + items.length);
 					/*try {
 				        // Get a file channel for the file
@@ -175,7 +175,10 @@ public class OrderDialog extends JDialog {
 				    } catch (Exception e) {
 				    }*/
 					if(!OrderGUI.hssftest.init())
+					{
+						errorLabel.setText("Could not save your order. Is someone accessing the file?");
 						return;
+					}
 					
 					for(int i=0;i<items.length;i++) {
 						
@@ -188,6 +191,7 @@ public class OrderDialog extends JDialog {
 							itemInfo[5] = ((MenuItem)items[i]).info[6];
 							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
 							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
+							itemInfo[7] = ((MenuItem)items[i]).info[9];
 							System.out.println("Indiv price:" + itemInfo[6]);
 							//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
 							//Math.round(
@@ -201,6 +205,7 @@ public class OrderDialog extends JDialog {
 							itemInfo[5] = ((MenuItem)items[i]).info[1];
 							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
 							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
+							itemInfo[7] = "";
 						}
 						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
 							successfulOrder = false;
