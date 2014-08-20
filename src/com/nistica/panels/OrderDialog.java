@@ -258,12 +258,11 @@ public class OrderDialog extends JDialog {
 	 			else
 	 			{
 	 				tip = 0;
-	 				tipText.setText("0");
+	 				//tipText.setText("0");
 	 			}
 				totalsText.setText("");
 				//subtotal = orderTotalPrice + tip;
 				//totalsText.append(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07)) + String.format("Total: %.2f", (orderTotalPrice * 1.07 + tip)));
-
 				double transactionFee = ( ( (orderTotalPrice*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
 				totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
 			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
