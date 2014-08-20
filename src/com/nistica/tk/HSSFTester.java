@@ -6,7 +6,6 @@ import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
 import java.util.*;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.hssf.usermodel.*;
 
@@ -23,16 +22,12 @@ public class HSSFTester
 	public HSSFSheet sheet;
 	public FileInputStream fileIn;
 	public FileOutputStream fileOut;
-	private HSSFCellStyle headerCS;
-	private HSSFFont headerFont;
 	private HSSFCellStyle rowCS;
 	private HSSFFont rowFont;
 	FileChannel channel;
 	FileLock lock;
 	
-	private final String[] headers = {"Initials", "Special #", "Meat", "Spice #", "Quantity", "Comments", "Price"};
-	
-    public HSSFTester() {
+	public HSSFTester() {
     	gc = new GregorianCalendar();
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
 		fileString = "orders/thaiorder" + dateString + ".xls";
@@ -250,12 +245,14 @@ public class HSSFTester
 		newOrderRow.createCell(startRow+6).setCellValue(Double.parseDouble(info[6]));
 		newOrderRow.getCell(startRow+6).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
 		System.out.println("THIS IS #6---" + info[6]);
+		//sheet.getRow(2).getCell(1).setCellValue((gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DAY_OF_MONTH) + "/" + gc.get(Calendar.YEAR));
 		sheet.getRow(3).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);
 		sheet.getRow(3).getCell(9).setCellFormula("SUM(H:H)");
 		sheet.getRow(5).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);;
 		sheet.getRow(5).getCell(9).setCellFormula("J4*0.07");
 		sheet.getRow(7).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);;
 		sheet.getRow(7).getCell(9).setCellFormula("J4+J6");
+		
         try {
         	lock.release();
 
