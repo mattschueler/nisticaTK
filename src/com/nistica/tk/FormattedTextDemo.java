@@ -33,11 +33,11 @@ package com.nistica.tk;
  
 import java.awt.*;
 import java.awt.event.*;
- 
+
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
- 
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
  
@@ -49,6 +49,7 @@ import java.text.*;
  * It implements a mortgage calculator that uses four
  * JFormattedTextFields.
  */
+@SuppressWarnings("serial")
 public class FormattedTextDemo extends JPanel
                                     implements PropertyChangeListener {
     //Values for the fields

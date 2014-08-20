@@ -7,9 +7,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import com.nistica.tk.OrderGUI;
-
-
 @SuppressWarnings("serial")
 public class HelpDialog extends JDialog{
 	
