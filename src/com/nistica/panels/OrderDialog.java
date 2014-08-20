@@ -249,17 +249,16 @@ public class OrderDialog extends JDialog {
 	 			change();
 	 		}
 	 		public void change() {
-	 			if (tipText.getText() != "") {
+	 			if(!tipText.getText().equals(""))
 	 				tip = Double.parseDouble(tipText.getText());
-	 				double transactionFee = ( ( (orderTotalPrice*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
-	 				totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
-	 						+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
-	 						String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
-	 				System.out.println("action event triggered");
-	 			} else {
-	 				//tipText.setText("0");
-	 			}
-	 		}	
+	 			else
+	 				tip = 0;
+				double transactionFee = ( ( (orderTotalPrice*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
+				totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
+			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
+			 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
+				System.out.println("action event triggered");
+	 		}
 	 	});
 	 	tipText.setInputVerifier(new TipInputVerifier());
 	 	
