@@ -191,7 +191,10 @@ public class OrderDialog extends JDialog {
 							itemInfo[5] = ((MenuItem)items[i]).info[6];
 							itemInfo[6] = String.format("" + Double.parseDouble(((MenuItem)items[i]).info[2]) * Integer.parseInt(((MenuItem)items[i]).info[5]));
 							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
-							itemInfo[7] = ((MenuItem)items[i]).info[9];
+							if (((MenuItem)items[i]).info[9] == "dinner")
+								itemInfo[7] = ((MenuItem)items[i]).info[9];
+							else
+								itemInfo[7] = "";
 							System.out.println("Indiv price:" + itemInfo[6]);
 							//System.out.println ("Indiv price- "+(new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]))));
 							//Math.round(

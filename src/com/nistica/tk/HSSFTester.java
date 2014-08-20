@@ -10,7 +10,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.hssf.usermodel.*;
 
-public class HSSFTester 
+public class HSSFTester
 {
 	private GregorianCalendar gc;
 	private String dateString;
@@ -228,20 +228,27 @@ public class HSSFTester
 		int startRow = 1;
 		
 		newOrderRow.createCell(startRow).setCellValue(info[0]);
+		newOrderRow.getCell(startRow).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
 		if (info[1] != "") {
 			newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1])+" " +info[7]);
 		} else {
 			newOrderRow.createCell(startRow+1).setCellValue(info[1]+" " +info[7]);
 		}
+		newOrderRow.getCell(startRow+1).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
 		newOrderRow.createCell(startRow+2).setCellValue(info[2]);
+		newOrderRow.getCell(startRow+2).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
 		if (info[3] != "") {
 			newOrderRow.createCell(startRow+3).setCellValue(Integer.parseInt(info[3]));
 		} else {
 			newOrderRow.createCell(startRow+3).setCellValue(info[3]);	
 		}
+		newOrderRow.getCell(startRow+3).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
 		newOrderRow.createCell(startRow+4).setCellValue(Integer.parseInt(info[4]));
+		newOrderRow.getCell(startRow+4).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
 		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
-		newOrderRow.createCell(startRow+6).setCellValue(Double.parseDouble(info[6]));	
+		newOrderRow.getCell(startRow+5).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
+		newOrderRow.createCell(startRow+6).setCellValue(Double.parseDouble(info[6]));
+		newOrderRow.getCell(startRow+6).getCellStyle().setAlignment(CellStyle.ALIGN_CENTER);
 		System.out.println("THIS IS #6---" + info[6]);
 		sheet.getRow(3).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);
 		sheet.getRow(3).getCell(9).setCellFormula("SUM(H:H)");

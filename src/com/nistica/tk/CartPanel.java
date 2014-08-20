@@ -58,7 +58,7 @@ public class CartPanel extends JPanel implements MouseListener{
 				itemLabel = Integer.parseInt(((JLabel)(((JPanel)item.getComponents()[0]).getComponents()[0])).getText());
 				//These two were split up from the if-statement to make the lines a bit shorter
 				thisLabel = Integer.parseInt(((JLabel)((JPanel)((JPanel)(this.getComponents()[i])).getComponents()[0]).getComponents()[0]).getText());
-				if (itemLabel == thisLabel) {
+				if (itemLabel == thisLabel && ((MenuItem)item).info[9] == (((MenuItem)this.getComponents()[i])).info[9]) {
 					//This removes the current JPanel that is being checked if it passes the above if-statement
 					this.remove(this.getComponents()[i]);
 					break;
