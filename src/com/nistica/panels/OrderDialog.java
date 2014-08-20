@@ -310,7 +310,7 @@ public class OrderDialog extends JDialog {
 	 	bigCheckoutPanel.add(totalsText);	 	*/
 
 	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, 225, SpringLayout.WEST, totalsText);
-	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 15, SpringLayout.SOUTH, errorLabel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 0, SpringLayout.SOUTH, errorLabel);
 	 	bigCheckoutPanel.add(totalsText);
 	 	bcplayout.putConstraint(SpringLayout.WEST, tipLabel, 15, SpringLayout.EAST, totalsText);
 	 	bcplayout.putConstraint(SpringLayout.EAST, tipLabel, 25, SpringLayout.WEST, tipLabel);
