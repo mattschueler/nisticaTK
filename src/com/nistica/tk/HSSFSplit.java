@@ -10,12 +10,13 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.hssf.usermodel.*;
 
 @SuppressWarnings ("unused")
-public class HSSFTester
+public class HSSFSplit
 {
 	private GregorianCalendar gc;
 	private String dateString;
 	public static String fileString;
 	private String templateLocation;
+	private String finalString;
 	private File file;
 	
 	public HSSFWorkbook workbook;
@@ -27,18 +28,19 @@ public class HSSFTester
 	private HSSFFont rowFont;
 	FileChannel channel;
 	FileLock lock;
+	private boolean init;
 	
-	public HSSFTester() {
+	public HSSFSplit() {
     	gc = new GregorianCalendar();
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + gc.get(Calendar.DAY_OF_MONTH);
-		fileString = "orders/thaiorder" + dateString + ".xls";
 		templateLocation = "/ordersTemplate/TEMPLATE.xls";
-		init();
+		finalString = "orders/thaiorder" + dateString + ".xls";
+		//init();
+		init = false;
     }
     
-    public boolean init(){
-
-		file = new File(fileString);
+    public boolean init() {
+    	file = new File(fileString);
 		
 		int state = 2;
 		boolean created = false; 
@@ -47,10 +49,15 @@ public class HSSFTester
     		try {
     			InputStream tempIn = HSSFTester.class.getResourceAsStream(templateLocation);
     			HSSFWorkbook temp = new HSSFWorkbook(tempIn);
-    			FileOutputStream tempOut = new FileOutputStream(fileString);
+    			FileOutputStream tempOut = new FileOutputStream(finalString);
     			temp.write(tempOut);
     			tempOut.close();
-    			created=true;
+    			HSSFWorkbook indiv = new HSSFWorkbook();
+    			indiv.createSheet("new sheet");
+    			tempOut = new FileOutputStream(fileString);
+    			indiv.write(tempOut);
+    			tempOut.close();
+    			created = true;
     			  			
     		} catch (IOException ioe) {
     			ioe.printStackTrace();
@@ -114,12 +121,17 @@ public class HSSFTester
 	    return true;
     }
     
-	public boolean addOrder(String[] info) {
+	public boolean addOrder(String[] info, String name) {
 		int i = 0;
 		boolean successful = true;
 		HSSFWorkbook checker = null;
 		HSSFSheet checkerSheet;
+		fileString = "orders/indivOrders/" + name.toUpperCase() + dateString + ".xls";
+		if (!init) {
+			init = init();
+		}
 		try {
+			
 			channel = new RandomAccessFile(file, "rw").getChannel();
 
 	        // Use the file channel to create a lock on the file.
@@ -167,34 +179,26 @@ public class HSSFTester
 		
 		newOrderRow.createCell(startRow).setCellValue(info[0]);
 		newOrderRow.getCell(startRow).setCellStyle(SetCS());
-		if (info[1] != "") {
+		/*if (info[1] != "") {
 			newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1])+" " +info[7]);
-		} else {
+		} else {*/
 			newOrderRow.createCell(startRow+1).setCellValue(info[1]+" " +info[7]);
-		}
+		//}
 		newOrderRow.getCell(startRow+1).setCellStyle(SetCS());
 		newOrderRow.createCell(startRow+2).setCellValue(info[2]);
 		newOrderRow.getCell(startRow+2).setCellStyle(SetCS());
-		if (info[3] != "") {
+		/*if (info[3] != "") {
 			newOrderRow.createCell(startRow+3).setCellValue(Integer.parseInt(info[3]));
-		} else {
+		} else {*/
 			newOrderRow.createCell(startRow+3).setCellValue(info[3]);	
-		}
+		//}
 		newOrderRow.getCell(startRow+3).setCellStyle(SetCS());
-		newOrderRow.createCell(startRow+4).setCellValue(Integer.parseInt(info[4]));
+		newOrderRow.createCell(startRow+4).setCellValue(info[4]);
 		newOrderRow.getCell(startRow+4).setCellStyle(SetCS());
 		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
 		newOrderRow.getCell(startRow+5).setCellStyle(SetCS());
-		newOrderRow.createCell(startRow+6).setCellValue(Double.parseDouble(info[6]));
-		newOrderRow.getCell(startRow+6).setCellStyle(SetCS());
-		sheet.createRow(1).createCell(1).setCellValue((gc.get(Calendar.MONTH)+1) + "/" + gc.get(Calendar.DAY_OF_MONTH) + "/" + gc.get(Calendar.YEAR));
-		sheet.getRow(3).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);
-		sheet.getRow(3).getCell(9).setCellFormula("SUM(H:H)");
-		sheet.getRow(5).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);;
-		sheet.getRow(5).getCell(9).setCellFormula("J4*0.07");
-		sheet.getRow(7).getCell(9).setCellType(Cell.CELL_TYPE_FORMULA);;
-		sheet.getRow(7).getCell(9).setCellFormula("J4+J6");
-		
+		newOrderRow.createCell(startRow+6).setCellValue(info[6]);
+		newOrderRow.getCell(startRow+6).setCellStyle(SetCS());		
         try {
         	lock.release();
 

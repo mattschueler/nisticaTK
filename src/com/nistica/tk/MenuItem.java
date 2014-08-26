@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unused"})
 public class MenuItem extends JPanel {
 	//These are all of the visible JComponents that will be shown in the GUI
 	public JPanel internalPanel;

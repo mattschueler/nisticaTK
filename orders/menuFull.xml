@@ -628,6 +628,14 @@
 			  <hasSpice>true</hasSpice>
 			  <desc>Roasted duck sauteed with bamboo shoots, long beans, onions, bell peppers and hot and spicy chili sauce.</desc>
 			</food>
+			<food>
+			  <numbers>100</number>
+			  <name>Duck Noodle Special</name>
+			  <originalPrice>9.58</originalPrice>
+			  <hasMeats>false</hasMeats>
+			  <hasSpice>false</hasSpice>
+			  <desc>Fowl specialty with noodles.</desc>
+			</food>
 		</entree_duck>
 		<entree_noodles_fried_rice>
 			<food>
@@ -768,6 +776,14 @@
 		  <hasMeats>false</hasMeats>
 		  <hasSpice>false</hasSpice>
 		  <desc>Large side of sweet coconut rice.</desc>
+		</food>
+		<food>
+		  <number>207</number>
+		  <name>Mango Sweet Coconut Rice</name>
+		  <originalPrice>6.35</originalPrice>
+		  <hasMeats>false</hasMeats>
+		  <hasSpice>false</hasSpice>
+		  <desc>Large side of mango sweet coconut rice.</desc>
 		</food>
 	</side>
 	<beverage>

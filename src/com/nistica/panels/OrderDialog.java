@@ -129,13 +129,7 @@ public class OrderDialog extends JDialog {
 					Component[] items = orderItemHolder.getComponents();
 					String[] itemInfo = new String[8];
 					System.out.println("ITEMS LENGTHHHHHHHHHH: " + items.length);
-					
-					if(!OrderGUI.hssftest.init())
-					{
-						errorLabel.setText("Could not save your order. Is someone accessing the file?");
-						return;
-					}
-					
+										
 					for(int i=0;i<items.length;i++) {
 						
 						if (Integer.parseInt(((MenuItem)items[i]).info[0]) < 200) {
@@ -163,8 +157,9 @@ public class OrderDialog extends JDialog {
 							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
 							itemInfo[7] = "";
 						}
-						if (!OrderGUI.hssftest.addOrder(itemInfo)) {
+						if (!OrderGUI.hssftest.addOrder(itemInfo, fnameField.getText() + lnameField.getText())) {
 							successfulOrder = false;
+							errorLabel.setText("Could not save your order. Is someone accessing the file?");
 							break;
 						} else {
 							successfulOrder = true;

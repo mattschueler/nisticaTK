@@ -36,7 +36,8 @@ public class OrderGUI implements ScrollPaneConstants {
 	
 	public static List<MenuItem> theMenu;
 	static MenuParser menuParser;
-	public static HSSFTester hssftest;
+	//public static HSSFTester hssftest;
+	public static HSSFSplit hssftest;
 	
 	//DINNER HAS 3 SPACES, LUNCH HAS 2 FOR EACH CATEGORY
 	static HashMap<String, String> foodCategories;
@@ -75,7 +76,8 @@ public class OrderGUI implements ScrollPaneConstants {
 		
 		menuParser = new MenuParser();
 		theMenu = menuParser.readMenu("orders/menuFull.xml", MenuParser.LUNCH, MenuParser.ENTREE);
-		hssftest = new HSSFTester();
+		//hssftest = new HSSFTester();
+		hssftest = new HSSFSplit();
 		numberOfMenuItems = theMenu.size();
 		
 		

@@ -81,6 +81,7 @@ public class StripeOrder {
 	}
 	
 	//remove static later
+	@SuppressWarnings("unused")
 	public boolean sendPayment(double amount, double tip, String desc){		
 		if(!cardSet)
 		{
