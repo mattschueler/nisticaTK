@@ -4,7 +4,7 @@ public class StripeTester {
 	public static void main(String[] args){
 		StripeOrder stripeOrder = new StripeOrder();
 		
-		String bob = stripeOrder.setCreditCard("4242424242424242", "Person Name", 12, 2020);
+		String bob = stripeOrder.setCreditCard("4242424242424242", "Person Name", 12, 2020, 123);
 		System.out.println(bob);
 		stripeOrder.sendPayment(100, 0, "<name> is ordering <food>");
 	}

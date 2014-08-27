@@ -32,7 +32,7 @@ public class HSSFSplit
 	
 	public HSSFSplit() {
     	gc = new GregorianCalendar();
-    	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + String.format("%02d", (gc.get(Calendar.DAY_OF_MONTH)+1));
+    	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH));
 		templateLocation = "/ordersTemplate/TEMPLATE.xls";
 		finalString = "orders/thaiorder" + dateString + ".xls";
 		//init();

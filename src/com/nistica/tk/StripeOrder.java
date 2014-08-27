@@ -31,8 +31,7 @@ public class StripeOrder {
 			
 			InputStream in = MenuParser.class.getResourceAsStream("/other/apikey.txt");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			System.out.println(reader.readLine());
-			Stripe.apiKey = "sk_test_4aGesuqZhhrj4LhMeV9d0EiM";
+			Stripe.apiKey = reader.readLine();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -42,12 +41,12 @@ public class StripeOrder {
 	}
 	
 	
-	public String setCreditCard(String cardNumber, String personName, int expMonth, int expYear){
+	public String setCreditCard(String cardNumber, String personName, int expMonth, int expYear, int cvc){
 		cardMap.put("number", cardNumber);
 		cardMap.put("name", personName);
 		cardMap.put("exp_month", expMonth);
 		cardMap.put("exp_year", expYear);
-		cardMap.put("cvc", 123);
+		cardMap.put("cvc", cvc);
 		
 		chargeMap.put("card", cardMap);
 		cardSet = true;
@@ -56,10 +55,8 @@ public class StripeOrder {
 		customerMap.put("description", personName);
 		try {
 			Customer customer = Customer.create(customerMap);
-			System.out.println("Customer id: " + customer.getId());
 			return "Card Valid";
 		} catch (AuthenticationException e) {
-			System.out.println("AUTH EXCEPTION ON CUSTOMER");
 			e.printStackTrace();
 			return "Authentication Error";
 		} catch (InvalidRequestException e) {
@@ -69,7 +66,6 @@ public class StripeOrder {
 			e.printStackTrace();
 			return "API Connection Error: "+e.getMessage();
 		} catch (CardException e) {
-			System.out.println("CARD EXCEPTION");
 			e.printStackTrace();
 			return e.getMessage();
 		} catch (APIException e) {
@@ -100,7 +96,6 @@ public class StripeOrder {
 		//turns it into cents bc stripe only accepts in cents
 		amount*=100;
 		
-		System.out.println("amount is in cents " + amount);
 		chargeMap.put("amount", Math.round(amount));//amount in cents
 		chargeMap.put("currency", "usd");
 		chargeMap.put("description", desc);

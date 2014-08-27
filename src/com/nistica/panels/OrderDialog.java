@@ -98,7 +98,7 @@ public class OrderDialog extends JDialog {
 	 	submitButton = new JButton("Submit order");
 	 	errorLabel = new JLabel("");
 	 	errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-	 	errorLabel.setFont(new Font("Serif", Font.BOLD, 24));
+	 	errorLabel.setFont(new Font("Serif", Font.BOLD, 12));
 	 	errorLabel.setForeground(Color.RED);
 	 	
 	 	submitButton.addActionListener(new ActionListener(){
@@ -118,7 +118,7 @@ public class OrderDialog extends JDialog {
 				String cardCheckMessage;
 				try{
 				cardCheckMessage = stripeOrder.setCreditCard(
-						creditcardField.getText(), fnameField.getText() + lnameField.getText(), Integer.valueOf(expMonthField.getText()), Integer.valueOf(expYearField.getText()));
+						creditcardField.getText(), fnameField.getText() + lnameField.getText(), Integer.valueOf(expMonthField.getText()), Integer.valueOf(expYearField.getText()), Integer.valueOf(cvcField.getText()));
 				} catch(NumberFormatException e){
 					errorLabel.setText("Your fields are not filled out properly");
 					e.printStackTrace();
@@ -185,8 +185,9 @@ public class OrderDialog extends JDialog {
 	 		
 	 	});
 	 	
-
-	 	double transactionFee = (orderTotalPrice*1.07*(.029)+.3)/(.971); //Explained in StripeOrder.java
+	 	double totalPrice = (orderTotalPrice * 1.07)+tip;
+	 	double transactionFee = (totalPrice*(.029)+.3)/(.971); //Explained in StripeOrder.java
+	 	
 	 	totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
 	 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
 	 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
