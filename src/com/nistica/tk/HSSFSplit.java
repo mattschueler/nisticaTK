@@ -17,6 +17,7 @@ public class HSSFSplit
 	public static String fileString;
 	private String templateLocation;
 	private String finalString;
+	private String standingString;
 	private File file;
 	
 	public HSSFWorkbook workbook;
@@ -35,6 +36,7 @@ public class HSSFSplit
     	dateString = "" + gc.get(Calendar.YEAR) + String.format("%02d", (gc.get(Calendar.MONTH)+1)) + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH));
 		templateLocation = "/ordersTemplate/TEMPLATE.xls";
 		finalString = "orders/thaiorder" + dateString + ".xls";
+		standingString = "orders/weeklyOrders/WO_Orders.xls";
 		//init();
 		init = false;
     }
@@ -121,35 +123,42 @@ public class HSSFSplit
 	    return true;
     }
     
-	public boolean addOrder(String[] info, String name) {
+	public boolean addOrder(String[] info, String name, int weeks) {
 		int i = 0;
 		boolean successful = true;
 		HSSFWorkbook checker = null;
 		HSSFSheet checkerSheet;
-		fileString = "orders/indivOrders/" + name.toUpperCase() + dateString + ".xls";
-		if (!init) {
-			init = init();
+		
+		if (weeks<=1) {
+			fileString = "orders/indivOrders/" + name.toUpperCase() + dateString + ".xls";
+		} else {
+			fileString = standingString;
 		}
-		try {
 			
-			channel = new RandomAccessFile(file, "rw").getChannel();
-
-	        // Use the file channel to create a lock on the file.
-	        // This method blocks until it can retrieve the lock.
-	        try {
-	            lock = channel.tryLock();
-	        } catch (OverlappingFileLockException e) {
-	            // File is already locked in this thread or virtual machine
-	        	e.printStackTrace();
-	        }
-	        
-			System.out.println(fileString);
-			fileIn = new FileInputStream(fileString);
-		} catch (IOException e) {
-			e.printStackTrace();
-			successful = false;
-			return false;
-		}
+			if (!init) {
+				init = init();
+			}
+			try {
+				
+				channel = new RandomAccessFile(file, "rw").getChannel();
+		
+		        // Use the file channel to create a lock on the file.
+		        // This method blocks until it can retrieve the lock.
+		        try {
+		            lock = channel.tryLock();
+		        } catch (OverlappingFileLockException e) {
+		            // File is already locked in this thread or virtual machine
+		        	e.printStackTrace();
+		        }
+		        
+				System.out.println(fileString);
+				fileIn = new FileInputStream(fileString);
+			} catch (IOException e) {
+				e.printStackTrace();
+				successful = false;
+				return false;
+			}
+		
 		try {
 			  lock.release();
 
@@ -175,30 +184,23 @@ public class HSSFSplit
 		checkerSheet = checker.getSheet("new sheet");
 		do {} while (checkerSheet.getRow(i++) != null);
 		Row newOrderRow = sheet.createRow(--i);
-		int startRow = 1;
 		
-		newOrderRow.createCell(startRow).setCellValue(info[0]);
-		newOrderRow.getCell(startRow).setCellStyle(SetCS());
-		/*if (info[1] != "") {
-			newOrderRow.createCell(startRow+1).setCellValue(Integer.parseInt(info[1])+" " +info[7]);
-		} else {*/
-			newOrderRow.createCell(startRow+1).setCellValue(info[1]+" " +info[7]);
-		//}
-		newOrderRow.getCell(startRow+1).setCellStyle(SetCS());
-		newOrderRow.createCell(startRow+2).setCellValue(info[2]);
-		newOrderRow.getCell(startRow+2).setCellStyle(SetCS());
-		/*if (info[3] != "") {
-			newOrderRow.createCell(startRow+3).setCellValue(Integer.parseInt(info[3]));
-		} else {*/
-			newOrderRow.createCell(startRow+3).setCellValue(info[3]);	
-		//}
-		newOrderRow.getCell(startRow+3).setCellStyle(SetCS());
-		newOrderRow.createCell(startRow+4).setCellValue(info[4]);
-		newOrderRow.getCell(startRow+4).setCellStyle(SetCS());
-		newOrderRow.createCell(startRow+5).setCellValue(info[5]);
-		newOrderRow.getCell(startRow+5).setCellStyle(SetCS());
-		newOrderRow.createCell(startRow+6).setCellValue(info[6]);
-		newOrderRow.getCell(startRow+6).setCellStyle(SetCS());		
+		newOrderRow.createCell(0).setCellValue("" + weeks);
+		newOrderRow.getCell(0).setCellStyle(SetCS());
+		newOrderRow.createCell(1).setCellValue(info[0]);
+		newOrderRow.getCell(1).setCellStyle(SetCS());
+		newOrderRow.createCell(2).setCellValue(info[1]+ " " +info[7]);
+		newOrderRow.getCell(2).setCellStyle(SetCS());
+		newOrderRow.createCell(3).setCellValue(info[2]);
+		newOrderRow.getCell(3).setCellStyle(SetCS());
+		newOrderRow.createCell(4).setCellValue(info[3]);	
+		newOrderRow.getCell(4).setCellStyle(SetCS());
+		newOrderRow.createCell(5).setCellValue(info[4]);
+		newOrderRow.getCell(5).setCellStyle(SetCS());
+		newOrderRow.createCell(6).setCellValue(info[5]);
+		newOrderRow.getCell(6).setCellStyle(SetCS());
+		newOrderRow.createCell(7).setCellValue(info[6]);
+		newOrderRow.getCell(7).setCellStyle(SetCS());		
         try {
         	lock.release();
 

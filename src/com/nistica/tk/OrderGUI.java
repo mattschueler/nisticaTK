@@ -242,6 +242,11 @@ public class OrderGUI implements ScrollPaneConstants {
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				createAndShowGUI();
 			}
 		});

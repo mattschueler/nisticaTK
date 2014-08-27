@@ -27,16 +27,17 @@ public class StripeOrder {
 
 	public StripeOrder(){
 		Stripe.apiKey = null;
-		try {
+		//try {
 			
-			InputStream in = MenuParser.class.getResourceAsStream("/other/apikey.txt");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			Stripe.apiKey = reader.readLine();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			//InputStream in = MenuParser.class.getResourceAsStream("/other/apikey.txt");
+			//BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			//Stripe.apiKey = reader.readLine();
+			Stripe.apiKey = "sk_test_4aGesuqZhhrj4LhMeV9d0EiM";
+		//} catch (FileNotFoundException e) {
+		//	e.printStackTrace();
+		//} catch (IOException e) {
+		//	e.printStackTrace();
+		//}
 		
 	}
 	

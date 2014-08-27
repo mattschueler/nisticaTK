@@ -45,10 +45,15 @@ public class OrderDialog extends JDialog {
 	public static JLabel errorLabel;
 	public static JLabel tipLabel;
 	public static JTextField tipText;
+	public static JLabel weekLabel;
+	public static JTextField numWeeks;
 	
 	public static double tip;
+	public static int weeks;
 	
 	public OrderDialog(CartPanel cih){
+		tip = 0;
+		weeks = 1;
 		
 		this.setTitle("Your Order");
 		this.setModal(true);
@@ -105,7 +110,6 @@ public class OrderDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("priceClicked " +orderTotalPrice);
 				errorLabel.setText("");
 				StripeOrder stripeOrder = new StripeOrder();
 				
@@ -128,7 +132,6 @@ public class OrderDialog extends JDialog {
 					boolean successfulOrder = false;
 					Component[] items = orderItemHolder.getComponents();
 					String[] itemInfo = new String[8];
-					System.out.println("ITEMS LENGTHHHHHHHHHH: " + items.length);
 										
 					for(int i=0;i<items.length;i++) {
 						
@@ -145,7 +148,6 @@ public class OrderDialog extends JDialog {
 								itemInfo[7] = ((MenuItem)items[i]).info[9];
 							else
 								itemInfo[7] = "";
-							System.out.println("Indiv price:" + itemInfo[6]);
 						} else {
 							itemInfo[0] = "" + fnameField.getText().charAt(0) + lnameField.getText().charAt(0);
 							itemInfo[1] = "";
@@ -157,7 +159,7 @@ public class OrderDialog extends JDialog {
 							itemInfo[6] = new DecimalFormat("##.##").format(Double.valueOf(itemInfo[6]));
 							itemInfo[7] = "";
 						}
-						if (!OrderGUI.hssftest.addOrder(itemInfo, fnameField.getText() + lnameField.getText())) {
+						if (!OrderGUI.hssftest.addOrder(itemInfo, fnameField.getText() + lnameField.getText(), Integer.parseInt(numWeeks.getText()))) {
 							successfulOrder = false;
 							errorLabel.setText("Could not save your order. Is someone accessing the file?");
 							break;
@@ -166,10 +168,8 @@ public class OrderDialog extends JDialog {
 						}
 					}
 					if (successfulOrder) {
-						System.out.println("amount sent to striper " + orderTotalPrice);
 						errorLabel.setForeground(new Color(0,127,0));
 						errorLabel.setText("Order Successful. Thank you.");
-						System.out.println(orderTotalPrice+tip);
 
 						stripeOrder.sendPayment(orderTotalPrice, tip, fnameField.getText()+" " + lnameField.getText()+" has ordered");
 
@@ -186,16 +186,16 @@ public class OrderDialog extends JDialog {
 	 	});
 	 	
 	 	double totalPrice = (orderTotalPrice * 1.07)+tip;
-	 	double transactionFee = (totalPrice*(.029)+.3)/(.971); //Explained in StripeOrder.java
-	 	
-	 	totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
+	 	double subtotal = orderTotalPrice*weeks;
+		double transactionFee = ( ( (subtotal*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
+		totalsText.setText(String.format("Subtotal: %.2f\n", subtotal) + String.format("Tax: %.2f\n", (subtotal * 0.07))
 	 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
-	 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
+	 			String.format("Total: %.2f", (subtotal * 1.07)+tip*weeks+transactionFee));
 
 	 	totalsText.setEditable(false);
 	 	
 	 	tipLabel = new JLabel("Tip:");
-	 	tipText = new JTextField("");
+	 	tipText = new JTextField("0");
 	 	tipText.getDocument().addDocumentListener(new DocumentListener(){
 	 		@Override
 			
@@ -211,7 +211,8 @@ public class OrderDialog extends JDialog {
 	 		public void change() {
 	 			if(!tipText.getText().equals(""))
 	 				try{
-	 				tip = Double.parseDouble(tipText.getText());
+	 					tip = Double.parseDouble(tipText.getText());
+	 					weeks = Integer.parseInt(numWeeks.getText());
 	 				} catch(NumberFormatException e){
 	 					e.printStackTrace();
 	 				}
@@ -220,13 +221,52 @@ public class OrderDialog extends JDialog {
 	 				tip = 0;
 	 			}
 				totalsText.setText("");
-				double transactionFee = ( ( (orderTotalPrice*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
-				totalsText.setText(String.format("Subtotal: %.2f\n", orderTotalPrice) + String.format("Tax: %.2f\n", (orderTotalPrice * 0.07))
+				double subtotal = orderTotalPrice*weeks;
+				double transactionFee = ( ( (subtotal*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
+				totalsText.setText(String.format("Subtotal: %.2f\n", subtotal) + String.format("Tax: %.2f\n", (subtotal * 0.07))
 			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
-			 			String.format("Total: %.2f", (orderTotalPrice * 1.07)+tip+transactionFee));
+			 			String.format("Total: %.2f", (subtotal * 1.07)+tip*weeks+transactionFee));
 	 		}
 	 	});
 	 	tipText.setInputVerifier(new TipInputVerifier());
+	 	weekLabel = new JLabel("Weeks to purchase:");
+	 	numWeeks = new JTextField("1");
+	 	numWeeks.getDocument().addDocumentListener(new DocumentListener() {
+	 		@Override
+			public void changedUpdate(DocumentEvent arg0) {
+	 			change();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				change();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				change();
+			}
+			public void change() {
+				if(!numWeeks.getText().equals(""))
+	 				try{
+	 					tip = Double.parseDouble(tipText.getText());
+	 					weeks = Integer.parseInt(numWeeks.getText());
+	 				} catch(NumberFormatException e){
+	 					e.printStackTrace();
+	 				}
+	 			else
+	 			{
+	 				weeks = 1;
+	 			}
+				totalsText.setText("");
+				double subtotal = orderTotalPrice*weeks;
+				double transactionFee = ( ( (subtotal*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
+				totalsText.setText(String.format("Subtotal: %.2f\n", subtotal) + String.format("Tax: %.2f\n", (subtotal * 0.07))
+			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
+			 			String.format("Total: %.2f", (subtotal * 1.07)+tip*weeks+transactionFee));
+			}
+	 	});
+	 	numWeeks.setInputVerifier(new WeeksInputVerifier());
 	 	
 	 	SpringLayout springLayout = new SpringLayout();
 	 	checkoutPanel = new JPanel();
@@ -262,17 +302,25 @@ public class OrderDialog extends JDialog {
 	 	bcplayout.putConstraint(SpringLayout.SOUTH, errorLabel, 275, SpringLayout.NORTH, errorLabel);
 	 	bigCheckoutPanel.add(errorLabel);
 	 	bcplayout.putConstraint(SpringLayout.WEST, totalsText, 15, SpringLayout.WEST, bigCheckoutPanel);
-	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, 225, SpringLayout.WEST, totalsText);
+	 	bcplayout.putConstraint(SpringLayout.EAST, totalsText, 275, SpringLayout.WEST, totalsText);
 	 	bcplayout.putConstraint(SpringLayout.NORTH, totalsText, 0, SpringLayout.SOUTH, errorLabel);
 	 	bigCheckoutPanel.add(totalsText);
 	 	bcplayout.putConstraint(SpringLayout.WEST, tipLabel, 15, SpringLayout.EAST, totalsText);
 	 	bcplayout.putConstraint(SpringLayout.EAST, tipLabel, 25, SpringLayout.WEST, tipLabel);
-	 	bcplayout.putConstraint(SpringLayout.NORTH, tipLabel, 25, SpringLayout.SOUTH, errorLabel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, tipLabel, 5, SpringLayout.SOUTH, errorLabel);
 	 	bigCheckoutPanel.add(tipLabel);
 	 	bcplayout.putConstraint(SpringLayout.WEST, tipText, 15, SpringLayout.EAST, tipLabel);
-	 	bcplayout.putConstraint(SpringLayout.EAST, tipText, 150, SpringLayout.WEST, tipText);
-	 	bcplayout.putConstraint(SpringLayout.NORTH, tipText, 25, SpringLayout.SOUTH, errorLabel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, tipText, 75, SpringLayout.WEST, tipText);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, tipText, 5, SpringLayout.SOUTH, errorLabel);
 	 	bigCheckoutPanel.add(tipText);
+	 	bcplayout.putConstraint(SpringLayout.WEST, weekLabel, 0, SpringLayout.WEST, tipLabel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, weekLabel, 125, SpringLayout.WEST, weekLabel);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, weekLabel, 15, SpringLayout.SOUTH, tipText);
+	 	bigCheckoutPanel.add(weekLabel);
+	 	bcplayout.putConstraint(SpringLayout.WEST, numWeeks, 5, SpringLayout.EAST, weekLabel);
+	 	bcplayout.putConstraint(SpringLayout.EAST, numWeeks, 40, SpringLayout.WEST, numWeeks);
+	 	bcplayout.putConstraint(SpringLayout.NORTH, numWeeks, 15, SpringLayout.SOUTH, tipText);
+	 	bigCheckoutPanel.add(numWeeks);
 	 	
 	 	bigPanel.add(orderPane);
 	 	bigPanel.add(bigCheckoutPanel);
@@ -341,10 +389,25 @@ public class OrderDialog extends JDialog {
  				if(text.equals(""))
  					((JTextField)input).setText("0");
  				else
- 					JOptionPane.showMessageDialog(null,
- 	 	                    "Error: Please enter a valid number0", "Error Message",
- 	 	                    JOptionPane.ERROR_MESSAGE);
- 	 				
+ 					JOptionPane.showMessageDialog(null, "Error: Please enter a valid number", "Error Message", JOptionPane.ERROR_MESSAGE);
+ 				e.printStackTrace();
+ 				return false;
+ 			}
+ 			return true;
+ 		}
+ 	}
+ 	
+ 	private class WeeksInputVerifier extends InputVerifier {
+ 		@Override
+ 		public boolean verify(JComponent input) {
+ 			String text = ((JTextField)input).getText();
+ 			try {
+ 				Integer.valueOf(text);
+ 			} catch (NumberFormatException e) {
+ 				if (text.equals(""))
+ 					((JTextField)input).setText("1");
+ 				else
+ 					JOptionPane.showMessageDialog(null, "Error: Please enter a valid number", "Error Message", JOptionPane.ERROR_MESSAGE);
  				e.printStackTrace();
  				return false;
  			}
