@@ -1,5 +1,6 @@
 /bin
 /orders/*.xls
 /src/other/apikey.txt
+/src/other/napiket.txt
 
 .classpath
