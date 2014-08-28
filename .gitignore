@@ -2,5 +2,6 @@
 /orders/*.xls
 /src/other/apikey.txt
 /src/other/napiket.txt
-
+/orders/indivOrders/*.xls
+/orders/weeklyOrders/*.xls
 .classpath

@@ -98,7 +98,6 @@ public class HSSFSplit
 	        // Close the file
 	        channel.close();
 			fileIn = new FileInputStream(fileString);
-			System.out.println(fileString);
 			workbook = new HSSFWorkbook(fileIn);
 			fileIn.close();
 			
@@ -150,9 +149,7 @@ public class HSSFSplit
 		            // File is already locked in this thread or virtual machine
 		        	e.printStackTrace();
 		        }
-		        
-				System.out.println(fileString);
-				fileIn = new FileInputStream(fileString);
+		        fileIn = new FileInputStream(fileString);
 			} catch (IOException e) {
 				e.printStackTrace();
 				successful = false;

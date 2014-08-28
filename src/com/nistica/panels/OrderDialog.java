@@ -65,7 +65,6 @@ public class OrderDialog extends JDialog {
 		orderItemHolder.getNumComp(cartItemHolder.getComponents().length);
 		
 		orderSender(cartItemHolder);//sets the orderTotalPrice and adds each food item
-		System.out.println("price w/o tax " +orderTotalPrice);
 		orderItemHolder.setVisible(true);
 		orderItemHolder.setLayout(new BoxLayout(orderItemHolder, BoxLayout.PAGE_AXIS));
 		orderItemHolder.setBackground(OrderGUI.MENUCOLOR);
@@ -433,7 +432,7 @@ public class OrderDialog extends JDialog {
 		}
 		
 		//It's 107 because *100 to converts to cents and then the 7% tax
-		System.out.println("order total price with tax (in cents) " + (int) (orderTotalPrice*107));
+		//System.out.println("order total price with tax (in cents) " + (int) (orderTotalPrice*107));
 		this.orderTotalPrice = orderTotalPrice;
 		
 		
