@@ -210,8 +210,7 @@ public class OrderGUI implements ScrollPaneConstants {
 		hoverHelp.setFont(new Font("Huxtable", Font.PLAIN, 18));
 		hoverHelp.setForeground(Color.white);
 		controlsPanel.add(hoverHelp);
-		
-		
+				
 		JLabel menuLabel = new JLabel("Menu");
 		springControls.putConstraint(SpringLayout.SOUTH, menuLabel, 5, SpringLayout.SOUTH, controlsPanel);
 		springControls.putConstraint(SpringLayout.WEST, menuLabel,20, SpringLayout.WEST, controlsPanel);

@@ -184,12 +184,11 @@ public class OrderDialog extends JDialog {
 	 		
 	 	});
 	 	
-	 	double totalPrice = (orderTotalPrice * 1.07)+tip;
 	 	double subtotal = orderTotalPrice*weeks;
 		double transactionFee = ( ( (subtotal*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
 		totalsText.setText(String.format("Subtotal: %.2f\n", subtotal) + String.format("Tax: %.2f\n", (subtotal * 0.07))
 	 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
-	 			String.format("Total: %.2f", (subtotal * 1.07)+tip*weeks+transactionFee));
+	 			String.format("Total: %.2f", (subtotal * 1.07)+tip+transactionFee));
 
 	 	totalsText.setEditable(false);
 	 	
@@ -224,7 +223,7 @@ public class OrderDialog extends JDialog {
 				double transactionFee = ( ( (subtotal*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
 				totalsText.setText(String.format("Subtotal: %.2f\n", subtotal) + String.format("Tax: %.2f\n", (subtotal * 0.07))
 			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
-			 			String.format("Total: %.2f", (subtotal * 1.07)+tip*weeks+transactionFee));
+			 			String.format("Total: %.2f", (subtotal * 1.07)+tip+transactionFee));
 	 		}
 	 	});
 	 	tipText.setInputVerifier(new TipInputVerifier());
@@ -262,7 +261,7 @@ public class OrderDialog extends JDialog {
 				double transactionFee = ( ( (subtotal*1.07)+tip) *(.029)+.3)/(.971); //Explained in StripeOrder.java
 				totalsText.setText(String.format("Subtotal: %.2f\n", subtotal) + String.format("Tax: %.2f\n", (subtotal * 0.07))
 			 			+ String.format("Transaction fee: %.2f\n",  transactionFee) + 
-			 			String.format("Total: %.2f", (subtotal * 1.07)+tip*weeks+transactionFee));
+			 			String.format("Total: %.2f", (subtotal * 1.07)+tip+transactionFee));
 			}
 	 	});
 	 	numWeeks.setInputVerifier(new WeeksInputVerifier());

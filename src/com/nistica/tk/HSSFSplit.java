@@ -49,7 +49,7 @@ public class HSSFSplit
     	    	                
 		if (!file.exists()) {
     		try {
-    			InputStream tempIn = HSSFTester.class.getResourceAsStream(templateLocation);
+    			InputStream tempIn = HSSFSplit.class.getResourceAsStream(templateLocation);
     			HSSFWorkbook temp = new HSSFWorkbook(tempIn);
     			FileOutputStream tempOut = new FileOutputStream(finalString);
     			temp.write(tempOut);
