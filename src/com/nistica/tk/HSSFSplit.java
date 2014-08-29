@@ -182,7 +182,7 @@ public class HSSFSplit
 		do {} while (checkerSheet.getRow(i++) != null);
 		Row newOrderRow = sheet.createRow(--i);
 		
-		newOrderRow.createCell(0).setCellValue("" + weeks);
+		newOrderRow.createCell(0).setCellValue(weeks);
 		newOrderRow.getCell(0).setCellStyle(SetCS());
 		newOrderRow.createCell(1).setCellValue(info[0]);
 		newOrderRow.getCell(1).setCellStyle(SetCS());
