@@ -1,5 +1,7 @@
 nisticaTK
 =========
+**PLEASE NOTE THAT CHANGES ARE NOW TRACKED THROUGH SUBVERSION. (/sw/trunk/it/ThaiOrdering/)**
+
 This is an application created by the 2014 Nistica summer interns.
 
 It simplifies the weekly ordering of Thai food that goes on in the company by letting you order food from your computer.
